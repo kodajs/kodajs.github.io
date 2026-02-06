@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="koda-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <!-- Mountain K shape -->
+  <path d="M100 20 L40 180 L70 180 L100 110 L130 180 L160 180 L100 20 Z" fill="url(#koda-gradient)"/>
+  <path d="M100 80 L140 140 L160 140 L100 60 L100 80 Z" fill="url(#koda-gradient)" opacity="0.8"/>
+</svg>

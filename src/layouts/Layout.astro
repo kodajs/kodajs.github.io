@@ -1,0 +1,45 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'KodaJS - The Hono-Native Meta-Framework',
+  description = 'The next-generation fullstack meta-framework. ESM-only, Bun/Deno native, Web3/AI/AR/VR ready.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#4f46e5" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kodajs.github.io" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen overflow-x-hidden">
+    <!-- Gradient Background -->
+    <div class="fixed inset-0 -z-10">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-koda-950/50 to-slate-950"></div>
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-koda-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-zenith-600/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+    </div>
+    
+    <slot />
+  </body>
+</html>
