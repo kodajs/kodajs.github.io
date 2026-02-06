@@ -23,6 +23,7 @@ This repository hosts the official documentation and landing page for **Koda Zen
 Koda Zenith combines:
 - **ElysiaJS ergonomics** — End-to-end type safety
 - **Laravel/NestJS patterns** — Enterprise architecture
+- **.koda & .zen DSL** — High-performance fullstack DSLs with Flutter-like DX for UI (.zen)
 - **Astro-grade performance** — Island rendering, SSG/ISR
 - **Future-ready design** — Web3, AI, AR/VR native support
 

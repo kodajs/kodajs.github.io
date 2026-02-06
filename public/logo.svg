@@ -1,11 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs>
-    <linearGradient id="koda-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4f46e5"/>
-      <stop offset="100%" style="stop-color:#06b6d4"/>
-    </linearGradient>
-  </defs>
-  <!-- Mountain K shape -->
-  <path d="M100 20 L40 180 L70 180 L100 110 L130 180 L160 180 L100 20 Z" fill="url(#koda-gradient)"/>
-  <path d="M100 80 L140 140 L160 140 L100 60 L100 80 Z" fill="url(#koda-gradient)" opacity="0.8"/>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Satellite Core: Hexagonal Prism (Solid Deep Violet) -->
+  <path d="M256 120L360 180V300L256 360L152 300V180L256 120Z" fill="#8B5CF6" />
+  
+  <!-- Left Solar Panel (Solid Electric Blue) -->
+  <rect x="60" y="210" width="80" height="60" rx="4" fill="#3B82F6" />
+  <rect x="140" y="235" width="12" height="10" fill="#6366F1" />
+  
+  <!-- Right Solar Panel (Solid Electric Blue) -->
+  <rect x="372" y="210" width="80" height="60" rx="4" fill="#3B82F6" />
+  <rect x="360" y="235" width="12" height="10" fill="#6366F1" />
+  
+  <!-- Central Pulse (Signal) -->
+  <circle cx="256" cy="240" r="16" fill="white" />
 </svg>
