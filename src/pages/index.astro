@@ -296,7 +296,7 @@ import "../styles/global.css";
 
 	<!-- Institutional Marquee -->
 	<section
-		class="py-12 border-y border-white/15/50 bg-neutral-100/40 overflow-hidden relative"
+		class="py-12 border-y border-white/15/50 bg-slate-900/40 overflow-hidden relative"
 	>
 		<div
 			class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent z-10 pointer-events-none"
@@ -356,7 +356,7 @@ import "../styles/global.css";
 				<!-- Feature 1 -->
 				<div class="glass-card group">
 					<div
-						class="w-16 h-16 bg-gradient-to-br from-koda-500 to-koda-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
+						class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
 					>
 						<svg
 							class="w-8 h-8 text-white"
@@ -381,7 +381,7 @@ import "../styles/global.css";
 				<!-- Feature 2 -->
 				<div class="glass-card group">
 					<div
-						class="w-16 h-16 bg-gradient-to-br from-zenith-500 to-zenith-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
+						class="w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
 					>
 						<svg
 							class="w-8 h-8 text-white"
@@ -407,7 +407,7 @@ import "../styles/global.css";
 				<!-- Feature 3 -->
 				<div class="glass-card group">
 					<div
-						class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
+						class="w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
 					>
 						<svg
 							class="w-8 h-8 text-white"
@@ -419,8 +419,7 @@ import "../styles/global.css";
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								stroke-width="2.5"
-								d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-							></path>
+								d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 						</svg>
 					</div>
 					<h3 class="text-2xl font-bold mb-4">Bun Runtime</h3>
@@ -433,8 +432,18 @@ import "../styles/global.css";
 		</div>
 	</section>
 
-	<section class="py-32 bg-neutral-100/60 relative">
-		<div class="max-w-7xl mx-auto px-6">
+	<section class="py-32 relative overflow-hidden">
+		<!-- Dark background with subtle gradient -->
+		<div
+			class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+		>
+		</div>
+		<!-- Subtle accent glow -->
+		<div
+			class="absolute top-1/2 right-0 w-96 h-96 bg-sky-600/3 rounded-full blur-3xl"
+		>
+		</div>
+		<div class="max-w-7xl mx-auto px-6 relative z-10">
 			<div class="grid lg:grid-cols-2 gap-16 items-center">
 				<div>
 					<h2
@@ -476,7 +485,7 @@ import "../styles/global.css";
 								<h4 class="text-lg font-bold mb-1 text-white">
 									Logic Sovereignty
 								</h4>
-								<p class="text-slate-500">
+								<p class="text-slate-400">
 									Rigid server-side structures with enterprise
 									patterns.
 								</p>
@@ -492,7 +501,7 @@ import "../styles/global.css";
 								<h4 class="text-lg font-bold mb-1 text-white">
 									Visual Fluidity
 								</h4>
-								<p class="text-slate-500">
+								<p class="text-slate-400">
 									Flutter-inspired UI DX for deterministic
 									interface building.
 								</p>
@@ -750,10 +759,10 @@ graph TD
 						<span class="text-sky-400">72,431 req/s</span>
 					</div>
 					<div
-						class="h-4 w-full bg-neutral-200 rounded-full overflow-hidden border border-white/15/50"
+						class="h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-white/10"
 					>
 						<div
-							class="h-full bg-gradient-to-r from-koda-600 to-zenith-500 w-full"
+							class="h-full bg-gradient-to-r from-sky-600 to-sky-400 w-full"
 						>
 						</div>
 					</div>
@@ -768,9 +777,9 @@ graph TD
 						<span class="text-slate-400">12,102 req/s</span>
 					</div>
 					<div
-						class="h-4 w-full bg-neutral-200 rounded-full overflow-hidden border border-white/15/50"
+						class="h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-white/10"
 					>
-						<div class="h-full bg-sky-700 w-[17%]"></div>
+						<div class="h-full bg-slate-600 w-[17%]"></div>
 					</div>
 				</div>
 
@@ -783,9 +792,9 @@ graph TD
 						<span class="text-slate-400">8,432 req/s</span>
 					</div>
 					<div
-						class="h-4 w-full bg-neutral-200 rounded-full overflow-hidden border border-white/15/50"
+						class="h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-white/10"
 					>
-						<div class="h-full bg-sky-700 w-[12%]"></div>
+						<div class="h-full bg-slate-600 w-[12%]"></div>
 					</div>
 				</div>
 			</div>
@@ -796,7 +805,7 @@ graph TD
 				<div class="glass p-8 rounded-2xl border-white/15/50">
 					<div class="text-3xl font-black text-white mb-2">1.2ms</div>
 					<div
-						class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+						class="text-slate-400 text-xs font-bold uppercase tracking-widest"
 					>
 						Avg Latency
 					</div>
@@ -808,7 +817,7 @@ graph TD
 						6.2x
 					</div>
 					<div
-						class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+						class="text-slate-400 text-xs font-bold uppercase tracking-widest"
 					>
 						Faster than Industry
 					</div>
@@ -816,7 +825,7 @@ graph TD
 				<div class="glass p-8 rounded-2xl border-white/15/50">
 					<div class="text-3xl font-black text-white mb-2">24ms</div>
 					<div
-						class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+						class="text-slate-400 text-xs font-bold uppercase tracking-widest"
 					>
 						P99 Response
 					</div>
@@ -892,12 +901,22 @@ graph TD
 	</section>
 
 	<!-- Documentation Teaser -->
-	<section class="py-32 bg-neutral-100/60 relative overflow-hidden">
+	<section class="py-32 relative overflow-hidden">
+		<!-- Dark background with subtle gradient -->
+		<div
+			class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+		>
+		</div>
+		<!-- Subtle accent glow -->
+		<div
+			class="absolute top-1/2 left-0 w-96 h-96 bg-indigo-600/5 rounded-full blur-3xl"
+		>
+		</div>
 		<div
 			class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-koda-500/50 to-transparent"
 		>
 		</div>
-		<div class="max-w-7xl mx-auto px-6">
+		<div class="max-w-7xl mx-auto px-6 relative z-10">
 			<div class="grid lg:grid-cols-2 gap-16 items-center">
 				<div class="order-2 lg:order-1">
 					<div
@@ -916,9 +935,7 @@ graph TD
 								<div class="h-2 w-32 bg-white/5 rounded"></div>
 								<div class="h-2 w-28 bg-white/5 rounded"></div>
 								<div class="space-y-2 pt-4">
-									<div
-										class="h-2 w-20 bg-sky-500/30 rounded"
-									>
+									<div class="h-2 w-20 bg-sky-500/30 rounded">
 									</div>
 									<div class="h-2 w-24 bg-white/5 rounded">
 									</div>
@@ -967,31 +984,35 @@ graph TD
 					<div class="space-y-4 mb-10">
 						<div class="flex items-center gap-3 text-slate-200">
 							<div
-								class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.5)]"
+								class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
 							>
 							</div>
 							Deep-dive architecture guides
 						</div>
 						<div class="flex items-center gap-3 text-slate-300">
 							<div
-								class="w-1.5 h-1.5 rounded-full bg-sky-500 shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+								class="w-1.5 h-1.5 rounded-full bg-indigo-400 shadow-[0_0_10px_rgba(129,140,248,0.5)]"
 							>
 							</div>
 							Type-safe API references
 						</div>
 						<div class="flex items-center gap-3 text-slate-300">
 							<div
-								class="w-1.5 h-1.5 rounded-full bg-sky-500 shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+								class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
 							>
 							</div>
 							Cosmic deployment recipes
 						</div>
 					</div>
 					<a
-						href="#"
-						class="button-secondary opacity-50 cursor-not-allowed text-sm"
+						href="https://github.com/kodajs/koda"
+						target="_blank"
+						class="button-secondary text-sm group"
 					>
-						Documentation Coming Soon
+						<span
+							class="text-sky-400 group-hover:text-white transition-colors"
+							>View on GitHub</span
+						>
 					</a>
 				</div>
 			</div>
@@ -1063,7 +1084,7 @@ graph TD
 
 				<!-- 2029-2032 -->
 				<div
-					class="glass p-6 relative overflow-hidden group hover:border-purple-500/30 transition-colors"
+					class="glass p-6 relative overflow-hidden group hover:border-sky-500/30 transition-colors"
 				>
 					<div
 						class="absolute top-0 right-0 px-3 py-1 bg-white/5 border-b border-l border-white/15 rounded-bl-lg text-[10px] font-bold text-slate-500 tracking-widest uppercase flex items-center gap-2"
@@ -1074,10 +1095,10 @@ graph TD
 						Planned
 					</div>
 					<div
-						class="absolute top-0 right-0 w-20 h-20 bg-purple-500/20 blur-2xl"
+						class="absolute top-0 right-0 w-20 h-20 bg-sky-500/20 blur-2xl"
 					>
 					</div>
-					<span class="text-sm text-purple-400 font-medium"
+					<span class="text-sm text-sky-400 font-medium"
 						>2029-2032</span
 					>
 					<h3 class="text-xl font-bold mt-2 mb-3">AR/VR Spatial</h3>
@@ -1091,7 +1112,7 @@ graph TD
 
 				<!-- 2032-2035 -->
 				<div
-					class="glass p-6 relative overflow-hidden group hover:border-rose-500/30 transition-colors"
+					class="glass p-6 relative overflow-hidden group hover:border-indigo-500/30 transition-colors"
 				>
 					<div
 						class="absolute top-0 right-0 px-3 py-1 bg-white/5 border-b border-l border-white/15 rounded-bl-lg text-[10px] font-bold text-slate-500 tracking-widest uppercase"
@@ -1099,10 +1120,10 @@ graph TD
 						Planned
 					</div>
 					<div
-						class="absolute top-0 right-0 w-20 h-20 bg-rose-500/20 blur-2xl"
+						class="absolute top-0 right-0 w-20 h-20 bg-indigo-500/20 blur-2xl"
 					>
 					</div>
-					<span class="text-sm text-rose-400 font-medium"
+					<span class="text-sm text-indigo-400 font-medium"
 						>2032-2035</span
 					>
 					<h3 class="text-xl font-bold mt-2 mb-3">BCI Ready</h3>
@@ -1187,8 +1208,13 @@ graph TD
 	</section>
 
 	<!-- Footer -->
-	<footer class="border-t border-white/10 py-12">
-		<div class="max-w-7xl mx-auto px-6">
+	<footer class="border-t border-white/10 py-12 relative overflow-hidden">
+		<div
+			class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 text-[15rem] font-black text-white/[0.02] pointer-events-none select-none tracking-tighter"
+		>
+			ZENITH
+		</div>
+		<div class="max-w-7xl mx-auto px-6 relative z-10">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between gap-6"
 			>
@@ -1201,7 +1227,7 @@ graph TD
 					<span class="font-semibold">KodaJS</span>
 				</div>
 
-				<p class="text-slate-500 text-sm">
+				<p class="text-slate-400 text-sm">
 					© 2026 KodaJS. Building today for the immersive brutal
 					future.
 				</p>
@@ -1410,6 +1436,19 @@ graph TD
 			document.querySelectorAll("section, .glass-card").forEach((el) => {
 				el.classList.add("reveal-on-scroll");
 				observer.observe(el);
+			});
+
+			// Mouse Glow Effect
+			const cards = document.querySelectorAll(".glass-card");
+			document.addEventListener("mousemove", (e) => {
+				cards.forEach((card) => {
+					const rect = card.getBoundingClientRect();
+					const x = e.clientX - rect.left;
+					const y = e.clientY - rect.top;
+
+					card.style.setProperty("--mouse-x", `${x}px`);
+					card.style.setProperty("--mouse-y", `${y}px`);
+				});
 			});
 		});
 	</script>
