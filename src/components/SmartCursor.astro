@@ -1,0 +1,89 @@
+<div
+    id="cursor-dot"
+    class="fixed top-0 left-0 w-2 h-2 bg-sky-400 rounded-full pointer-events-none z-[9999] mix-blend-difference transition-transform duration-100 ease-out"
+>
+</div>
+<div
+    id="cursor-outline"
+    class="fixed top-0 left-0 w-8 h-8 border border-sky-400/50 rounded-full pointer-events-none z-[9999] mix-blend-difference transition-all duration-300 ease-out translate-x-[-12px] translate-y-[-12px]"
+>
+</div>
+
+<style>
+    body {
+        cursor: none; /* Hide default cursor */
+    }
+
+    /* Fallback for touch devices */
+    @media (hover: none) {
+        body {
+            cursor: auto;
+        }
+        #cursor-dot,
+        #cursor-outline {
+            display: none;
+        }
+    }
+
+    .cursor-hover {
+        transform: scale(1.5);
+        background-color: transparent;
+        border-color: #38bdf8;
+        border-width: 2px;
+    }
+</style>
+
+<script>
+    const dot = document.getElementById("cursor-dot");
+    const outline = document.getElementById("cursor-outline");
+
+    // Only init on desktop
+    if (matchMedia("(hover: hover)").matches && dot && outline) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let outlineX = 0;
+        let outlineY = 0;
+
+        document.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Instant update for dot
+            dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+
+        // Smooth follow for outline
+        const animate = () => {
+            // Lerp for smooth trailing
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+
+            outline.style.transform = `translate(${outlineX - 16}px, ${outlineY - 16}px)`;
+            requestAnimationFrame(animate);
+        };
+        animate();
+
+        // Hover effects
+        const interactiveElements = document.querySelectorAll(
+            "a, button, .glass-card",
+        );
+        interactiveElements.forEach((el) => {
+            el.addEventListener("mouseenter", () => {
+                outline.classList.add(
+                    "scale-150",
+                    "bg-sky-500/10",
+                    "border-sky-400",
+                );
+                dot.classList.add("scale-0"); // Hide dot on hover for cleaner look
+            });
+            el.addEventListener("mouseleave", () => {
+                outline.classList.remove(
+                    "scale-150",
+                    "bg-sky-500/10",
+                    "border-sky-400",
+                );
+                dot.classList.remove("scale-0");
+            });
+        });
+    }
+</script>

@@ -406,7 +406,7 @@ body {
 
 /* Holographic Glass Card */
 .glass-card {
-  @apply glass rounded-2xl p-8 transition-all duration-300 relative z-0 overflow-hidden;
+  @apply glass rounded-3xl p-8 transition-all duration-300 relative z-0 overflow-hidden;
   border: 1px solid rgba(148, 163, 184, 0.1);
   background:
     radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
@@ -497,7 +497,7 @@ body {
 }
 
 .code-container {
-  @apply glass rounded-xl overflow-hidden border border-white/10;
+  @apply glass rounded-3xl overflow-hidden border border-white/10;
   background-color: rgba(2, 6, 23, 0.8);
 }
 
@@ -789,5 +789,45 @@ body {
 
   100% {
     transform: translateX(0);
+  }
+}
+
+/* 
+   Temporal Blur Animation 
+   For Hero Text Cycling
+*/
+.temporal-blur-in {
+  animation: temporal-blur-in 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.temporal-blur-out {
+  animation: temporal-blur-out 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes temporal-blur-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes temporal-blur-out {
+  0% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(-10px);
   }
 }
