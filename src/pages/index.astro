@@ -751,6 +751,9 @@ import "../styles/global.css";
 					class="absolute -top-24 -right-24 w-64 h-64 bg-koda-600/10 rounded-full blur-[100px] group-hover:bg-koda-600/20 transition-colors"
 				>
 				</div>
+        <!-- Scanner Effect -->
+        <div class="scanner-line"></div>
+        <div class="scanner-overlay"></div>
 				<pre
 					class="mermaid flex justify-center py-4 bg-transparent border-none">
 graph TD
@@ -807,13 +810,15 @@ graph TD
 						class="flex items-center justify-between text-sm font-bold tracking-widest uppercase"
 					>
 						<span class="text-white">Koda Zenith (Bun Native)</span>
-						<span class="text-sky-400">72,431 req/s</span>
+						<span class="text-sky-400"><span class="counter" data-target="72431">0</span> req/s</span>
 					</div>
 					<div
 						class="h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-white/10"
 					>
 						<div
-							class="h-full bg-gradient-to-r from-sky-600 to-sky-400 w-full"
+							class="h-full bg-gradient-to-r from-sky-600 to-sky-400 w-full transition-all duration-1000 ease-out"
+							style="width: 0%"
+							data-width="100%"
 						>
 						</div>
 					</div>
@@ -825,12 +830,12 @@ graph TD
 						class="flex items-center justify-between text-sm font-bold tracking-widest uppercase"
 					>
 						<span class="text-slate-400">NestJS (Express)</span>
-						<span class="text-slate-400">12,102 req/s</span>
+						<span class="text-slate-400"><span class="counter" data-target="12102">0</span> req/s</span>
 					</div>
 					<div
 						class="h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-white/10"
 					>
-						<div class="h-full bg-slate-600 w-[17%]"></div>
+						<div class="h-full bg-slate-600 transition-all duration-1000 ease-out" style="width: 0%" data-width="17%"></div>
 					</div>
 				</div>
 
@@ -840,12 +845,12 @@ graph TD
 						class="flex items-center justify-between text-sm font-bold tracking-widest uppercase"
 					>
 						<span class="text-slate-400">Next.js (App Router)</span>
-						<span class="text-slate-400">8,432 req/s</span>
+						<span class="text-slate-400"><span class="counter" data-target="8432">0</span> req/s</span>
 					</div>
 					<div
 						class="h-4 w-full bg-slate-800 rounded-full overflow-hidden border border-white/10"
 					>
-						<div class="h-full bg-slate-600 w-[12%]"></div>
+						<div class="h-full bg-slate-600 transition-all duration-1000 ease-out" style="width: 0%" data-width="12%"></div>
 					</div>
 				</div>
 			</div>
@@ -1488,6 +1493,92 @@ graph TD
 				el.classList.add("reveal-on-scroll");
 				observer.observe(el);
 			});
+
+      // Hyper-Active Data: Live Counters & Bar Animation
+      const counters = document.querySelectorAll('.counter');
+      const progressBars = document.querySelectorAll('[data-width]');
+      
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target;
+            
+            // Animate Counter
+            if (target.classList.contains('counter')) {
+              const endValue = parseInt(target.getAttribute('data-target'));
+              let startValue = 0;
+              const duration = 2000;
+              const startTime = performance.now();
+
+              function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
+                
+                target.innerText = Math.floor(startValue + (endValue - startValue) * easeOut).toLocaleString();
+
+                if (progress < 1) {
+                  requestAnimationFrame(update);
+                } else {
+                  target.innerText = endValue.toLocaleString();
+                }
+              }
+              requestAnimationFrame(update);
+              counterObserver.unobserve(target);
+            }
+
+            // Animate Bar
+            if (target.hasAttribute('data-width')) {
+              setTimeout(() => {
+                target.style.width = target.getAttribute('data-width');
+              }, 200);
+              counterObserver.unobserve(target);
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(counter => counterObserver.observe(counter));
+      progressBars.forEach(bar => counterObserver.observe(bar));
+
+      // Hyper-Active Data: Floating Syntax Background
+      const syntaxContainer = document.querySelector('.noise-overlay');
+      const codeSnippets = [
+        "const koda = new Zenith();",
+        "await koda.deploy({ region: 'us-east' });",
+        "import { Router } from '@koda/core';",
+        "fn main() -> Result<(), Error>",
+        "defp deps do",
+        "SELECT * FROM cosmic_events",
+        "git push origin main",
+        "npm install @koda/zenith",
+        "console.log('Hello Void');",
+        "struct Vector3 { x: f32, y: f32, z: f32 }",
+        ".unwrap()",
+        "extends MonoBehaviour"
+      ];
+
+      function createFloatingSyntax() {
+        const el = document.createElement('div');
+        el.className = 'floating-syntax';
+        el.innerText = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.animationDuration = (15 + Math.random() * 10) + 's';
+        el.style.fontSize = (0.6 + Math.random() * 0.4) + 'rem';
+        el.style.opacity = Math.random() * 0.5;
+        
+        document.body.appendChild(el); // Append to body to float over everything in background z-index
+
+        // Clean up
+        setTimeout(() => {
+          el.remove();
+        }, 25000);
+      }
+
+      // Create new syntax particle every 2 seconds
+      setInterval(createFloatingSyntax, 2000);
+      // Initial batch
+      for(let i=0; i<5; i++) createFloatingSyntax();
 
 			// Mouse Glow Effect
 			const cards = document.querySelectorAll(".glass-card");
