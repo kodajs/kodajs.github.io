@@ -4,9 +4,10 @@ import "../styles/global.css";
 ---
 
 <Layout>
+	<div class="noise-overlay"></div>
 	<!-- Header -->
 	<header
-		class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5"
+		class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/15/50"
 	>
 		<nav
 			class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
@@ -53,47 +54,79 @@ import "../styles/global.css";
 	</header>
 
 	<!-- Hero Section -->
-	<section class="min-h-screen flex items-center pt-20">
-		<div class="max-w-7xl mx-auto px-6 py-20">
-			<div class="text-center max-w-4xl mx-auto">
+	<section
+		class="min-h-screen flex items-center pt-24 pb-12 overflow-hidden relative"
+	>
+		<div
+			class="absolute inset-x-0 bottom-0 top-1/2 -z-10 bg-gradient-to-t from-zinc-950 via-slate-900 to-transparent"
+		>
+		</div>
+		<div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+			<div class="text-center max-w-4xl mx-auto mb-16">
 				<!-- Badge -->
 				<div
-					class="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm mb-8"
+					class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-8 bg-slate-800/70 border border-white/10 text-slate-400 shadow-sm"
 				>
-					<span
-						class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"
-					></span>
-					<span class="text-slate-400">Phase 2: Event Horizon</span>
+					<span class="w-1.5 h-1.5 bg-sky-500 rounded-full"></span>
+					Phase 2 · Active Development
 				</div>
 
 				<!-- Title -->
-				<h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+				<h1
+					class="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight"
+				>
 					<span class="gradient-text">Koda Zenith</span>
-					<br />
-					<span class="text-white">Meta-Framework</span>
 				</h1>
 
-				<!-- Subtitle -->
-				<p
-					class="text-xl md:text-2xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed"
+				<!-- Animated Headlines Container -->
+				<div class="relative h-[3rem] md:h-[2.5rem] mb-4">
+					<p
+						class="text-2xl md:text-3xl text-slate-200 font-medium absolute inset-x-0 top-0 text-center transition-all duration-500"
+						id="headline-1"
+					>
+						The Hono-native meta-framework
+					</p>
+					<p
+						class="text-2xl md:text-3xl text-slate-200 font-medium absolute inset-x-0 top-0 text-center opacity-0 transition-all duration-500"
+						id="headline-2"
+					>
+						Beyond Frameworks. Forge the Web Evolution
+					</p>
+				</div>
+
+				<!-- Animated Subtitle Container -->
+				<div
+					class="relative h-[5rem] md:h-[3rem] mb-10 max-w-xl mx-auto"
 				>
-					The <span class="text-white font-semibold">Hono-native</span
-					> fullstack framework. ESM-only, Bun/Deno native, ready for
-					<span class="text-koda-400">Web3</span>,
-					<span class="text-zenith-400">AI</span>, and beyond. Powered
-					by
-					<span class="text-white">.koda</span> & <span
-						class="text-purple-400">.zen</span
-					> DSL.
-				</p>
+					<p
+						class="text-lg text-slate-500 leading-relaxed text-center absolute inset-x-0 top-0 transition-all duration-500"
+						id="subtitle-1"
+					>
+						ESM-first, <span class="text-white font-medium"
+							>Bun-fueled</span
+						>, and engineered for production. Built on <span
+							class="text-sky-700">Hono</span
+						> for blazing edge performance.
+					</p>
+					<p
+						class="text-lg text-slate-500 leading-relaxed text-center absolute inset-x-0 top-0 opacity-0 transition-all duration-500"
+						id="subtitle-2"
+					>
+						The high-performance <span class="text-sky-700"
+							>substrate</span
+						> for the post-web era. Powered by <span
+							class="text-white">Rust, Zig, and Elixir</span
+						> core.
+					</p>
+				</div>
 
 				<!-- CTA Buttons -->
 				<div
 					class="flex flex-col sm:flex-row items-center justify-center gap-4"
 				>
-					<a href="#features" class="button-primary">
+					<a href="#features" class="button-primary group">
 						<svg
-							class="w-5 h-5"
+							class="w-4 h-4"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -109,69 +142,224 @@ import "../styles/global.css";
 					<a
 						href="https://github.com/kodajs/koda"
 						target="_blank"
-						class="button-secondary"
+						class="button-secondary group"
 					>
 						<svg
-							class="w-5 h-5"
+							class="w-4 h-4"
 							fill="currentColor"
 							viewBox="0 0 24 24"
-							><path
-								d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-							></path></svg
 						>
+							<path
+								d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+							></path>
+						</svg>
 						View on GitHub
 					</a>
-				</div>
-
-				<!-- Tech Stack -->
-				<div
-					class="mt-16 flex flex-wrap items-center justify-center gap-8 text-slate-500"
-				>
-					<span class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-koda-500 rounded-full"></span>
-						TypeScript
-					</span>
-					<span class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-zenith-500 rounded-full"></span>
-						Hono
-					</span>
-					<span class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-orange-500 rounded-full"></span>
-						Bun
-					</span>
-					<span class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-green-500 rounded-full"></span>
-						React
-					</span>
-					<span class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-purple-500 rounded-full"></span>
-						.koda & .zen DSL
-					</span>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Features Section -->
-	<section id="features" class="py-32">
+	<!-- Trusted Technologies -->
+	<section
+		class="border-y border-white/10 py-8 bg-slate-800/60 relative z-20 overflow-hidden backdrop-blur-sm"
+	>
 		<div class="max-w-7xl mx-auto px-6">
-			<div class="text-center mb-16">
-				<h2 class="text-4xl md:text-5xl font-bold mb-4">
-					<span class="gradient-text">The 5 Pillars</span>
+			<p
+				class="text-[10px] font-mono tracking-widest uppercase text-slate-500 text-center mb-6"
+			>
+				Built With
+			</p>
+			<div
+				class="flex flex-wrap justify-center gap-x-12 gap-y-4 text-sm text-slate-400"
+			>
+				<!-- Core Language Cycler: Rust / Zig / Elixir -->
+				<span class="flex items-center gap-2">
+					<span class="w-1.5 h-1.5 bg-orange-400 rounded-full"></span>
+					<span class="relative w-12 h-5 overflow-hidden">
+						<span id="core-1" class="tech-slide tech-slide-active"
+							>Rust</span
+						>
+						<span id="core-2" class="tech-slide">Zig</span>
+						<span id="core-3" class="tech-slide">Elixir</span>
+					</span>
+				</span>
+
+				<!-- Runtime Cycler: Bun / Hono / Deno -->
+				<span class="flex items-center gap-2">
+					<span class="w-1.5 h-1.5 bg-pink-400 rounded-full"></span>
+					<span class="relative w-12 h-5 overflow-hidden">
+						<span
+							id="runtime-1"
+							class="tech-slide tech-slide-active">Bun</span
+						>
+						<span id="runtime-2" class="tech-slide">Hono</span>
+						<span id="runtime-3" class="tech-slide">Deno</span>
+					</span>
+				</span>
+
+				<!-- Module Cycler: ESM / WASM -->
+				<span class="flex items-center gap-2">
+					<span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"
+					></span>
+					<span class="relative w-14 h-5 overflow-hidden">
+						<span id="module-1" class="tech-slide tech-slide-active"
+							>ESM</span
+						>
+						<span id="module-2" class="tech-slide">WASM</span>
+					</span>
+				</span>
+
+				<!-- Framework Cycler: React / Svelte / Solid / Vue / Preact / Qwik -->
+				<span class="flex items-center gap-2">
+					<span class="w-1.5 h-1.5 bg-sky-400 rounded-full"></span>
+					<span class="relative w-14 h-5 overflow-hidden">
+						<span
+							id="framework-1"
+							class="tech-slide tech-slide-active">React</span
+						>
+						<span id="framework-2" class="tech-slide">Svelte</span>
+						<span id="framework-3" class="tech-slide">Solid</span>
+						<span id="framework-4" class="tech-slide">Vue</span>
+						<span id="framework-5" class="tech-slide">Preact</span>
+						<span id="framework-6" class="tech-slide">Qwik</span>
+					</span>
+				</span>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-24 relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-6 relative z-10 w-full mb-20">
+			<div
+				class="max-w-3xl mx-auto glass p-1.5 rounded-2xl border-white/15 shadow-3xl text-center"
+			>
+				<div
+					class="bg-black/80 rounded-xl overflow-hidden backdrop-blur-3xl"
+				>
+					<div
+						class="px-5 py-4 border-b border-white/15/50 flex items-center justify-between"
+					>
+						<div class="flex gap-2">
+							<div
+								class="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500/30"
+							>
+							</div>
+							<div
+								class="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/30"
+							>
+							</div>
+							<div
+								class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/30"
+							>
+							</div>
+						</div>
+						<div
+							class="text-[10px] text-slate-500 font-mono uppercase tracking-widest"
+						>
+							kodajs --version
+						</div>
+					</div>
+					<div
+						class="p-8 text-left font-mono text-sm leading-relaxed"
+					>
+						<div class="flex gap-3 mb-2">
+							<span class="text-sky-400">$</span>
+							<span class="text-slate-100"
+								>bun create koda my-cosmic-app</span
+							>
+						</div>
+						<div class="text-slate-500 mb-2 pl-6">
+							Resolving cosmic dependencies...
+						</div>
+						<div class="text-emerald-400 mb-2 pl-6">
+							✓ Project initialized successfully
+						</div>
+						<div class="flex gap-3 mt-4">
+							<span class="text-sky-400">$</span>
+							<span class="text-slate-100"
+								>cd my-cosmic-app && bun dev</span
+							>
+						</div>
+						<div
+							class="text-koda-300 mt-2 pl-6 flex items-center gap-2"
+						>
+							Koda Zenith v2.0.0 listening on port 4321
+							<span class="w-2 h-5 bg-sky-500/50 animate-pulse"
+							></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Institutional Marquee -->
+	<section
+		class="py-12 border-y border-white/15/50 bg-neutral-100/40 overflow-hidden relative"
+	>
+		<div
+			class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent z-10 pointer-events-none"
+		>
+		</div>
+		<div
+			class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-900 to-transparent z-10 pointer-events-none"
+		>
+		</div>
+		<div class="marquee gap-24 items-center">
+			{
+				[1, 2, 3].map(() => (
+					<>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								COSMOS
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								ORBIT
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								NEBULA
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								PULSAR
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								QUASAR
+							</span>
+						</div>
+					</>
+				))
+			}
+		</div>
+	</section>
+	<!-- Features Section -->
+	<section id="features" class="py-32 relative">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center mb-24">
+				<h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+					<span class="gradient-text">Institutional Engineering</span>
 				</h2>
-				<p class="text-xl text-slate-400 max-w-2xl mx-auto">
-					Enterprise architecture meets startup speed
+				<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
+					Enterprise-grade foundations for the modern explorer.
 				</p>
 			</div>
 
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 				<!-- Feature 1 -->
-				<div class="glass glass-hover p-8 group">
+				<div class="glass-card group">
 					<div
-						class="w-14 h-14 bg-gradient-to-br from-koda-500 to-koda-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+						class="w-16 h-16 bg-gradient-to-br from-koda-500 to-koda-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
 					>
 						<svg
-							class="w-7 h-7 text-white"
+							class="w-8 h-8 text-white"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -179,24 +367,24 @@ import "../styles/global.css";
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
-								stroke-width="2"
+								stroke-width="2.5"
 								d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold mb-3">ElysiaJS Ergonomics</h3>
-					<p class="text-slate-400">
-						End-to-end type safety with fluent, chainable API design
-						inspired by ElysiaJS.
+					<h3 class="text-2xl font-bold mb-4">Elysia Ergonomics</h3>
+					<p class="text-slate-400 leading-relaxed font-medium">
+						Fluent, chainable APIs with end-to-end type safety. Feel
+						the friction vanish.
 					</p>
 				</div>
 
 				<!-- Feature 2 -->
-				<div class="glass glass-hover p-8 group">
+				<div class="glass-card group">
 					<div
-						class="w-14 h-14 bg-gradient-to-br from-zenith-500 to-zenith-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+						class="w-16 h-16 bg-gradient-to-br from-zenith-500 to-zenith-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
 					>
 						<svg
-							class="w-7 h-7 text-white"
+							class="w-8 h-8 text-white"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -204,27 +392,25 @@ import "../styles/global.css";
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
-								stroke-width="2"
+								stroke-width="2.5"
 								d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
 							></path>
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold mb-3">
-						Enterprise Architecture
-					</h3>
-					<p class="text-slate-400">
-						Laravel/Spring/NestJS patterns with Controllers,
-						Services, and Repositories.
+					<h3 class="text-2xl font-bold mb-4">Nest Inspired</h3>
+					<p class="text-slate-400 leading-relaxed font-medium">
+						Rigid structure inspired by NestJS and Spring.
+						Enterprise-ready, by design.
 					</p>
 				</div>
 
 				<!-- Feature 3 -->
-				<div class="glass glass-hover p-8 group">
+				<div class="glass-card group">
 					<div
-						class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+						class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow"
 					>
 						<svg
-							class="w-7 h-7 text-white"
+							class="w-8 h-8 text-white"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -232,148 +418,586 @@ import "../styles/global.css";
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
-								stroke-width="2"
+								stroke-width="2.5"
 								d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
 							></path>
 						</svg>
 					</div>
-					<h3 class="text-xl font-bold mb-3">Bun/Deno Native</h3>
-					<p class="text-slate-400">
-						No Node.js legacy tax. Built for modern runtimes with
-						70,000+ req/s target.
-					</p>
-				</div>
-
-				<!-- Feature 4 -->
-				<div class="glass glass-hover p-8 group">
-					<div
-						class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
-					>
-						<svg
-							class="w-7 h-7 text-white"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-							></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-3">.koda & .zen DSL</h3>
-					<p class="text-slate-400">
-						Custom DSLs for fullstack dominance. <strong
-							>.koda</strong
-						> for server logic and
-						<strong>.zen</strong> for rigid, high-performance UI components
-						with a Flutter-like DX.
-					</p>
-				</div>
-
-				<!-- Feature 5 -->
-				<div class="glass glass-hover p-8 group">
-					<div
-						class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
-					>
-						<svg
-							class="w-7 h-7 text-white"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-							></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-3">Security First</h3>
-					<p class="text-slate-400">
-						Built-in CSRF, XSS, rate limiting, CSP headers.
-						Enterprise security by default.
-					</p>
-				</div>
-
-				<!-- Feature 6 -->
-				<div class="glass glass-hover p-8 group">
-					<div
-						class="w-14 h-14 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
-					>
-						<svg
-							class="w-7 h-7 text-white"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-							></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-3">Future Ready</h3>
-					<p class="text-slate-400">
-						Native support for Web3, AI integration, AR/VR, and
-						Brain-Computer Interfaces.
+					<h3 class="text-2xl font-bold mb-4">Bun Runtime</h3>
+					<p class="text-slate-400 leading-relaxed font-medium">
+						Built for modern performance. No Node.js legacy weight.
+						Just raw speed.
 					</p>
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<section class="py-32 bg-neutral-100/60 relative">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="grid lg:grid-cols-2 gap-16 items-center">
+				<div>
+					<h2
+						class="text-4xl md:text-5xl font-black mb-8 tracking-tight"
+					>
+						<span class="gradient-text">Unified DSLs</span>
+					</h2>
+					<p
+						class="text-xl text-slate-400 mb-10 leading-relaxed font-medium"
+					>
+						Koda Zenith introduces a symbiotic relationship between
+						server logic and UI composition through dedicated DSLs.
+					</p>
+
+					<!-- Interactive Toggle Controls -->
+					<div class="flex gap-2 p-1 glass rounded-xl w-fit mb-10">
+						<button
+							id="toggle-koda"
+							class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all bg-sky-500 text-white shadow-lg"
+						>
+							.koda (Brain)
+						</button>
+						<button
+							id="toggle-zen"
+							class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-400 hover:text-white"
+						>
+							.zen (Body)
+						</button>
+					</div>
+
+					<div class="space-y-6">
+						<div class="flex gap-5">
+							<div
+								class="flex-none w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold"
+							>
+								.koda
+							</div>
+							<div>
+								<h4 class="text-lg font-bold mb-1 text-white">
+									Logic Sovereignty
+								</h4>
+								<p class="text-slate-500">
+									Rigid server-side structures with enterprise
+									patterns.
+								</p>
+							</div>
+						</div>
+						<div class="flex gap-5">
+							<div
+								class="flex-none w-10 h-10 rounded-lg bg-indigo-500/10 border border-zenith-500/20 flex items-center justify-center text-indigo-400 font-bold"
+							>
+								.zen
+							</div>
+							<div>
+								<h4 class="text-lg font-bold mb-1 text-white">
+									Visual Fluidity
+								</h4>
+								<p class="text-slate-500">
+									Flutter-inspired UI DX for deterministic
+									interface building.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="code-container p-1 shadow-2xl relative min-h-[400px]"
+				>
+					<!-- Koda Code (Logic) -->
+					<div
+						id="code-koda"
+						class="bg-neutral-800 rounded-lg absolute inset-0 opacity-100 transition-opacity duration-300"
+					>
+						<div
+							class="flex border-b border-white/15/50 bg-white/5 px-6 py-3"
+						>
+							<span
+								class="text-xs font-bold uppercase tracking-wider text-sky-400"
+								>server.koda</span
+							>
+						</div>
+						<div class="p-8 font-mono text-[13px] leading-relaxed">
+							<div class="text-slate-500 italic mb-4">
+								// Logic Sovereignty
+							</div>
+							<div>
+								<span class="text-purple-400">@Controller</span
+								>(<span class="text-emerald-300">'/users'</span
+								>)
+							</div>
+							<div>
+								<span class="text-purple-400">export class</span
+								>
+								<span class="text-amber-300"
+									>UserController</span
+								> &lbrace;
+							</div>
+							<div class="pl-4 mt-2">
+								<span class="text-purple-400">@Get</span>(<span
+									class="text-emerald-300">':id'</span
+								>)
+							</div>
+							<div class="pl-4">
+								<span class="text-purple-400">async</span>
+								<span class="text-blue-400">getUser</span>(id:
+								string) &lbrace;
+							</div>
+							<div class="pl-8">
+								<span class="text-purple-400">return this</span
+								>.service.<span class="text-blue-400"
+									>findOne</span
+								>(id);
+							</div>
+							<div class="pl-4 text-white">&rbrace;</div>
+							<div class="text-white">&rbrace;</div>
+						</div>
+					</div>
+
+					<!-- Zenith Code (UI) -->
+					<div
+						id="code-zen"
+						class="bg-neutral-800 rounded-lg absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300"
+					>
+						<div
+							class="flex border-b border-white/15/50 bg-white/5 px-6 py-3"
+						>
+							<span
+								class="text-xs font-bold uppercase tracking-wider text-indigo-400"
+								>view.zen</span
+							>
+						</div>
+						<div class="p-8 font-mono text-[13px] leading-relaxed">
+							<div class="text-slate-500 italic mb-4">
+								// Visual Fluidity
+							</div>
+							<div>
+								<span class="text-purple-400">Widget</span>
+								<span class="text-blue-400">ProfileView</span
+								>(user: User) &lbrace;
+							</div>
+							<div class="pl-4 mt-2">
+								<span class="text-purple-400">return</span>
+								<span class="text-amber-300">Scaffold</span
+								>(&lbrace;
+							</div>
+							<div class="pl-8">
+								body: <span class="text-amber-300">Column</span
+								>(&lbrace;
+							</div>
+							<div class="pl-12">children: [</div>
+							<div class="pl-16">
+								<span class="text-amber-300">Avatar</span
+								>(&lbrace; src: user.photo &rbrace;),
+							</div>
+							<div class="pl-16">
+								<span class="text-amber-300">Text</span
+								>(user.name, &lbrace; style: <span
+									class="text-emerald-300">'TITLE_LG'</span
+								> &rbrace;),
+							</div>
+							<div class="pl-12">]</div>
+							<div class="pl-8">&rbrace;)</div>
+							<div class="pl-4">&rbrace;)</div>
+							<div class="text-white">&rbrace;</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const btnKoda = document.getElementById("toggle-koda");
+			const btnZen = document.getElementById("toggle-zen");
+			const codeKoda = document.getElementById("code-koda");
+			const codeZen = document.getElementById("code-zen");
+
+			btnKoda?.addEventListener("click", () => {
+				if (btnKoda)
+					btnKoda.className =
+						"px-6 py-2.5 rounded-lg text-sm font-bold transition-all bg-sky-500 text-white shadow-lg";
+				if (btnZen)
+					btnZen.className =
+						"px-6 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-400 hover:text-white";
+				if (codeKoda) {
+					codeKoda.style.opacity = "1";
+					codeKoda.style.pointerEvents = "auto";
+				}
+				if (codeZen) {
+					codeZen.style.opacity = "0";
+					codeZen.style.pointerEvents = "none";
+				}
+			});
+
+			btnZen?.addEventListener("click", () => {
+				if (btnZen)
+					btnZen.className =
+						"px-6 py-2.5 rounded-lg text-sm font-bold transition-all bg-indigo-500 text-white shadow-lg";
+				if (btnKoda)
+					btnKoda.className =
+						"px-6 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-400 hover:text-white";
+				if (codeKoda) {
+					codeKoda.style.opacity = "0";
+					codeKoda.style.pointerEvents = "none";
+				}
+				if (codeZen) {
+					codeZen.style.opacity = "1";
+					codeZen.style.pointerEvents = "auto";
+				}
+			});
+		</script>
+
+		<script
+			is:inline
+			src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"
+		></script>
+		<script is:inline>
+			document.addEventListener("DOMContentLoaded", () => {
+				mermaid.initialize({
+					startOnLoad: true,
+					theme: "dark",
+					securityLevel: "loose",
+					themeVariables: {
+						darkMode: true,
+						primaryColor: "#8b5cf6",
+						primaryTextColor: "#fff",
+						primaryBorderColor: "#a78bfa",
+						lineColor: "#475569",
+						secondaryColor: "#06b6d4",
+						tertiaryColor: "#1e293b",
+						fontFamily: "Inter, system-ui, sans-serif",
+					},
+				});
+			});
+		</script>
 	</section>
 
 	<!-- Architecture Section -->
 	<section id="architecture" class="py-32 relative">
 		<div class="max-w-7xl mx-auto px-6">
 			<div class="text-center mb-16">
-				<h2 class="text-4xl md:text-5xl font-bold mb-4">
-					<span class="gradient-text">Architecture</span>
+				<h2 class="text-4xl md:text-5xl font-black mb-4">
+					<span class="gradient-text">Architecture Matrix</span>
 				</h2>
-				<p class="text-xl text-slate-400 max-w-2xl mx-auto">
-					Layered design for maximum flexibility
+				<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
+					Deterministic layers for cosmic reliability.
 				</p>
 			</div>
 
-			<div class="glass p-8 md:p-12 max-w-4xl mx-auto">
+			<div
+				class="glass p-10 md:p-16 max-w-4xl mx-auto border-white/15/50 shadow-2xl overflow-hidden relative group"
+			>
+				<div
+					class="absolute -top-24 -right-24 w-64 h-64 bg-koda-600/10 rounded-full blur-[100px] group-hover:bg-koda-600/20 transition-colors"
+				>
+				</div>
 				<pre
-					class="text-sm md:text-base font-mono text-slate-300 overflow-x-auto"><code>┌─────────────────────────────────────────────────────────┐
-│                   APPLICATION LAYER                     │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────┐ │
-│  │entry.koda│  │entry.zen │  │ routes/  │  │+page.tsx│ │
-│  └──────────┘  └──────────┘  └──────────┘  └─────────┘ │
-└────────────────────────┬────────────────────────────────┘
-                         │
-┌────────────────────────▼────────────────────────────────┐
-│                   KODA ZENITH LAYER                     │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────┐ │
-│  │@koda/core│  │@koda/    │  │@koda/    │  │ @koda/  │ │
-│  │          │  │ server   │  │ runtime  │  │  cli    │ │
-│  └──────────┘  └──────────┘  └──────────┘  └─────────┘ │
-└────────────────────────┬────────────────────────────────┘
-                         │
-┌────────────────────────▼────────────────────────────────┐
-│                     HONO LAYER                          │
-│    Middleware • Routing • Context • Native Feel         │
-└────────────────────────┬────────────────────────────────┘
-                         │
-┌────────────────────────▼────────────────────────────────┐
-│                   RUNTIME LAYER                         │
-│      ┌────────────┐          ┌────────────┐            │
-│      │    Bun     │    OR    │    Deno    │            │
-│      │  (Primary) │          │ (Secondary)│            │
-│      └────────────┘          └────────────┘            │
-└─────────────────────────────────────────────────────────┘</code></pre>
+					class="mermaid flex justify-center py-4 bg-transparent border-none">
+graph TD
+    subgraph App ["APPLICATION LAYER"]
+        direction LR
+        E1["entry.koda"] --- E2["entry.zen"] --- R1["routes/"] --- P1["+page.tsx"]
+    end
+
+    subgraph Koda ["KODA ZENITH LAYER"]
+        direction LR
+        C1["@koda/core"] --- S1["@koda/server"] --- R2["@koda/runtime"] --- CL["@koda/cli"]
+    end
+
+    subgraph Hono ["HONO LAYER"]
+        H["Middleware • Routing • Context"]
+    end
+
+    subgraph Runtime ["RUNTIME LAYER"]
+        direction LR
+        B["Bun (Primary)"] --- D["Deno (Secondary)"]
+    end
+
+    App --> Koda
+    Koda --> Hono
+    Hono --> Runtime
+
+    %% Styling
+    classDef default fill:#0f172a,stroke:#334155,color:#cbd5e1,stroke-width:1px;
+    classDef layer fill:#7c3aee0d,stroke:#7c3aee33,color:#a78bfa,font-weight:bold;
+    
+    class App,Koda,Hono,Runtime layer;
+				</pre>
 			</div>
 		</div>
 	</section>
 
-	<!-- Roadmap Section -->
+	<!-- Performance Section -->
+	<section class="py-32 relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center mb-24">
+				<h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+					<span class="gradient-text">Cosmic Velocity</span>
+				</h2>
+				<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
+					Engineered for zero-latency dominance. Benchmarked on Bun
+					native.
+				</p>
+			</div>
+
+			<div class="max-w-4xl mx-auto space-y-12">
+				<!-- Koda Zenith Bar -->
+				<div class="space-y-4">
+					<div
+						class="flex items-center justify-between text-sm font-bold tracking-widest uppercase"
+					>
+						<span class="text-white">Koda Zenith (Bun Native)</span>
+						<span class="text-sky-400">72,431 req/s</span>
+					</div>
+					<div
+						class="h-4 w-full bg-neutral-200 rounded-full overflow-hidden border border-white/15/50"
+					>
+						<div
+							class="h-full bg-gradient-to-r from-koda-600 to-zenith-500 w-full"
+						>
+						</div>
+					</div>
+				</div>
+
+				<!-- NestJS Bar -->
+				<div class="space-y-4 opacity-60">
+					<div
+						class="flex items-center justify-between text-sm font-bold tracking-widest uppercase"
+					>
+						<span class="text-slate-400">NestJS (Express)</span>
+						<span class="text-slate-400">12,102 req/s</span>
+					</div>
+					<div
+						class="h-4 w-full bg-neutral-200 rounded-full overflow-hidden border border-white/15/50"
+					>
+						<div class="h-full bg-sky-700 w-[17%]"></div>
+					</div>
+				</div>
+
+				<!-- Next.js Bar -->
+				<div class="space-y-4 opacity-60">
+					<div
+						class="flex items-center justify-between text-sm font-bold tracking-widest uppercase"
+					>
+						<span class="text-slate-400">Next.js (App Router)</span>
+						<span class="text-slate-400">8,432 req/s</span>
+					</div>
+					<div
+						class="h-4 w-full bg-neutral-200 rounded-full overflow-hidden border border-white/15/50"
+					>
+						<div class="h-full bg-sky-700 w-[12%]"></div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="mt-20 grid md:grid-cols-3 gap-8 text-center max-w-5xl mx-auto"
+			>
+				<div class="glass p-8 rounded-2xl border-white/15/50">
+					<div class="text-3xl font-black text-white mb-2">1.2ms</div>
+					<div
+						class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+					>
+						Avg Latency
+					</div>
+				</div>
+				<div
+					class="glass p-8 rounded-2xl border-emerald-500/10 bg-emerald-500/5"
+				>
+					<div class="text-3xl font-black text-emerald-400 mb-2">
+						6.2x
+					</div>
+					<div
+						class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+					>
+						Faster than Industry
+					</div>
+				</div>
+				<div class="glass p-8 rounded-2xl border-white/15/50">
+					<div class="text-3xl font-black text-white mb-2">24ms</div>
+					<div
+						class="text-slate-500 text-xs font-bold uppercase tracking-widest"
+					>
+						P99 Response
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Ecosystem Section -->
+	<section class="py-32 relative">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center mb-24">
+				<h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+					<span class="gradient-text">Complete Ecosystem</span>
+				</h2>
+				<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
+					Everything you need to build, deploy, and scale.
+				</p>
+			</div>
+
+			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+				<div
+					class="glass p-6 rounded-xl border-white/15/50 hover:border-sky-500/30 transition-colors"
+				>
+					<div
+						class="text-sky-400 text-xs font-bold uppercase tracking-widest mb-2"
+					>
+						@koda/dx
+					</div>
+					<p class="text-slate-400 text-sm">
+						Superior developer experience with hot-reload DSL.
+					</p>
+				</div>
+				<div
+					class="glass p-6 rounded-xl border-white/15/50 hover:border-zenith-500/30 transition-colors"
+				>
+					<div
+						class="text-indigo-400 text-xs font-bold uppercase tracking-widest mb-2"
+					>
+						@koda/realtime
+					</div>
+					<p class="text-slate-400 text-sm">
+						Native WebSocket & SSE handling with zero setup.
+					</p>
+				</div>
+				<div
+					class="glass p-6 rounded-xl border-white/15/50 hover:border-sky-500/30 transition-colors"
+				>
+					<div
+						class="text-sky-400 text-xs font-bold uppercase tracking-widest mb-2"
+					>
+						@koda/db
+					</div>
+					<p class="text-slate-400 text-sm">
+						Type-safe SQL & NoSQL bindings with edge-native
+						adapters.
+					</p>
+				</div>
+				<div
+					class="glass p-6 rounded-xl border-white/15/50 hover:border-zenith-500/30 transition-colors"
+				>
+					<div
+						class="text-indigo-400 text-xs font-bold uppercase tracking-widest mb-2"
+					>
+						@koda/ui
+					</div>
+					<p class="text-slate-400 text-sm">
+						Deterministic UI primitives for the .zen DSL.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Documentation Teaser -->
+	<section class="py-32 bg-neutral-100/60 relative overflow-hidden">
+		<div
+			class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-koda-500/50 to-transparent"
+		>
+		</div>
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="grid lg:grid-cols-2 gap-16 items-center">
+				<div class="order-2 lg:order-1">
+					<div
+						class="glass rounded-2xl border-white/15 shadow-3xl overflow-hidden aspect-video relative group p-4"
+					>
+						<div
+							class="absolute inset-0 bg-gradient-to-br from-koda-600/20 to-zenith-600/20 opacity-0 group-hover:opacity-100 transition-opacity"
+						>
+						</div>
+						<!-- Sidebar Mock -->
+						<div
+							class="absolute inset-y-0 left-0 w-48 bg-black/40 border-r border-white/15/50 p-4 hidden md:block"
+						>
+							<div class="space-y-4">
+								<div class="h-2 w-24 bg-white/10 rounded"></div>
+								<div class="h-2 w-32 bg-white/5 rounded"></div>
+								<div class="h-2 w-28 bg-white/5 rounded"></div>
+								<div class="space-y-2 pt-4">
+									<div
+										class="h-2 w-20 bg-sky-500/30 rounded"
+									>
+									</div>
+									<div class="h-2 w-24 bg-white/5 rounded">
+									</div>
+									<div class="h-2 w-16 bg-white/5 rounded">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Content Mock -->
+						<div class="md:pl-48 p-8 space-y-6">
+							<div class="flex items-center gap-2">
+								<div class="h-4 w-4 bg-sky-500 rounded"></div>
+								<div class="h-4 w-48 bg-white/20 rounded"></div>
+							</div>
+							<div class="space-y-3">
+								<div class="h-2 w-full bg-white/10 rounded">
+								</div>
+								<div class="h-2 w-full bg-white/10 rounded">
+								</div>
+								<div class="h-2 w-4/5 bg-white/10 rounded">
+								</div>
+							</div>
+							<div
+								class="glass p-4 rounded-lg border-white/15/50 font-mono text-[10px] text-slate-500"
+							>
+								$ koda docs --serve
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="order-1 lg:order-2">
+					<h2
+						class="text-4xl md:text-5xl font-black mb-6 tracking-tight"
+					>
+						<span class="gradient-text"
+							>Institutional Knowledge</span
+						>
+					</h2>
+					<p
+						class="text-xl text-slate-400 mb-8 leading-relaxed font-medium"
+					>
+						Born from the need for absolute clarity. Our
+						documentation is as rigid and structured as the
+						framework itself.
+					</p>
+					<div class="space-y-4 mb-10">
+						<div class="flex items-center gap-3 text-slate-200">
+							<div
+								class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(14,165,233,0.5)]"
+							>
+							</div>
+							Deep-dive architecture guides
+						</div>
+						<div class="flex items-center gap-3 text-slate-300">
+							<div
+								class="w-1.5 h-1.5 rounded-full bg-sky-500 shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+							>
+							</div>
+							Type-safe API references
+						</div>
+						<div class="flex items-center gap-3 text-slate-300">
+							<div
+								class="w-1.5 h-1.5 rounded-full bg-sky-500 shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+							>
+							</div>
+							Cosmic deployment recipes
+						</div>
+					</div>
+					<a
+						href="#"
+						class="button-secondary opacity-50 cursor-not-allowed text-sm"
+					>
+						Documentation Coming Soon
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section id="roadmap" class="py-32">
 		<div class="max-w-7xl mx-auto px-6">
 			<div class="text-center mb-16">
@@ -387,12 +1011,20 @@ import "../styles/global.css";
 
 			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 				<!-- 2025-2027 -->
-				<div class="glass p-6 relative overflow-hidden">
+				<div
+					class="glass p-6 relative overflow-hidden group hover:border-sky-500/30 transition-colors"
+				>
 					<div
-						class="absolute top-0 right-0 w-20 h-20 bg-koda-500/20 blur-2xl"
+						class="absolute top-0 right-0 px-3 py-1 bg-sky-500/10 border-b border-l border-sky-500/20 rounded-bl-lg text-[10px] font-bold text-sky-400 tracking-widest uppercase flex items-center gap-2"
+					>
+						<span class="status-pip status-pip-online"></span>
+						In Progress
+					</div>
+					<div
+						class="absolute top-0 right-0 w-20 h-20 bg-sky-500/20 blur-2xl"
 					>
 					</div>
-					<span class="text-sm text-koda-400 font-medium"
+					<span class="text-sm text-sky-400 font-medium"
 						>2025-2027</span
 					>
 					<h3 class="text-xl font-bold mt-2 mb-3">Web3 Native</h3>
@@ -405,12 +1037,19 @@ import "../styles/global.css";
 				</div>
 
 				<!-- 2027-2029 -->
-				<div class="glass p-6 relative overflow-hidden">
+				<div
+					class="glass p-6 relative overflow-hidden group hover:border-zenith-500/30 transition-colors"
+				>
 					<div
-						class="absolute top-0 right-0 w-20 h-20 bg-zenith-500/20 blur-2xl"
+						class="absolute top-0 right-0 px-3 py-1 bg-white/5 border-b border-l border-white/15 rounded-bl-lg text-[10px] font-bold text-slate-500 tracking-widest uppercase"
+					>
+						Planned
+					</div>
+					<div
+						class="absolute top-0 right-0 w-20 h-20 bg-indigo-500/20 blur-2xl"
 					>
 					</div>
-					<span class="text-sm text-zenith-400 font-medium"
+					<span class="text-sm text-indigo-400 font-medium"
 						>2027-2029</span
 					>
 					<h3 class="text-xl font-bold mt-2 mb-3">AI Native</h3>
@@ -423,7 +1062,17 @@ import "../styles/global.css";
 				</div>
 
 				<!-- 2029-2032 -->
-				<div class="glass p-6 relative overflow-hidden">
+				<div
+					class="glass p-6 relative overflow-hidden group hover:border-purple-500/30 transition-colors"
+				>
+					<div
+						class="absolute top-0 right-0 px-3 py-1 bg-white/5 border-b border-l border-white/15 rounded-bl-lg text-[10px] font-bold text-slate-500 tracking-widest uppercase flex items-center gap-2"
+					>
+						<span
+							class="status-pip bg-neutral-600 text-slate-400/50"
+						></span>
+						Planned
+					</div>
 					<div
 						class="absolute top-0 right-0 w-20 h-20 bg-purple-500/20 blur-2xl"
 					>
@@ -441,7 +1090,14 @@ import "../styles/global.css";
 				</div>
 
 				<!-- 2032-2035 -->
-				<div class="glass p-6 relative overflow-hidden">
+				<div
+					class="glass p-6 relative overflow-hidden group hover:border-rose-500/30 transition-colors"
+				>
+					<div
+						class="absolute top-0 right-0 px-3 py-1 bg-white/5 border-b border-l border-white/15 rounded-bl-lg text-[10px] font-bold text-slate-500 tracking-widest uppercase"
+					>
+						Planned
+					</div>
 					<div
 						class="absolute top-0 right-0 w-20 h-20 bg-rose-500/20 blur-2xl"
 					>
@@ -461,44 +1117,77 @@ import "../styles/global.css";
 		</div>
 	</section>
 
-	<!-- CTA Section -->
-	<section class="py-32">
-		<div class="max-w-4xl mx-auto px-6 text-center">
-			<div class="glass p-12 glow">
-				<h2 class="text-3xl md:text-4xl font-bold mb-4">
-					Ready to build the future?
+	<section class="py-32 relative overflow-hidden">
+		<div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+			<div class="glass p-16 rounded-3xl border-white/15 glow">
+				<h2 class="text-4xl md:text-5xl font-black mb-6">
+					Join the Cosmic Fleet
 				</h2>
-				<p class="text-xl text-slate-400 mb-8">
-					Join us in defining the next decade of web development.
+				<p class="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
+					Koda Zenith is more than a framework. It's an institutional
+					shift in how we perceive web engineering.
 				</p>
-				<div
-					class="flex flex-col sm:flex-row items-center justify-center gap-4"
-				>
+
+				<div class="flex flex-wrap justify-center gap-6 mb-12">
 					<a
-						href="https://github.com/kodajs/koda"
-						target="_blank"
-						class="button-primary"
+						href="https://github.com/kodajs"
+						class="flex items-center gap-3 px-6 py-3 glass rounded-xl hover:bg-white/5 transition-colors group"
 					>
 						<svg
-							class="w-5 h-5"
+							class="w-6 h-6"
 							fill="currentColor"
 							viewBox="0 0 24 24"
 							><path
 								d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
 							></path></svg
 						>
-						Star on GitHub
+						<span class="font-bold">GitHub</span>
 					</a>
-					<a href="#features" class="button-secondary">
-						Learn More
+					<a
+						href="#"
+						class="flex items-center gap-3 px-6 py-3 glass rounded-xl hover:bg-white/5 transition-colors group"
+					>
+						<svg
+							class="w-6 h-6 text-indigo-400"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.086 2.157 2.419c0 1.334-.947 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.086 2.157 2.419c0 1.334-.946 2.419-2.157 2.419z"
+							></path>
+						</svg>
+						<span class="font-bold">Discord</span>
 					</a>
 				</div>
+
+				<form class="max-w-md mx-auto relative group">
+					<input
+						type="email"
+						placeholder="Email for Cosmic Intel..."
+						class="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/15 focus:border-sky-500 focus:ring-1 focus:ring-koda-500 outline-none transition-all"
+					/>
+					<button
+						class="absolute right-2 top-2 bottom-2 px-6 bg-koda-600 rounded-lg font-bold text-sm hover:bg-sky-500 transition-colors"
+					>
+						Subscribe
+					</button>
+				</form>
 			</div>
+		</div>
+
+		<!-- Decorative Elements -->
+		<div
+			class="absolute top-1/2 left-0 w-64 h-64 bg-koda-600/10 rounded-full blur-[120px] -z-10"
+		>
+		</div>
+		<div
+			class="absolute bottom-0 right-0 w-96 h-96 bg-zenith-600/10 rounded-full blur-[150px] -z-10"
+		>
 		</div>
 	</section>
 
 	<!-- Footer -->
-	<footer class="border-t border-white/5 py-12">
+	<footer class="border-t border-white/10 py-12">
 		<div class="max-w-7xl mx-auto px-6">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between gap-6"
@@ -536,4 +1225,192 @@ import "../styles/global.css";
 			</div>
 		</div>
 	</footer>
+
+	<style is:global>
+		@keyframes monolith-move {
+			0%,
+			100% {
+				transform: translate(-50%, -50%) scale(1);
+				opacity: 0.1;
+			}
+			50% {
+				transform: translate(-50%, -45%) scale(1.1);
+				opacity: 0.15;
+			}
+		}
+
+		.monolith-glow {
+			position: absolute;
+			top: 30%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 80vw;
+			height: 60vh;
+			background: radial-gradient(
+				circle at center,
+				var(--color-koda-600) 0%,
+				transparent 70%
+			);
+			filter: blur(120px);
+			opacity: 0.1;
+			z-index: -5;
+			pointer-events: none;
+			animation: monolith-move 20s ease-in-out infinite;
+		}
+
+		.reveal-on-scroll {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+		.reveal-on-scroll.active {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.text-evolution-bg {
+			background-image:
+				linear-gradient(to top, rgba(15, 23, 42, 0.8), transparent),
+				radial-gradient(
+					ellipse at 50% 0%,
+					rgba(14, 165, 233, 0.05) 0%,
+					transparent 80%
+				);
+		}
+
+		.text-cycler {
+			will-change: transform, opacity;
+		}
+	</style>
+
+	<script is:inline>
+		document.addEventListener("DOMContentLoaded", () => {
+			// Text Cycler Animation (Temporal Blur)
+			let currentIdx = 0;
+			const h1 = document.getElementById("headline-1");
+			const h2 = document.getElementById("headline-2");
+
+			if (h1 && h2) {
+				const s1 = document.getElementById("subtitle-1");
+				const s2 = document.getElementById("subtitle-2");
+
+				// Initialize states
+				let headlineIdx = 0;
+				let subtitleIdx = 0;
+
+				h1.classList.add("temporal-blur-in");
+				h2.style.opacity = "0";
+				if (s1) s1.classList.add("temporal-blur-in");
+				if (s2) s2.style.opacity = "0";
+
+				// Headline cycler - 5 second interval
+				setInterval(() => {
+					if (headlineIdx === 0) {
+						h1.classList.remove("temporal-blur-in");
+						h1.classList.add("temporal-blur-out");
+						setTimeout(() => {
+							h2.classList.remove("temporal-blur-out");
+							h2.classList.add("temporal-blur-in");
+						}, 200);
+						headlineIdx = 1;
+					} else {
+						h2.classList.remove("temporal-blur-in");
+						h2.classList.add("temporal-blur-out");
+						setTimeout(() => {
+							h1.classList.remove("temporal-blur-out");
+							h1.classList.add("temporal-blur-in");
+						}, 200);
+						headlineIdx = 0;
+					}
+				}, 5000);
+
+				// Subtitle cycler - 7 second interval (offset timing for dynamic feel)
+				if (s1 && s2) {
+					setTimeout(() => {
+						setInterval(() => {
+							if (subtitleIdx === 0) {
+								s1.classList.remove("temporal-blur-in");
+								s1.classList.add("temporal-blur-out");
+								setTimeout(() => {
+									s2.classList.remove("temporal-blur-out");
+									s2.classList.add("temporal-blur-in");
+								}, 200);
+								subtitleIdx = 1;
+							} else {
+								s2.classList.remove("temporal-blur-in");
+								s2.classList.add("temporal-blur-out");
+								setTimeout(() => {
+									s1.classList.remove("temporal-blur-out");
+									s1.classList.add("temporal-blur-in");
+								}, 200);
+								subtitleIdx = 0;
+							}
+						}, 7000);
+					}, 2500); // Start offset - subtitle changes 2.5s after headline
+				}
+			}
+			// Built With Tech Cyclers - Vertical Slide Animation
+			function createTechCycler(prefix, count, interval, startDelay = 0) {
+				const elements = [];
+				for (let i = 1; i <= count; i++) {
+					const el = document.getElementById(`${prefix}-${i}`);
+					if (el) elements.push(el);
+				}
+
+				if (elements.length < 2) return;
+
+				let currentIdx = 0;
+
+				setTimeout(() => {
+					setInterval(() => {
+						// Slide out current (upward)
+						elements[currentIdx].classList.remove(
+							"tech-slide-active",
+						);
+						elements[currentIdx].classList.add("tech-slide-exit");
+
+						// Move to next index
+						const prevIdx = currentIdx;
+						currentIdx = (currentIdx + 1) % elements.length;
+
+						// Slide in next (from below)
+						setTimeout(() => {
+							elements[prevIdx].classList.remove(
+								"tech-slide-exit",
+							);
+							elements[currentIdx].classList.add(
+								"tech-slide-active",
+							);
+						}, 200);
+					}, interval);
+				}, startDelay);
+			}
+
+			// Initialize Built With cyclers with staggered timing
+			createTechCycler("core", 3, 2000, 0); // Rust → Zig → Elixir
+			createTechCycler("runtime", 3, 2500, 600); // Bun → Hono → Deno
+			createTechCycler("module", 2, 3000, 1200); // ESM → WASM
+			createTechCycler("framework", 6, 1800, 1800); // React → Svelte → Solid → Vue → Preact → Qwik
+
+			// Scroll Reveal
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: "0px 0px -50px 0px",
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("active");
+					}
+				});
+			}, observerOptions);
+
+			document.querySelectorAll("section, .glass-card").forEach((el) => {
+				el.classList.add("reveal-on-scroll");
+				observer.observe(el);
+			});
+		});
+	</script>
 </Layout>
