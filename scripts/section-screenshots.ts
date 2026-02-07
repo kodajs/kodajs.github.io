@@ -11,34 +11,34 @@ const outputDir = process.argv[2] || './screenshots';
 
     console.log(`📸 Capturing section screenshots to: ${outputDir}`);
 
-    // Get all sections
-    const sections = await page.$$('section');
-    
+    // Get all sections and footer
+    const sections = await page.$$('section, footer');
+
     for (let i = 0; i < sections.length; i++) {
         try {
             const section = sections[i];
-            
+
             // Scroll to section
             await section.scrollIntoViewIfNeeded();
             await page.waitForTimeout(500);
-            
+
             // Get section info
             const sectionInfo = await section.evaluate((el, index) => {
                 const heading = el.querySelector('h1, h2, h3');
                 const headingText = heading?.textContent?.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-') || `section-${index}`;
-                return { 
+                return {
                     name: headingText.substring(0, 50),
-                    hasContent: el.children.length > 0 
+                    hasContent: el.children.length > 0
                 };
             }, i);
-            
+
             if (sectionInfo.hasContent) {
                 // Take screenshot
-                await section.screenshot({ 
+                await section.screenshot({
                     path: `${outputDir}/${i + 1}-${sectionInfo.name}.png`,
                     animations: 'disabled'
                 });
-                
+
                 console.log(`✅ ${i + 1}-${sectionInfo.name}.png`);
             }
         } catch (error) {
