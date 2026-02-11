@@ -1,0 +1,40 @@
+---
+title: "Native Bridges"
+description: "Zero-copy integration with Zig, Rust, and Elixir for industrial-grade performance."
+order: 5
+---
+
+# The Native Bridge
+
+Koda Zenith is unique because it doesn't try to rewrite everything in JavaScript. Instead, it creates high-performance "bridges" to specialized languages that excel in specific domains. This is the heart of our "Post-Web" philosophy.
+
+## Why the Polyglot Stack?
+
+We believe in using the best tool for the job. Our native core is a symphony of three industrial powerhouses:
+
+- **Zig**: We use Zig for extreme memory control, zero-copy operations, and building the runtime's core I/O. Its lack of hidden control flow makes it perfect for our performance-critical base.
+- **Rust**: Used for safety-critical components, Web3 smart contracts, and heavy AI computation. Rust's ownership model ensures that our high-level abstractions are memory-safe.
+- **Elixir Semantics**: While we run on modern JS engines, we adopt the Elixir/Erlang Actor Model for resilience. This gives us the ability to handle millions of connections without breaking.
+
+## How it Works: Native Direct Invoke (NDI)
+
+Koda Zenith uses **Tagged Templates** and our proprietary **NDI** protocol to call these languages with near-zero overhead. There is no external process spawning; the code is compiled directly into the Zenith runtime.
+
+```typescript
+import { zig, rust } from '@koda/native';
+
+// Offload heavy transformation to a Zig binary
+// This happens in the same memory space as your JS logic
+const optimizedData = await zig.call('fast_compute_transform', rawBuffer);
+
+// Verify safety-critical logic in Rust
+const isValid = await rust.verify('security_check', optimizedData);
+```
+
+## Zero-Copy Data Sharing
+
+The most significant bottleneck in polyglot systems is data serialization (JSON, Protobuf). Koda Zenith eliminates this by using **Shared Memory Vistas**. Both the JS engine and the native binaries operate on the same physical RAM buffer, meaning passing a 1GB dataset between them takes **0ms**.
+
+## The Roadmap to Industrial Native
+
+We are currently stabilizing the NDI protocol and expanding our standard library to include more native high-performance components. Our goal is a future where "Native" is as easy to use as "NPM".

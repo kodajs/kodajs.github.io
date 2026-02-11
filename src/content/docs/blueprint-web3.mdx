@@ -1,0 +1,56 @@
+---
+title: "Web3 & Smart Contracts"
+description: "Native blockchain integration and smart contract deployment using Rust and Zig."
+order: 11
+---
+
+# Web3 Native Infrastructure
+
+Koda Zenith treats the blockchain as a first-class citizen of the runtime. We have built an integrated environment where smart contracts and backend logic share the same security posture and performance characteristics.
+
+## Integrated Smart Contracts
+
+Forget the complex toolchains of the past. With Koda Zenith, you write your smart contracts directly within your project structure using Rust or Zig.
+
+### The Zenith-Local Network
+
+For development, Zenith spins up a high-performance local ledger that mimics the target production environment (EVM, Solana, or Zenith-Mainnet) with zero latency.
+
+## Direct Contract Embedding
+
+By using Tagged Templates, you can define contract structures that are compiled into optimized WASM byte-code during the standard `build` process.
+
+```typescript
+import { contract } from '@koda/web3';
+
+/**
+ * Define a high-performance vault contract in Rust
+ * This is compiled to WASM and deployed automatically
+ */
+export const Vault = contract.rust`
+  #[koda::contract]
+  pub struct Vault {
+      balance: Map<Address, u256>,
+      owner: Address,
+  }
+
+  impl Vault {
+      pub fn deposit(&mut self, amount: u256) {
+          let caller = koda::msg::sender();
+          let current = self.balance.get(caller).unwrap_or(0);
+          self.balance.insert(caller, current + amount);
+      }
+  }
+`;
+```
+
+## Security & Auditability
+
+The Koda compiler performs static analysis on your contracts to detect common vulnerabilities before they reach the chain:
+- **Integer Overflow Protection**
+- **Reentrancy Guard Injection**
+- **Formal Verification Hints**
+
+## Multi-Chain Orchestration
+
+Zenith acts as a powerful orchestrator, allowing you to manage state across multiple chains simultaneously from a single unified API. No more juggling different libraries for different networks.

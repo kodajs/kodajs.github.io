@@ -1,0 +1,150 @@
+---
+const { title = "Core Architecture Topology" } = Astro.props;
+---
+
+<div class="my-12 group animate-in fade-in duration-1000">
+    <!-- Header HUD -->
+    <div class="flex items-center gap-4 mb-6">
+        <div
+            class="w-10 h-10 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400"
+        >
+            <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+            </svg>
+        </div>
+        <div>
+            <div
+                class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-[0.3em]"
+            >
+                System_Topology_Visualizer
+            </div>
+            <h5 class="text-sm font-black text-white uppercase tracking-tight">
+                {title}
+            </h5>
+        </div>
+        <div class="h-px bg-white/5 flex-1 ml-4 grayscale opacity-20"></div>
+    </div>
+
+    <!-- Diagram Container -->
+    <div
+        class="glass-dark rounded-[2rem] border border-white/10 p-8 md:p-12 relative overflow-hidden group-hover:border-sky-500/30 transition-all duration-700"
+    >
+        <!-- Decoration: Corner HUDs -->
+        <div
+            class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 blur-[40px] rounded-full -z-10 group-hover:bg-sky-500/10 transition-colors"
+        >
+        </div>
+        <div
+            class="absolute bottom-4 left-6 font-mono text-[9px] text-slate-700 tracking-widest uppercase opacity-40"
+        >
+            Layer_00_Substrate // Diagram_ID: ZEN_TOP_01
+        </div>
+
+        <div class="mermaid-container flex justify-center bg-transparent">
+            <div class="mermaid-source hidden" aria-hidden="true">
+                <slot />
+            </div>
+            <div class="mermaid-target flex justify-center w-full"></div>
+        </div>
+    </div>
+
+    <!-- Telemetry Footer -->
+    <div class="mt-4 flex items-center justify-end gap-6 px-8">
+        <div class="flex items-center gap-2">
+            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500/50"></div>
+            <span
+                class="text-[9px] font-mono text-slate-600 uppercase tracking-widest"
+                >Realtime_Render_Active</span
+            >
+        </div>
+    </div>
+</div>
+
+<script>
+    import mermaid from "mermaid";
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: "dark",
+        securityLevel: "loose",
+        themeVariables: {
+            darkMode: true,
+            primaryColor: "#8b5cf6",
+            primaryTextColor: "#e2e8f0",
+            primaryBorderColor: "#a78bfa",
+            lineColor: "#94a3b8",
+            secondaryColor: "#06b6d4",
+            tertiaryColor: "#334155",
+            fontFamily: "Inter, system-ui, sans-serif",
+            edgeLabelBackground: "#1e293b",
+            clusterBkg: "#1e293b",
+            clusterBorder: "#475569",
+        },
+    });
+
+    const renderMermaid = async () => {
+        const containers = document.querySelectorAll(".mermaid-container");
+        for (const container of containers) {
+            const source = container.querySelector(".mermaid-source");
+            const target = container.querySelector(".mermaid-target");
+
+            if (source && target && !target.hasAttribute("data-rendered")) {
+                // If MDX wrapped lines in <p> tags, join them with newlines
+                const paragraphs = source.querySelectorAll("p");
+                let text = "";
+
+                if (paragraphs.length > 0) {
+                    text = Array.from(paragraphs)
+                        .map((p) => p.textContent.trim())
+                        .filter((t) => t.length > 0)
+                        .join("\n");
+                } else {
+                    text = source.textContent.trim();
+                }
+
+                if (text) {
+                    // Reverse "smartypants" transformations (smart quotes, long dashes)
+                    text = text
+                        .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"') // Double quotes
+                        .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'") // Single quotes
+                        .replace(/[\u2013\u2014]/g, "--") // En/Em dashes to double dash
+                        .replace(/\u2192/g, "-->") // Right arrows
+                        .replace(/&quot;/g, '"');
+
+                    target.textContent = text;
+                    target.classList.add("mermaid");
+                    target.setAttribute("data-rendered", "true");
+                    // Important: Clear source to prevent re-processing
+                    source.remove();
+                }
+            }
+        }
+
+        try {
+            await mermaid.run({
+                nodes: document.querySelectorAll(".mermaid-target.mermaid"),
+            });
+        } catch (e) {
+            console.error("Mermaid render error:", e);
+        }
+    };
+
+    // Run on initial load
+    renderMermaid();
+
+    // Re-run on view transitions
+    document.addEventListener("astro:after-swap", renderMermaid);
+</script>

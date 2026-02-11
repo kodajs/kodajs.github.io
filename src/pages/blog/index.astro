@@ -1,0 +1,185 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const featuredPost = posts[0];
+const remainingPosts = posts.slice(1);
+---
+
+<Layout title="Transmission Log | Koda Zenith">
+    <main class="relative pt-32 pb-24 overflow-hidden">
+        <!-- Decoration: Ambient Glows -->
+        <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-sky-500/10 rounded-full blur-[120px] -z-10 animate-pulse-slow"></div>
+        <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-rose-500/5 rounded-full blur-[120px] -z-10 animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <!-- Header HUD -->
+        <div class="max-w-7xl mx-auto px-6 mb-24 relative">
+             <div class="flex items-center gap-4 mb-6 animate-in fade-in slide-in-from-left-4 duration-700">
+                <span class="px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-sky-400">
+                    Network Transmission
+                </span>
+                <div class="h-px bg-white/10 flex-1"></div>
+                <span class="font-mono text-[10px] text-slate-500 tracking-widest hidden md:block">
+                    STATUS: SYNCHRONIZED // ENCRYPTION: ACTIVE
+                </span>
+            </div>
+
+            <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9]">
+                <span class="text-white block opacity-50">Industrial</span>
+                <span class="gradient-text glitch block" data-text="Mission Log">Mission Log</span>
+            </h1>
+            
+            <p class="text-xl text-slate-400 max-w-2xl font-medium leading-relaxed">
+                Archives of the Zenith realization. Technical bulletins, architectural shifts, and future-state protocols from the core maintainers.
+            </p>
+        </div>
+
+        <!-- Featured Section -->
+        {featuredPost && (
+            <section class="max-w-7xl mx-auto px-6 mb-32 group">
+                <a href={`/blog/${featuredPost.slug}`} class="block relative">
+                    <div class="glass-card !p-0 rounded-[3rem] overflow-hidden border-white/10 group-hover:border-sky-500/50 transition-all duration-700">
+                         <div class="grid lg:grid-cols-2">
+                            <!-- Image Container -->
+                            <div class="relative aspect-video lg:aspect-auto bg-slate-900 overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-r from-slate-950/80 to-transparent z-10 lg:block hidden"></div>
+                                <div class="absolute inset-0 bg-sky-500/10 group-hover:bg-sky-500/20 transition-colors z-20"></div>
+                                
+                                <!-- Scanning Line Effect -->
+                                <div class="absolute inset-0 z-30 pointer-events-none opacity-20 bg-[linear-gradient(transparent_0%,rgba(56,189,248,0.5)_50%,transparent_100%)] bg-[length:100%_4px] animate-[scan_4s_linear_infinite]"></div>
+
+                                 {featuredPost.data.image ? (
+                                     <div class="w-full h-full relative">
+                                        <img 
+                                            src={featuredPost.data.image} 
+                                            alt={featuredPost.data.title}
+                                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                        />
+                                        <div class="absolute inset-0 bg-slate-950/40 mix-blend-multiply group-hover:bg-transparent transition-colors duration-700"></div>
+                                     </div>
+                                ) : (
+                                    <div class="w-full h-full bg-slate-800"></div>
+                                )}
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-12 lg:p-20 relative flex flex-col justify-center">
+                                <div class="flex items-center gap-4 mb-8">
+                                    <span class="text-sky-400 font-mono text-xs font-bold tracking-widest uppercase">
+                                        {featuredPost.data.tags[0]}
+                                    </span>
+                                    <div class="w-1 h-1 rounded-full bg-slate-600"></div>
+                                    <time class="text-slate-500 font-mono text-xs uppercase tracking-widest">
+                                        [ {featuredPost.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).toUpperCase()} ]
+                                    </time>
+                                </div>
+
+                                <h2 class="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight leading-tight group-hover:text-sky-400 transition-colors">
+                                    {featuredPost.data.title}
+                                </h2>
+
+                                <p class="text-lg text-slate-400 mb-10 leading-relaxed max-w-xl">
+                                    {featuredPost.data.description}
+                                </p>
+
+                                <div class="flex items-center gap-4 mt-auto">
+                                    <div class="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-sky-400 font-black">
+                                        {featuredPost.data.author[0]}
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-white uppercase tracking-wider">{featuredPost.data.author}</div>
+                                        <div class="text-[10px] font-mono text-slate-500 tracking-widest uppercase">Core Dev // Layer_00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hover Action Badge -->
+                    <div class="absolute -bottom-4 right-12 glass dark px-8 py-4 rounded-2xl border border-sky-500/30 text-white font-black uppercase tracking-[0.2em] translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 shadow-[0_0_30px_rgba(14,165,233,0.3)] pointer-events-none text-xs">
+                        Open Transmission
+                    </div>
+                </a>
+            </section>
+        )}
+
+        <!-- Archive Section -->
+        <section class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center gap-8 mb-16">
+                 <h3 class="text-3xl font-black text-white tracking-tighter uppercase italic">
+                    Log_Archive
+                </h3>
+                <div class="h-px bg-white/5 flex-1"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {remainingPosts.map((post) => (
+                    <a href={`/blog/${post.slug}`} class="group">
+                        <article class="glass-card flex flex-col h-full hover:border-sky-500/30 transition-all duration-500 hover:-translate-y-2 relative">
+                            <!-- Tactical Border Corner -->
+                            <div class="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-sky-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            
+                            <div class="relative aspect-video rounded-2xl overflow-hidden mb-8 border border-white/5 bg-slate-900 shadow-inner">
+                                {post.data.image ? (
+                                    <img 
+                                        src={post.data.image} 
+                                        alt={post.data.title}
+                                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-100"
+                                    />
+                                ) : (
+                                    <div class="w-full h-full flex items-center justify-center opacity-30">
+                                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-[0.3em]">SECURE_STORAGE</span>
+                                    </div>
+                                )}
+                                <div class="absolute inset-0 bg-sky-500/5 group-hover:bg-sky-500/0 transition-colors pointer-events-none"></div>
+                            </div>
+
+                            <div class="flex items-center gap-3 mb-4">
+                                {post.data.tags.slice(0, 2).map((tag: string) => (
+                                    <span class="text-[10px] font-bold text-sky-400 uppercase tracking-widest opacity-70 group-hover:opacity-100 transition-opacity">
+                                        #{tag}
+                                    </span>
+                                ))}
+                                <time class="ml-auto text-[10px] font-mono text-slate-500 uppercase tracking-widest font-medium">
+                                    {post.data.pubDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit' })}.26
+                                </time>
+                            </div>
+
+                            <h4 class="text-xl font-bold text-white mb-4 leading-tight group-hover:text-sky-400 transition-colors">
+                                {post.data.title}
+                            </h4>
+
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 line-clamp-2">
+                                {post.data.description}
+                            </p>
+
+                            <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                                <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest group-hover:text-white transition-colors">
+                                    [ RED_READ_MORE ]
+                                </span>
+                                <div class="w-2 h-2 rounded-full bg-slate-800 group-hover:bg-sky-500 transition-colors"></div>
+                            </div>
+                        </article>
+                    </a>
+                ))}
+            </div>
+        </section>
+    </main>
+
+    <style>
+        @reference "../../styles/global.css";
+
+        .glass-card {
+             @apply glass p-8 rounded-[2rem] border border-white/10;
+        }
+
+        @keyframes scan {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(100%); }
+        }
+    </style>
+</Layout>

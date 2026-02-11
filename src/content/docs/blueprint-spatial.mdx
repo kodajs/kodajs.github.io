@@ -1,0 +1,53 @@
+---
+title: "Spatial UI & RealityEngine"
+description: "Building immersive AR/VR experiences with Koda's native RealityEngine."
+order: 13
+---
+
+# Spatial Computing & RealityEngine
+
+The web is evolving beyond flat screens. Koda Zenith includes **RealityEngine**, a native spatial computing stack that allows developers to build immersive AR/VR experiences using familiar web paradigms.
+
+## The .zen Language
+
+We introduced the `.zen` extension specifically for defining spatial realities. It combines reactive state management with low-level 3D rendering instructions.
+
+- **Reality DSL**: Declarative syntax for defining 3D scenes.
+- **Zero-Latency Interactions**: Sub-1ms input-to-photon latency on supported spatial hardware.
+- **Physical Integration**: Direct access to spatial tracking, hand gestures, and environmental mapping.
+
+## Building for the Immersive Era
+
+RealityEngine doesn't just render 3D models; it manages the entire spatial context, including physics, spatial audio, and haptic feedback.
+
+```zen
+reality App() {
+  state {
+    rotation: Degree(0)
+  }
+
+  render {
+    Scene([
+      AmbientLight(intensity: 0.5),
+      PointLight(position: [2, 5, 2]),
+      
+      // Load and animate a native Zenith model
+      Model('./assets/industrial_core.glb') {
+        transform: rotateY(state.rotation),
+        onHover: () => state.rotation.animate(to: 360, duration: 2s)
+      }
+    ]);
+  }
+}
+```
+
+## Reality-First UX
+
+Zenith's spatial components are designed to be "World Anchored". They exist in 3D space rather than being fixed to a viewport. This opens up new possibilities for:
+- **Industrial Dashboards**: Digital twins of real machinery.
+- **Collaborative Workspaces**: Multi-user shared realities.
+- **Data Visualization**: Exploring complex datasets in 3 dimensions.
+
+## Native Performance
+
+By bypassing the traditional browser DOM and rendering directly to the Metal or Vulkan buffers, RealityEngine achieves performance that was previously only possible in native game engines like Unreal or Unity.

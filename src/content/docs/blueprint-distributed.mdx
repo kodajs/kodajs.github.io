@@ -1,0 +1,48 @@
+---
+title: "Distributed Systems (BEAM)"
+description: "Actor-model concurrency for massive scale and million-plus connections."
+order: 12
+---
+
+# Distributed Systems & Resilience
+
+Koda Zenith is designed for industrial scale. By adopting the semantics of the BEAM (Erlang VM), we provide a foundation that allows for massive concurrency and "Let it Crash" reliability within the Bun/Deno ecosystem.
+
+## The Actor Model Convergence
+
+In Zenith, every request or background task is treated as an isolated "Actor". These actors do not share memory; they communicate via asynchronous message passing.
+
+- **Process Isolation**: A failure in one actor cannot bring down the entire system.
+- **Self-Healing Supervision**: Actors are monitored by "Supervisors" that automatically restart failed processes.
+- **Massive Concurrency**: Handle millions of lightweight processes with minimal memory overhead.
+
+## Horizon Synchronization
+
+Koda Zenith uses a proprietary protocol called **Horizon** to synchronize state across global clusters with sub-50ms consistency.
+
+```typescript
+import { spawn, receive, send } from '@koda/beam';
+
+// Spawn a resilient actor
+const pid = spawn(() => {
+  receive(msg => {
+    switch(msg.type) {
+      case 'SYNC_STATE':
+        return performSync(msg.payload);
+      case 'CLUSTER_UP':
+        return log('Node joined cluster');
+    }
+  });
+});
+
+// Send message to the local or remote process
+send(pid, { type: 'SYNC_STATE', payload: data });
+```
+
+## Fault Tolerance at Scale
+
+We don't try to prevent every error. We build systems that can recover from them. Zenith's built-in monitoring provides real-time heatmaps of actor health, allowing you to identify bottlenecks and failure points before they impact users.
+
+## Location Transparency
+
+The Horizon protocol makes it irrelevant where a process is running. You can send a message to a process on a server in Tokyo from a server in London using the exact same syntax as a local call.

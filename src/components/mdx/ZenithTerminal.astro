@@ -1,0 +1,190 @@
+---
+const {
+    command = "zenith build",
+    prompt = "$",
+    windowTitle = "zenith_core_terminal",
+} = Astro.props;
+---
+
+<div
+    class="terminal-container my-10 rounded-2xl overflow-hidden glass-dark border border-white/10 shadow-2xl group animate-in zoom-in-95 duration-700"
+>
+    <!-- Terminal Header -->
+    <div
+        class="bg-slate-900/80 px-4 py-3 flex items-center justify-between border-b border-white/5"
+    >
+        <div class="flex items-center gap-6">
+            <div class="flex gap-1.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-rose-500/30"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-500/30"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/30"></div>
+            </div>
+            <span
+                class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-[0.2em]"
+                >{windowTitle}.sh</span
+            >
+        </div>
+        <div class="flex items-center gap-2">
+            <div class="h-1 w-8 bg-white/5 rounded-full"></div>
+            <div
+                class="w-2 h-2 rounded bg-sky-500/20 group-hover:bg-sky-500/50 transition-colors"
+            >
+            </div>
+        </div>
+    </div>
+
+    <!-- Terminal Body -->
+    <div class="p-6 md:p-8 font-mono text-sm leading-relaxed overflow-x-auto">
+        <div class="flex gap-4 mb-4">
+            <span class="text-emerald-400 font-bold shrink-0">{prompt}</span>
+            <span class="text-white font-bold">{command}</span>
+        </div>
+
+        <!-- Hidden source content -->
+        <div class="terminal-source hidden">
+            <slot />
+        </div>
+
+        <!-- Animated output container -->
+        <div class="terminal-output space-y-1 text-slate-300"></div>
+    </div>
+
+    <!-- Terminal Footer HUD -->
+    <div
+        class="px-6 py-2 bg-black/20 border-t border-white/5 flex items-center justify-between"
+    >
+        <span
+            class="text-[9px] font-mono text-slate-600 uppercase tracking-widest"
+            >Execution_Environment: Zenith_Native_v1.0.4</span
+        >
+        <div class="flex gap-4">
+            <span
+                class="text-[9px] font-mono text-emerald-500/50 uppercase tracking-widest"
+                >● [System_Online]</span
+            >
+            <span class="text-[9px] font-mono text-slate-600">LN 1, COL 1</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .terminal-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1em;
+        background-color: #10b981;
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        0%,
+        50% {
+            opacity: 1;
+        }
+        51%,
+        100% {
+            opacity: 0;
+        }
+    }
+</style>
+
+<script>
+    function initTerminals() {
+        const terminals = document.querySelectorAll(".terminal-container");
+
+        terminals.forEach((terminal) => {
+            const source = terminal.querySelector(".terminal-source");
+            const output = terminal.querySelector(".terminal-output");
+
+            if (!source || !output || output.hasAttribute("data-animated"))
+                return;
+
+            // Extract raw HTML content from source
+            let rawHTML = "";
+
+            const paragraphs = source.querySelectorAll("p");
+            if (paragraphs.length > 0) {
+                rawHTML = Array.from(paragraphs)
+                    .map((p) => p.innerHTML)
+                    .join("\\n");
+            } else {
+                rawHTML = source.innerHTML;
+            }
+
+            // Clean HTML tags but keep the text
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = rawHTML;
+            const rawText = tempDiv.textContent || "";
+
+            // Strategy 1: Split on literal \n (two chars: backslash + n) that MDX produces
+            let lines = rawText
+                .split("\\n")
+                .map((l) => l.trim())
+                .filter((l) => l.length > 0);
+
+            // Strategy 2: Split on real newlines if strategy 1 didn't work
+            if (lines.length <= 1) {
+                lines = rawText
+                    .split("\n")
+                    .map((l) => l.trim())
+                    .filter((l) => l.length > 0);
+            }
+
+            // Strategy 3: Split on bracket patterns
+            if (lines.length <= 1 && rawText.length > 0) {
+                lines = rawText
+                    .split(
+                        /(?=\[(?:SIM|MESH|STATUS|KERNEL|SYSTEM|ERROR|WARN|INFO|DEBUG)\])/g,
+                    )
+                    .map((l) => l.trim())
+                    .filter((l) => l.length > 0);
+            }
+
+            if (lines.length === 0) return;
+
+            // Intersection Observer for scroll trigger
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (
+                            entry.isIntersecting &&
+                            !output.hasAttribute("data-animated")
+                        ) {
+                            output.setAttribute("data-animated", "true");
+                            animateTerminal(output, lines);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.3 },
+            );
+
+            observer.observe(terminal);
+        });
+    }
+
+    async function animateTerminal(output: Element, lines: string[]) {
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const lineDiv = document.createElement("div");
+            lineDiv.className = "leading-relaxed";
+            output.appendChild(lineDiv);
+
+            // Type each character
+            for (let j = 0; j < line.length; j++) {
+                lineDiv.textContent = line.substring(0, j + 1);
+                await new Promise((resolve) => setTimeout(resolve, 15)); // 15ms per char
+            }
+
+            // Small delay between lines
+            await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+    }
+
+    // Run on load
+    initTerminals();
+
+    // Re-run on view transitions
+    document.addEventListener("astro:after-swap", initTerminals);
+</script>

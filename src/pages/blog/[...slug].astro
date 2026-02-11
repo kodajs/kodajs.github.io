@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import ZenithCallout from "../../components/mdx/ZenithCallout.astro";
+import ZenithTerminal from "../../components/mdx/ZenithTerminal.astro";
+import ZenithMetric from "../../components/mdx/ZenithMetric.astro";
+import ZenithArchitecture from "../../components/mdx/ZenithArchitecture.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const components = {
+    ZenithCallout,
+    ZenithTerminal,
+    ZenithMetric,
+    ZenithArchitecture,
+};
+---
+
+<BlogLayout frontmatter={entry.data}>
+    <Content components={components} />
+</BlogLayout>
