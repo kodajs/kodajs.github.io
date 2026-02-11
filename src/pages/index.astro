@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SmartCursor from "../components/SmartCursor.astro";
 import ThreeHero from "../components/ThreeHero.astro";
-import "../styles/global.css";
+import InteractivePlayground from "../components/InteractivePlayground.astro";
 ---
 
 <Layout title="KodaJS | The Hyper-Speed Backend Framework">
@@ -45,16 +45,66 @@ import "../styles/global.css";
 	<div class="fixed top-6 right-6 z-50 flex items-center gap-3">
 		<nav class="hidden md:flex items-center gap-2">
 			{
-				["Docs", "Ecosystem", "Blog"].map((item) => (
+				[
+					{ label: "Docs", href: "/docs/introduction" },
+					{ label: "Ecosystem", href: "#ecosystem" },
+					{ label: "Blog", href: "/blog" },
+					{ label: "Back Project", href: "/back" },
+				].map((item) => (
 					<a
-						href={`#${item.toLowerCase()}`}
-						class="glass-dark px-4 py-2 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:border-sky-500/50 border border-white/10 transition-all duration-300 hover:shadow-[0_0_15px_rgba(14,165,233,0.3)]"
+						href={item.href}
+						class={`glass-dark px-4 py-2 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:border-sky-500/50 border border-white/10 transition-all duration-300 hover:shadow-[0_0_15px_rgba(14,165,233,0.3)] ${item.label === "Back Project" ? "text-rose-400 border-rose-500/30" : ""}`}
 					>
-						{item}
+						{item.label}
 					</a>
 				))
 			}
+			<button
+				onclick="document.getElementById('command-search-input')?.focus(); document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));"
+				class="hidden md:flex glass-dark px-3 py-2 rounded-full text-xs font-medium text-slate-400 hover:text-white border border-white/10 transition-colors items-center gap-2 group cursor-pointer"
+				aria-label="Search"
+			>
+				<svg
+					class="w-4 h-4 group-hover:text-sky-400 transition-colors"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+				</svg>
+				<span class="hidden lg:inline">Search</span>
+				<kbd
+					class="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-white/10 bg-white/5 text-[10px] text-slate-500 font-sans"
+				>
+					<span class="text-xs">⌘</span>K
+				</kbd>
+			</button>
 		</nav>
+
+		<!-- Mobile Menu Trigger -->
+		<button
+			onclick="document.dispatchEvent(new CustomEvent('open-mobile-menu'))"
+			class="md:hidden glass-dark p-2 rounded-full text-slate-300 hover:text-white border border-white/10 transition-colors cursor-pointer"
+			aria-label="Open Menu"
+		>
+			<svg
+				class="w-6 h-6"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M4 6h16M4 12h16m-7 6h7"></path>
+			</svg>
+		</button>
+
 		<a
 			href="https://github.com/kodajs"
 			target="_blank"
@@ -201,219 +251,285 @@ import "../styles/global.css";
 			</div>
 		</div>
 	</section>
-</Layout>
 
-<!-- Infinite Tech Marquee -->
-<section
-	class="border-y border-white/10 py-12 bg-slate-950/80 relative z-20 overflow-hidden backdrop-blur-sm"
->
-	<!-- Layer 1: Tech Stack -->
-	<div class="tech-marquee-container mb-8">
-		<div class="tech-marquee-content">
-			<!-- Content Duplicated for Infinite Scroll -->
-			{
-				Array(4)
-					.fill([
-						{ name: "Rust", color: "text-orange-400" },
-						{ name: "Bun", color: "text-pink-400" },
-						{ name: "Zig", color: "text-amber-400" },
-						{ name: "Elixir", color: "text-purple-400" },
-						{ name: "Hono", color: "text-orange-500" },
-						{ name: "React", color: "text-sky-400" },
-						{ name: "Solid", color: "text-blue-500" },
-						{ name: "Svelte", color: "text-orange-600" },
-						{ name: "WASM", color: "text-indigo-400" },
-					])
-					.flat()
-					.map((tech) => (
-						<div class="tech-item text-xl">
-							<span
-								class={`w-2 h-2 rounded-full ${tech.color} shadow-[0_0_10px_currentColor]`}
-							/>
-							<span>{tech.name}</span>
-						</div>
-					))
-			}
-		</div>
-	</div>
-
-	<!-- Layer 2: ZENITH Flow -->
-	<div class="tech-marquee-container tech-marquee-reverse opacity-30">
-		<div class="tech-marquee-content">
-			{
-				Array(10)
-					.fill("ZENITH // CORE // SYSTEMS //")
-					.map((text) => (
-						<div class="tech-item text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-800 tracking-tighter">
-							{text}
-						</div>
-					))
-			}
-		</div>
-	</div>
-
-	<div
-		class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"
+	<!-- Infinite Tech Marquee -->
+	<section
+		class="border-y border-white/10 py-12 bg-slate-950/80 relative z-20 overflow-hidden backdrop-blur-sm"
 	>
-	</div>
-	<div
-		class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"
-	>
-	</div>
-</section>
-
-<section class="py-24 relative overflow-hidden">
-	<div class="max-w-7xl mx-auto px-6 relative z-10 w-full mb-20">
-		<div
-			class="max-w-3xl mx-auto glass p-1.5 rounded-2xl border-white/15 shadow-3xl text-center"
-		>
-			<div
-				class="bg-black/80 rounded-xl overflow-hidden backdrop-blur-3xl"
-			>
-				<div
-					class="px-5 py-4 border-b border-white/15/50 flex items-center justify-between"
-				>
-					<div class="flex gap-2">
-						<div
-							class="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500/30"
-						>
-						</div>
-						<div
-							class="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/30"
-						>
-						</div>
-						<div
-							class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/30"
-						>
-						</div>
-					</div>
-					<div
-						class="text-[10px] text-slate-500 font-mono uppercase tracking-widest"
-					>
-						kodajs --version
-					</div>
-				</div>
-				<div class="p-8 text-left font-mono text-sm leading-relaxed">
-					<div class="flex gap-3 mb-2">
-						<span class="text-sky-400">$</span>
-						<span class="text-slate-100"
-							>bun create koda my-cosmic-app</span
-						>
-					</div>
-					<div class="text-slate-500 mb-2 pl-6">
-						Resolving cosmic dependencies...
-					</div>
-					<div class="text-emerald-400 mb-2 pl-6">
-						✓ Project initialized successfully
-					</div>
-					<div class="flex gap-3 mt-4">
-						<span class="text-sky-400">$</span>
-						<span class="text-slate-100"
-							>cd my-cosmic-app && bun dev</span
-						>
-					</div>
-					<div
-						class="text-koda-300 mt-2 pl-6 flex items-center gap-2"
-					>
-						Koda Zenith v2.0.0 listening on port 4321
-						<span class="w-2 h-5 bg-sky-500/50 animate-pulse"
-						></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- Institutional Marquee -->
-<section
-	class="py-12 border-y border-white/15/50 bg-slate-900/40 overflow-hidden relative"
->
-	<div
-		class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent z-10 pointer-events-none"
-	>
-	</div>
-	<div
-		class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-900 to-transparent z-10 pointer-events-none"
-	>
-	</div>
-	<div class="marquee gap-24 items-center">
-		{
-			[1, 2, 3].map(() => (
-				<>
-					<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
-						<span class="text-2xl font-black tracking-[0.2em] text-white">
-							COSMOS
-						</span>
-					</div>
-					<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
-						<span class="text-2xl font-black tracking-[0.2em] text-white">
-							ORBIT
-						</span>
-					</div>
-					<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
-						<span class="text-2xl font-black tracking-[0.2em] text-white">
-							NEBULA
-						</span>
-					</div>
-					<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
-						<span class="text-2xl font-black tracking-[0.2em] text-white">
-							PULSAR
-						</span>
-					</div>
-					<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
-						<span class="text-2xl font-black tracking-[0.2em] text-white">
-							QUASAR
-						</span>
-					</div>
-				</>
-			))
-		}
-	</div>
-</section>
-<!-- Features Section -->
-<section id="features" class="py-32 relative overflow-hidden">
-	<!-- Hazard Strip -->
-	<div class="hazard-strip-container">
-		<div class="hazard-strip" style="top: 10%; transform: rotate(-12deg);">
-			<div class="hazard-strip-content">
+		<!-- Layer 1: Tech Stack -->
+		<div class="tech-marquee-container mb-8">
+			<div class="tech-marquee-content">
+				<!-- Content Duplicated for Infinite Scroll -->
 				{
-					Array(20)
-						.fill("ZENITH // CAUTION // INDUSTRIAL SECTOR //")
-						.map((text) => <span>{text}</span>)
+					Array(4)
+						.fill([
+							{ name: "Rust", color: "text-orange-400" },
+							{ name: "Bun", color: "text-pink-400" },
+							{ name: "Zig", color: "text-amber-400" },
+							{ name: "Elixir", color: "text-purple-400" },
+							{ name: "Web3", color: "text-emerald-400" },
+							{ name: "AR/VR", color: "text-rose-400" },
+							{ name: "BCI", color: "text-sky-300" },
+							{ name: "WASM", color: "text-indigo-400" },
+							{ name: "Edge", color: "text-sky-500" },
+						])
+						.flat()
+						.map((tech) => (
+							<div class="tech-item text-xl">
+								<span
+									class={`w-2 h-2 rounded-full ${tech.color} shadow-[0_0_10px_currentColor]`}
+								/>
+								<span>{tech.name}</span>
+							</div>
+						))
 				}
 			</div>
 		</div>
-	</div>
-	<div class="max-w-7xl mx-auto px-6 relative z-10">
-		<div class="text-center mb-24">
-			<h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-				<span class="gradient-text">Institutional Engineering</span>
-			</h2>
-			<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
-				Enterprise-grade foundations for the modern explorer.
-			</p>
+
+		<!-- Layer 2: ZENITH Flow -->
+		<div class="tech-marquee-container tech-marquee-reverse opacity-30">
+			<div class="tech-marquee-content">
+				{
+					Array(10)
+						.fill("ZENITH // CORE // SYSTEMS //")
+						.map((text) => (
+							<div class="tech-item text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-800 tracking-tighter">
+								{text}
+							</div>
+						))
+				}
+			</div>
 		</div>
 
 		<div
-			class="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-[minmax(200px,auto)]"
+			class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"
 		>
-			<!-- Feature 1: Bun Runtime (Large/Hero Feature) -->
-			<!-- Takes 2x2 space on Desktop -->
+		</div>
+		<div
+			class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"
+		>
+		</div>
+	</section>
+
+	<section class="py-24 relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-6 relative z-10 w-full mb-20">
 			<div
-				class="glass-card group lg:col-span-2 lg:row-span-2 relative overflow-hidden flex flex-col justify-between min-h-[400px]"
+				class="max-w-3xl mx-auto glass p-1.5 rounded-2xl border-white/15 shadow-3xl text-center"
 			>
 				<div
-					class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+					class="bg-black/80 rounded-xl overflow-hidden backdrop-blur-3xl"
 				>
+					<div
+						class="px-5 py-4 border-b border-white/15/50 flex items-center justify-between"
+					>
+						<div class="flex gap-2">
+							<div
+								class="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500/30"
+							>
+							</div>
+							<div
+								class="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/30"
+							>
+							</div>
+							<div
+								class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/30"
+							>
+							</div>
+						</div>
+						<div
+							class="text-[10px] text-slate-500 font-mono uppercase tracking-widest"
+						>
+							kodajs --version
+						</div>
+					</div>
+					<div
+						class="p-8 text-left font-mono text-sm leading-relaxed"
+					>
+						<div class="flex gap-3 mb-2">
+							<span class="text-sky-400">$</span>
+							<span class="text-slate-100"
+								>bun create koda my-cosmic-app</span
+							>
+						</div>
+						<div class="text-slate-500 mb-2 pl-6">
+							Resolving cosmic dependencies...
+						</div>
+						<div class="text-emerald-400 mb-2 pl-6">
+							✓ Project initialized successfully
+						</div>
+						<div class="flex gap-3 mt-4">
+							<span class="text-sky-400">$</span>
+							<span class="text-slate-100"
+								>cd my-cosmic-app && bun dev</span
+							>
+						</div>
+						<div
+							class="text-koda-300 mt-2 pl-6 flex items-center gap-2"
+						>
+							Koda Zenith v2.0.0 listening on port 4321
+							<span class="w-2 h-5 bg-sky-500/50 animate-pulse"
+							></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Institutional Marquee -->
+	<section
+		class="py-12 border-y border-white/15/50 bg-slate-900/40 overflow-hidden relative"
+	>
+		<div
+			class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent z-10 pointer-events-none"
+		>
+		</div>
+		<div
+			class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-900 to-transparent z-10 pointer-events-none"
+		>
+		</div>
+		<div class="marquee gap-24 items-center">
+			{
+				[1, 2, 3].map(() => (
+					<>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								COSMOS
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								ORBIT
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								NEBULA
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								PULSAR
+							</span>
+						</div>
+						<div class="flex items-center gap-4 opacity-20 hover:opacity-100 transition-all cursor-default grayscale hover:grayscale-0">
+							<span class="text-2xl font-black tracking-[0.2em] text-white">
+								QUASAR
+							</span>
+						</div>
+					</>
+				))
+			}
+		</div>
+	</section>
+	<!-- Features Section -->
+	<section id="features" class="py-32 relative overflow-hidden">
+		<!-- Hazard Strip -->
+		<div class="hazard-strip-container">
+			<div
+				class="hazard-strip"
+				style="top: 10%; transform: rotate(-12deg);"
+			>
+				<div class="hazard-strip-content">
+					{
+						Array(20)
+							.fill("ZENITH // CAUTION // INDUSTRIAL SECTOR //")
+							.map((text) => <span>{text}</span>)
+					}
+				</div>
+			</div>
+		</div>
+		<div class="max-w-7xl mx-auto px-6 relative z-10">
+			<div class="text-center mb-24">
+				<h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+					<span class="gradient-text">Institutional Engineering</span>
+				</h2>
+				<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
+					Enterprise-grade foundations for the modern explorer.
+				</p>
+			</div>
+
+			<div
+				class="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-[minmax(200px,auto)]"
+			>
+				<!-- Feature 1: Bun Runtime (Large/Hero Feature) -->
+				<!-- Takes 2x2 space on Desktop -->
+				<div
+					class="glass-card group lg:col-span-2 lg:row-span-2 relative overflow-hidden flex flex-col justify-between min-h-[400px]"
+				>
+					<div
+						class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+					>
+					</div>
+
+					<div class="relative z-10">
+						<div
+							class="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow shadow-lg shadow-pink-500/20"
+						>
+							<svg
+								class="w-8 h-8 text-white"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2.5"
+									d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+							</svg>
+						</div>
+						<h3 class="text-3xl font-black mb-4 text-white">
+							Bun Runtime
+						</h3>
+						<p
+							class="text-slate-400 leading-relaxed font-medium text-lg max-w-md"
+						>
+							Built for modern performance. No Node.js legacy
+							weight. Just raw, unadulterated speed.
+						</p>
+					</div>
+
+					<!-- Decorative Terminal/Speed Graphic -->
+					<div
+						class="mt-8 relative rounded-xl bg-slate-950/50 border border-white/5 p-4 font-mono text-sm text-slate-300"
+					>
+						<div
+							class="flex items-center gap-2 mb-2 border-b border-white/5 pb-2"
+						>
+							<div class="w-3 h-3 rounded-full bg-rose-500"></div>
+							<div class="w-3 h-3 rounded-full bg-amber-500">
+							</div>
+							<div class="w-3 h-3 rounded-full bg-emerald-500">
+							</div>
+							<span class="text-xs text-slate-500 ml-2"
+								>benchmark.sh</span
+							>
+						</div>
+						<div class="space-y-1">
+							<div class="flex justify-between">
+								<span>bun run index.ts</span>
+								<span class="text-emerald-400">8ms ⚡</span>
+							</div>
+							<div class="flex justify-between opacity-40">
+								<span>node index.js</span>
+								<span>42ms</span>
+							</div>
+							<div class="flex justify-between opacity-40">
+								<span>deno run index.ts</span>
+								<span>26ms</span>
+							</div>
+						</div>
+					</div>
 				</div>
 
-				<div class="relative z-10">
+				<!-- Feature 2: Elysia Ergonomics (Standard) -->
+				<div class="glass-card group lg:col-span-1">
 					<div
-						class="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform glow shadow-lg shadow-pink-500/20"
+						class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform glow shadow-lg shadow-indigo-500/20"
 					>
 						<svg
-							class="w-8 h-8 text-white"
+							class="w-6 h-6 text-white"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -425,387 +541,190 @@ import "../styles/global.css";
 								d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 						</svg>
 					</div>
-					<h3 class="text-3xl font-black mb-4 text-white">
-						Bun Runtime
+					<h3 class="text-xl font-bold mb-3 text-white">
+						Elysia Ergonomics
 					</h3>
 					<p
-						class="text-slate-400 leading-relaxed font-medium text-lg max-w-md"
+						class="text-slate-400 leading-relaxed font-medium text-sm"
 					>
-						Built for modern performance. No Node.js legacy weight.
-						Just raw, unadulterated speed.
+						Fluent, chainable APIs with end-to-end type safety. Feel
+						the friction vanish.
 					</p>
 				</div>
 
-				<!-- Decorative Terminal/Speed Graphic -->
-				<div
-					class="mt-8 relative rounded-xl bg-slate-950/50 border border-white/5 p-4 font-mono text-sm text-slate-300"
-				>
+				<!-- Feature 3: Nest Inspired (Standard) -->
+				<div class="glass-card group lg:col-span-1">
 					<div
-						class="flex items-center gap-2 mb-2 border-b border-white/5 pb-2"
+						class="w-12 h-12 bg-gradient-to-br from-sky-500 to-sky-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform glow shadow-lg shadow-sky-500/20"
 					>
-						<div class="w-3 h-3 rounded-full bg-rose-500"></div>
-						<div class="w-3 h-3 rounded-full bg-amber-500"></div>
-						<div class="w-3 h-3 rounded-full bg-emerald-500"></div>
-						<span class="text-xs text-slate-500 ml-2"
-							>benchmark.sh</span
+						<svg
+							class="w-6 h-6 text-white"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
 						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2.5"
+								d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+							></path>
+						</svg>
 					</div>
-					<div class="space-y-1">
-						<div class="flex justify-between">
-							<span>bun run index.ts</span>
-							<span class="text-emerald-400">8ms ⚡</span>
-						</div>
-						<div class="flex justify-between opacity-40">
-							<span>node index.js</span>
-							<span>42ms</span>
-						</div>
-						<div class="flex justify-between opacity-40">
-							<span>deno run index.ts</span>
-							<span>26ms</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Feature 2: Elysia Ergonomics (Standard) -->
-			<div class="glass-card group lg:col-span-1">
-				<div
-					class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform glow shadow-lg shadow-indigo-500/20"
-				>
-					<svg
-						class="w-6 h-6 text-white"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
+					<h3 class="text-xl font-bold mb-3 text-white">
+						Nest Inspired
+					</h3>
+					<p
+						class="text-slate-400 leading-relaxed font-medium text-sm"
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2.5"
-							d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-					</svg>
+						Rigid structure inspired by NestJS. Enterprise-ready, by
+						design.
+					</p>
 				</div>
-				<h3 class="text-xl font-bold mb-3 text-white">
-					Elysia Ergonomics
-				</h3>
-				<p class="text-slate-400 leading-relaxed font-medium text-sm">
-					Fluent, chainable APIs with end-to-end type safety. Feel the
-					friction vanish.
-				</p>
-			</div>
-
-			<!-- Feature 3: Nest Inspired (Standard) -->
-			<div class="glass-card group lg:col-span-1">
-				<div
-					class="w-12 h-12 bg-gradient-to-br from-sky-500 to-sky-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform glow shadow-lg shadow-sky-500/20"
-				>
-					<svg
-						class="w-6 h-6 text-white"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2.5"
-							d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-						></path>
-					</svg>
-				</div>
-				<h3 class="text-xl font-bold mb-3 text-white">Nest Inspired</h3>
-				<p class="text-slate-400 leading-relaxed font-medium text-sm">
-					Rigid structure inspired by NestJS. Enterprise-ready, by
-					design.
-				</p>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
-<section class="py-32 relative overflow-hidden">
-	<!-- Hazard Strip -->
-	<div class="hazard-strip-container">
+	<section class="py-32 relative overflow-hidden">
+		<!-- Dark background with subtle gradient -->
 		<div
-			class="hazard-strip hazard-strip-reverse"
-			style="bottom: 20%; transform: rotate(5deg);"
+			class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
 		>
-			<div class="hazard-strip-content">
-				{
-					Array(20)
-						.fill("ZENITH // RESTRICTED AREA // HIGH VOLTAGE //")
-						.map((text) => <span>{text}</span>)
-				}
+		</div>
+		<!-- Subtle accent glow -->
+		<div
+			class="absolute top-1/2 right-0 w-96 h-96 bg-sky-600/3 rounded-full blur-3xl -z-10"
+		>
+		</div>
+
+		<!-- Hazard Strip -->
+		<div class="hazard-strip-container -z-10">
+			<div
+				class="hazard-strip hazard-strip-reverse"
+				style="bottom: 20%; transform: rotate(5deg);"
+			>
+				<div class="hazard-strip-content">
+					{
+						Array(20)
+							.fill(
+								"ZENITH // RESTRICTED AREA // HIGH VOLTAGE //",
+							)
+							.map((text) => <span>{text}</span>)
+					}
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Dark background with subtle gradient -->
-	<div
-		class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
-	>
-	</div>
-	<!-- Subtle accent glow -->
-	<div
-		class="absolute top-1/2 right-0 w-96 h-96 bg-sky-600/3 rounded-full blur-3xl"
-	>
-	</div>
-	<div class="max-w-7xl mx-auto px-6 relative z-10">
-		<div class="grid lg:grid-cols-2 gap-16 items-center">
-			<div>
-				<h2 class="text-4xl md:text-5xl font-black mb-8 tracking-tight">
-					<span class="gradient-text">Unified DSLs</span>
+
+		<div class="max-w-7xl mx-auto px-6 relative z-10">
+			<!-- Single Relative Container to allow Absolute Overlays -->
+			<div class="relative min-h-[700px] flex items-center justify-end">
+				<!-- IDE Playground: The Base Layer, filling most of the space -->
+				<div class="w-full lg:w-[70%] relative z-10 lg:translate-x-12">
+					<div
+						class="relative transform lg:-rotate-1 lg:hover:rotate-0 transition-all duration-700 ease-out"
+					>
+						<InteractivePlayground />
+					</div>
+				</div>
+
+				<!-- Narrative Overlay: Positioned ABSOLUTELY on top of the IDE -->
+				<div
+					class="absolute left-0 top-1/2 -translate-y-1/2 z-30 w-full lg:w-1/2 pointer-events-none"
+				>
+					<div class="flex flex-col items-start px-2 lg:px-0">
+						<div
+							class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[10px] font-bold uppercase tracking-widest mb-6 drop-shadow-2xl"
+						>
+							Symbiotic Core
+						</div>
+
+						<h2
+							class="text-6xl md:text-9xl font-black mb-8 tracking-tighter leading-[0.8] text-white select-none"
+						>
+							<span
+								class="gradient-text drop-shadow-[0_10px_30px_rgba(14,165,233,0.5)]"
+								>Unified</span
+							><br />
+							<span
+								class="text-white drop-shadow-[0_10px_40px_rgba(0,0,0,1)]"
+								>DSLs</span
+							>
+						</h2>
+
+						<div class="max-w-md pointer-events-auto">
+							<p
+								class="text-xl md:text-2xl text-slate-100 mb-8 leading-tight font-black drop-shadow-[0_5px_15px_rgba(0,0,0,1)]"
+							>
+								Koda Zenith menghilangkan dinding pemisah antara <span
+									class="text-sky-400">Logika Server</span
+								> dan <span class="text-rose-400"
+									>Komposisi UI</span
+								>.
+							</p>
+
+							<div class="flex items-center gap-8 mt-4">
+								<div class="flex flex-col">
+									<span
+										class="text-4xl font-black text-white drop-shadow-[0_5px_15px_rgba(0,0,0,1)] tracking-tighter"
+										>0ms</span
+									>
+									<span
+										class="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] drop-shadow-md"
+										>Latency</span
+									>
+								</div>
+								<div
+									class="w-px h-10 bg-sky-500/50 shadow-[0_0_10px_#0ea5e9]"
+								>
+								</div>
+								<div class="flex flex-col">
+									<span
+										class="text-4xl font-black text-white drop-shadow-[0_5px_15px_rgba(0,0,0,1)] tracking-tighter"
+										>1:1</span
+									>
+									<span
+										class="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] drop-shadow-md"
+										>Sync</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Mermaid script moved to bottom -->
+	</section>
+
+	<!-- Architecture Section -->
+	<!-- Architecture Section (Scrollytelling) -->
+	<section id="architecture" class="py-32 relative">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center mb-24">
+				<h2 class="text-4xl md:text-5xl font-black mb-4">
+					<span class="gradient-text">Architecture Matrix</span>
 				</h2>
-				<p
-					class="text-xl text-slate-400 mb-10 leading-relaxed font-medium"
-				>
-					Koda Zenith introduces a symbiotic relationship between
-					server logic and UI composition through dedicated DSLs.
+				<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
+					Deterministic layers for cosmic reliability.
 				</p>
-
-				<!-- Interactive Toggle Controls -->
-				<div class="flex gap-2 p-1 glass rounded-3xl w-fit mb-10">
-					<button
-						id="toggle-koda"
-						class="px-6 py-2.5 rounded-full text-sm font-bold transition-all bg-sky-500 text-white shadow-lg"
-					>
-						.koda (Brain)
-					</button>
-					<button
-						id="toggle-zen"
-						class="px-6 py-2.5 rounded-full text-sm font-bold transition-all text-slate-400 hover:text-white"
-					>
-						.zen (Body)
-					</button>
-				</div>
-
-				<div class="space-y-6">
-					<div class="flex gap-5">
-						<div
-							class="flex-none w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold"
-						>
-							.koda
-						</div>
-						<div>
-							<h4 class="text-lg font-bold mb-1 text-white">
-								Logic Sovereignty
-							</h4>
-							<p class="text-slate-400">
-								Rigid server-side structures with enterprise
-								patterns.
-							</p>
-						</div>
-					</div>
-					<div class="flex gap-5">
-						<div
-							class="flex-none w-10 h-10 rounded-lg bg-indigo-500/10 border border-zenith-500/20 flex items-center justify-center text-indigo-400 font-bold"
-						>
-							.zen
-						</div>
-						<div>
-							<h4 class="text-lg font-bold mb-1 text-white">
-								Visual Fluidity
-							</h4>
-							<p class="text-slate-400">
-								Flutter-inspired UI DX for deterministic
-								interface building.
-							</p>
-						</div>
-					</div>
-				</div>
 			</div>
 
-			<div class="code-container p-1 shadow-2xl relative min-h-[400px]">
-				<!-- Koda Code (Logic) -->
-				<div
-					id="code-koda"
-					class="bg-neutral-800 rounded-lg absolute inset-0 opacity-100 transition-opacity duration-300"
-				>
-					<div
-						class="flex border-b border-white/15/50 bg-white/5 px-6 py-3"
-					>
-						<span
-							class="text-xs font-bold uppercase tracking-wider text-sky-400"
-							>server.koda</span
+			<div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
+				<!-- Left: Sticky Visualization -->
+				<div class="relative hidden lg:block">
+					<div class="sticky top-32">
+						<div
+							class="glass rounded-3xl p-8 border-white/15/50 shadow-2xl overflow-hidden relative transition-all duration-500"
+							id="arch-diagram-container"
 						>
-					</div>
-					<div class="p-8 font-mono text-[13px] leading-relaxed">
-						<div class="text-slate-500 italic mb-4">
-							// Logic Sovereignty
-						</div>
-						<div>
-							<span class="text-purple-400">@Controller</span
-							>(<span class="text-emerald-300">'/users'</span>)
-						</div>
-						<div>
-							<span class="text-purple-400">export class</span>
-							<span class="text-amber-300">UserController</span> &lbrace;
-						</div>
-						<div class="pl-4 mt-2">
-							<span class="text-purple-400">@Get</span>(<span
-								class="text-emerald-300">':id'</span
-							>)
-						</div>
-						<div class="pl-4">
-							<span class="text-purple-400">async</span>
-							<span class="text-blue-400">getUser</span>(id:
-							string) &lbrace;
-						</div>
-						<div class="pl-8">
-							<span class="text-purple-400">return this</span
-							>.service.<span class="text-blue-400">findOne</span
-							>(id);
-						</div>
-						<div class="pl-4 text-white">&rbrace;</div>
-						<div class="text-white">&rbrace;</div>
-					</div>
-				</div>
+							<!-- Scanner Overlay -->
+							<div class="scanner-line"></div>
+							<div class="scanner-overlay"></div>
 
-				<!-- Zenith Code (UI) -->
-				<div
-					id="code-zen"
-					class="bg-neutral-800 rounded-lg absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300"
-				>
-					<div
-						class="flex border-b border-white/15/50 bg-white/5 px-6 py-3"
-					>
-						<span
-							class="text-xs font-bold uppercase tracking-wider text-indigo-400"
-							>view.zen</span
-						>
-					</div>
-					<div class="p-8 font-mono text-[13px] leading-relaxed">
-						<div class="text-slate-500 italic mb-4">
-							// Visual Fluidity
-						</div>
-						<div>
-							<span class="text-purple-400">Widget</span>
-							<span class="text-blue-400">ProfileView</span>(user:
-							User) &lbrace;
-						</div>
-						<div class="pl-4 mt-2">
-							<span class="text-purple-400">return</span>
-							<span class="text-amber-300">Scaffold</span
-							>(&lbrace;
-						</div>
-						<div class="pl-8">
-							body: <span class="text-amber-300">Column</span
-							>(&lbrace;
-						</div>
-						<div class="pl-12">children: [</div>
-						<div class="pl-16">
-							<span class="text-amber-300">Avatar</span>(&lbrace;
-							src: user.photo &rbrace;),
-						</div>
-						<div class="pl-16">
-							<span class="text-amber-300">Text</span>(user.name,
-							&lbrace; style: <span class="text-emerald-300"
-								>'TITLE_LG'</span
-							> &rbrace;),
-						</div>
-						<div class="pl-12">]</div>
-						<div class="pl-8">&rbrace;)</div>
-						<div class="pl-4">&rbrace;)</div>
-						<div class="text-white">&rbrace;</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script>
-		const btnKoda = document.getElementById("toggle-koda");
-		const btnZen = document.getElementById("toggle-zen");
-		const codeKoda = document.getElementById("code-koda");
-		const codeZen = document.getElementById("code-zen");
-
-		btnKoda?.addEventListener("click", () => {
-			if (btnKoda)
-				btnKoda.className =
-					"px-6 py-2.5 rounded-lg text-sm font-bold transition-all bg-sky-500 text-white shadow-lg";
-			if (btnZen)
-				btnZen.className =
-					"px-6 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-400 hover:text-white";
-			if (codeKoda) {
-				codeKoda.style.opacity = "1";
-				codeKoda.style.pointerEvents = "auto";
-			}
-			if (codeZen) {
-				codeZen.style.opacity = "0";
-				codeZen.style.pointerEvents = "none";
-			}
-		});
-
-		btnZen?.addEventListener("click", () => {
-			if (btnZen)
-				btnZen.className =
-					"px-6 py-2.5 rounded-lg text-sm font-bold transition-all bg-indigo-500 text-white shadow-lg";
-			if (btnKoda)
-				btnKoda.className =
-					"px-6 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-400 hover:text-white";
-			if (codeKoda) {
-				codeKoda.style.opacity = "0";
-				codeKoda.style.pointerEvents = "none";
-			}
-			if (codeZen) {
-				codeZen.style.opacity = "1";
-				codeZen.style.pointerEvents = "auto";
-			}
-		});
-	</script>
-
-	<script
-		is:inline
-		src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"
-	></script>
-	<script is:inline>
-		document.addEventListener("DOMContentLoaded", () => {
-			mermaid.initialize({
-				startOnLoad: true,
-				theme: "dark",
-				securityLevel: "loose",
-				themeVariables: {
-					darkMode: true,
-					primaryColor: "#8b5cf6",
-					primaryTextColor: "#fff",
-					primaryBorderColor: "#a78bfa",
-					lineColor: "#475569",
-					secondaryColor: "#06b6d4",
-					tertiaryColor: "#1e293b",
-					fontFamily: "Inter, system-ui, sans-serif",
-				},
-			});
-		});
-	</script>
-</section>
-
-<!-- Architecture Section -->
-<!-- Architecture Section (Scrollytelling) -->
-<section id="architecture" class="py-32 relative">
-	<div class="max-w-7xl mx-auto px-6">
-		<div class="text-center mb-24">
-			<h2 class="text-4xl md:text-5xl font-black mb-4">
-				<span class="gradient-text">Architecture Matrix</span>
-			</h2>
-			<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
-				Deterministic layers for cosmic reliability.
-			</p>
-		</div>
-
-		<div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
-			<!-- Left: Sticky Visualization -->
-			<div class="relative hidden lg:block">
-				<div class="sticky top-32">
-					<div
-						class="glass rounded-3xl p-8 border-white/15/50 shadow-2xl overflow-hidden relative transition-all duration-500"
-						id="arch-diagram-container"
-					>
-						<!-- Scanner Overlay -->
-						<div class="scanner-line"></div>
-						<div class="scanner-overlay"></div>
-
-						<!-- Diagram -->
-						<pre
-							class="mermaid flex justify-center bg-transparent border-none scale-90 origin-top">
+							<!-- Diagram -->
+							<pre
+								class="mermaid flex justify-center bg-transparent border-none scale-90 origin-top">
 graph TD
     subgraph App ["APPLICATION LAYER"]
         direction LR
@@ -837,409 +756,609 @@ graph TD
     
     class App,Koda,Hono,Runtime layer;
 						</pre>
-					</div>
-				</div>
-			</div>
-
-			<!-- Right: Scrolling Steps -->
-			<div class="space-y-[50vh] py-12">
-				<!-- Mobile Diagram (Visible only on small screens) -->
-				<div class="lg:hidden glass rounded-3xl p-6 mb-12">
-					<div class="text-center text-sm text-slate-500 mb-2">
-						Architecture Overview
-					</div>
-					<!-- Simplified Mobile Diagram or Image could go here, for now using same but smaller -->
-					<div
-						class="aspect-square bg-slate-900/50 rounded-xl flex items-center justify-center text-slate-600"
-					>
-						(Interactive View on Desktop)
-					</div>
-				</div>
-
-				<!-- Step 1: App Layer -->
-				<div class="step-card group" data-target="App">
-					<div class="flex items-center gap-4 mb-4">
-						<div
-							class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 font-bold text-xl border border-purple-500/20 group-hover:scale-110 transition-transform"
-						>
-							01
 						</div>
-						<h3 class="text-2xl font-bold text-white">
-							Application Layer
-						</h3>
 					</div>
-					<p class="text-lg text-slate-400 leading-relaxed mb-6">
-						Where your logic lives. <code class="text-purple-300"
-							>.koda</code
-						> files define server intent, while <code
-							class="text-indigo-300">.zen</code
-						> handles the UI. Pure business logic, strictly typed.
-					</p>
-					<ul class="space-y-2 text-slate-500 font-mono text-sm">
-						<li class="flex items-center gap-2">
-							<svg
-								class="w-4 h-4 text-emerald-500"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								><path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M5 13l4 4L19 7"></path></svg
+				</div>
+
+				<!-- Right: Scrolling Steps -->
+				<div class="space-y-[50vh] py-12">
+					<!-- Mobile Diagram (Visible only on small screens) -->
+					<div class="lg:hidden glass rounded-3xl p-6 mb-12">
+						<div class="text-center text-sm text-slate-500 mb-2">
+							Architecture Overview
+						</div>
+						<!-- Simplified Mobile Diagram or Image could go here, for now using same but smaller -->
+						<div
+							class="aspect-square bg-slate-900/50 rounded-xl flex items-center justify-center text-slate-600"
+						>
+							(Interactive View on Desktop)
+						</div>
+					</div>
+
+					<!-- Step 1: App Layer -->
+					<div class="step-card group" data-target="App">
+						<div class="flex items-center gap-4 mb-4">
+							<div
+								class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 font-bold text-xl border border-purple-500/20 group-hover:scale-110 transition-transform"
 							>
-							entry.koda (Server Entry)
-						</li>
-						<li class="flex items-center gap-2">
-							<svg
-								class="w-4 h-4 text-emerald-500"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								><path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M5 13l4 4L19 7"></path></svg
+								01
+							</div>
+							<h3 class="text-2xl font-bold text-white">
+								Application Layer
+							</h3>
+						</div>
+						<p class="text-lg text-slate-400 leading-relaxed mb-6">
+							Where your logic lives. <code
+								class="text-purple-300">.koda</code
+							> files define server intent, while <code
+								class="text-indigo-300">.zen</code
+							> handles the UI. Pure business logic, strictly typed.
+						</p>
+						<ul class="space-y-2 text-slate-500 font-mono text-sm">
+							<li class="flex items-center gap-2">
+								<svg
+									class="w-4 h-4 text-emerald-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									><path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M5 13l4 4L19 7"></path></svg
+								>
+								entry.koda (Server Entry)
+							</li>
+							<li class="flex items-center gap-2">
+								<svg
+									class="w-4 h-4 text-emerald-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									><path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M5 13l4 4L19 7"></path></svg
+								>
+								routes/ (File-system Routing)
+							</li>
+						</ul>
+					</div>
+
+					<!-- Step 2: Koda Layer -->
+					<div class="step-card group" data-target="Koda">
+						<div class="flex items-center gap-4 mb-4">
+							<div
+								class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400 font-bold text-xl border border-sky-500/20 group-hover:scale-110 transition-transform"
 							>
-							routes/ (File-system Routing)
-						</li>
-					</ul>
-				</div>
-
-				<!-- Step 2: Koda Layer -->
-				<div class="step-card group" data-target="Koda">
-					<div class="flex items-center gap-4 mb-4">
-						<div
-							class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400 font-bold text-xl border border-sky-500/20 group-hover:scale-110 transition-transform"
-						>
-							02
+								02
+							</div>
+							<h3 class="text-2xl font-bold text-white">
+								Koda Zenith Core
+							</h3>
 						</div>
-						<h3 class="text-2xl font-bold text-white">
-							Koda Zenith Core
-						</h3>
-					</div>
-					<p class="text-lg text-slate-400 leading-relaxed mb-6">
-						The meta-framework glue. It compiles your DSLs into raw,
-						high-performance Hono handlers. Zero runtime overhead.
-					</p>
-					<div
-						class="p-4 bg-slate-950/50 rounded-xl border border-white/5 font-mono text-xs text-slate-400"
-					>
-						import &lbrace; Factory &rbrace; from '@koda/core';
-					</div>
-				</div>
-
-				<!-- Step 3: Hono Layer -->
-				<div class="step-card group" data-target="Hono">
-					<div class="flex items-center gap-4 mb-4">
+						<p class="text-lg text-slate-400 leading-relaxed mb-6">
+							The meta-framework glue. It compiles your DSLs into
+							raw, high-performance Hono handlers. Zero runtime
+							overhead.
+						</p>
 						<div
-							class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 font-bold text-xl border border-orange-500/20 group-hover:scale-110 transition-transform"
+							class="p-4 bg-slate-950/50 rounded-xl border border-white/5 font-mono text-xs text-slate-400"
 						>
-							03
+							import &lbrace; Factory &rbrace; from '@koda/core';
 						</div>
-						<h3 class="text-2xl font-bold text-white">
-							Hono Adapter
-						</h3>
 					</div>
-					<p class="text-lg text-slate-400 leading-relaxed mb-6">
-						Built on Web Standards. Koda generates standard Hono
-						middleware and handlers. Portable to any edge.
-					</p>
-					<ul class="space-y-2 text-slate-500 font-mono text-sm">
-						<li class="flex items-center gap-2">
-							<span class="w-1.5 h-1.5 rounded-full bg-orange-500"
-							></span>
-							Uses RegExpRouter
-						</li>
-						<li class="flex items-center gap-2">
-							<span class="w-1.5 h-1.5 rounded-full bg-orange-500"
-							></span>
-							Ultrafast JSON serialization
-						</li>
-					</ul>
-				</div>
 
-				<!-- Step 4: Runtime Layer -->
-				<div class="step-card group" data-target="Runtime">
-					<div class="flex items-center gap-4 mb-4">
-						<div
-							class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 font-bold text-xl border border-pink-500/20 group-hover:scale-110 transition-transform"
-						>
-							04
+					<!-- Step 3: Hono Layer -->
+					<div class="step-card group" data-target="Hono">
+						<div class="flex items-center gap-4 mb-4">
+							<div
+								class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 font-bold text-xl border border-orange-500/20 group-hover:scale-110 transition-transform"
+							>
+								03
+							</div>
+							<h3 class="text-2xl font-bold text-white">
+								Hono Adapter
+							</h3>
 						</div>
-						<h3 class="text-2xl font-bold text-white">
-							Bun / Edge Runtime
-						</h3>
+						<p class="text-lg text-slate-400 leading-relaxed mb-6">
+							Built on Web Standards. Koda generates standard Hono
+							middleware and handlers. Portable to any edge.
+						</p>
+						<ul class="space-y-2 text-slate-500 font-mono text-sm">
+							<li class="flex items-center gap-2">
+								<span
+									class="w-1.5 h-1.5 rounded-full bg-orange-500"
+								></span>
+								Uses RegExpRouter
+							</li>
+							<li class="flex items-center gap-2">
+								<span
+									class="w-1.5 h-1.5 rounded-full bg-orange-500"
+								></span>
+								Ultrafast JSON serialization
+							</li>
+						</ul>
 					</div>
-					<p class="text-lg text-slate-400 leading-relaxed">
-						The metal. Executing on Bun by default for
-						sub-millisecond startup and response times.
-					</p>
+
+					<!-- Step 4: Runtime Layer -->
+					<div class="step-card group" data-target="Runtime">
+						<div class="flex items-center gap-4 mb-4">
+							<div
+								class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 font-bold text-xl border border-pink-500/20 group-hover:scale-110 transition-transform"
+							>
+								04
+							</div>
+							<h3 class="text-2xl font-bold text-white">
+								Bun / Edge Runtime
+							</h3>
+						</div>
+						<p class="text-lg text-slate-400 leading-relaxed">
+							The metal. Executing on Bun by default for
+							sub-millisecond startup and response times.
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<script>
-		// Scrollytelling Logic
-		document.addEventListener("DOMContentLoaded", () => {
-			const steps = document.querySelectorAll(".step-card");
+		<script>
+			// Scrollytelling Logic
+			document.addEventListener("DOMContentLoaded", () => {
+				const steps = document.querySelectorAll(".step-card");
 
-			const observerOptions = {
-				root: null,
-				rootMargin: "-40% 0px -40% 0px",
-				threshold: 0,
-			};
+				const observerOptions = {
+					root: null,
+					rootMargin: "-40% 0px -40% 0px",
+					threshold: 0,
+				};
 
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						const targetId =
-							entry.target.getAttribute("data-target");
-						highlightLayer(targetId);
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							const targetId =
+								entry.target.getAttribute("data-target");
+							if (targetId) highlightLayer(targetId);
 
-						// Highlight the card itself
-						steps.forEach((s) =>
-							s.classList.remove(
+							// Highlight the card itself
+							steps.forEach((s) =>
+								s.classList.remove(
+									"opacity-100",
+									"scale-105",
+									"bg-white/5",
+								),
+							);
+							steps.forEach((s) => s.classList.add("opacity-40"));
+
+							entry.target.classList.remove("opacity-40");
+							entry.target.classList.add(
 								"opacity-100",
 								"scale-105",
 								"bg-white/5",
-							),
-						);
-						steps.forEach((s) => s.classList.add("opacity-40"));
-
-						entry.target.classList.remove("opacity-40");
-						entry.target.classList.add(
-							"opacity-100",
-							"scale-105",
-							"bg-white/5",
-						);
-					}
-				});
-			}, observerOptions);
-
-			steps.forEach((step) => observer.observe(step));
-
-			// Initialize opacity
-			steps.forEach((s) =>
-				s.classList.add(
-					"opacity-40",
-					"transition-all",
-					"duration-500",
-					"rounded-xl",
-					"p-6",
-				),
-			);
-
-			function highlightLayer(layerId) {
-				// Wait for Mermaid to be ready
-				const checkMermaid = setInterval(() => {
-					const svg = document.querySelector(".mermaid svg");
-					if (svg) {
-						clearInterval(checkMermaid);
-						applyHighlight(svg, layerId);
-					}
-				}, 100);
-			}
-
-			function applyHighlight(svg, activeId) {
-				// Reset all opacities first
-				const allGroups = svg.querySelectorAll("g.cluster");
-				allGroups.forEach((g) => {
-					g.style.opacity = "0.3";
-					g.style.transition = "opacity 0.5s ease";
-				});
-
-				// Highlight active
-				// Mermaid creates ids like "App", "Koda", etc normally if they match the subgraph id
-				// But sometimes creates complex IDs.
-				// We will try finding by ID or by internal text label
-
-				// Try ID Match first (most robust if Mermaid version supports it)
-				// In recent mermaid, subgraphs have IDs corresponding to definitions
-				let target =
-					svg.querySelector(`g[id^="${activeId}"]`) ||
-					svg.querySelector(`g[id*="${activeId}"]`);
-
-				// Fallback: search by label text
-				if (!target) {
-					const labels = svg.querySelectorAll(
-						"g.cluster span.nodeLabel",
-					);
-					labels.forEach((bg) => {
-						if (bg.textContent.includes(activeId.toUpperCase())) {
-							target = bg.closest("g.cluster");
+							);
 						}
 					});
+				}, observerOptions);
+
+				steps.forEach((step) => observer.observe(step));
+
+				// Initialize opacity
+				steps.forEach((s) =>
+					s.classList.add(
+						"opacity-40",
+						"transition-all",
+						"duration-500",
+						"rounded-xl",
+						"p-6",
+					),
+				);
+
+				function highlightLayer(layerId: string) {
+					// Wait for Mermaid to be ready
+					const checkMermaid = setInterval(() => {
+						const svg = document.querySelector(
+							".mermaid svg",
+						) as SVGSVGElement;
+						if (svg) {
+							clearInterval(checkMermaid);
+							applyHighlight(svg, layerId);
+						}
+					}, 100);
 				}
 
-				if (target) {
-					target.style.opacity = "1";
-					// Optional: Add a glow filter or stroke width increase
+				function applyHighlight(svg: SVGSVGElement, activeId: string) {
+					// Reset all opacities first
+					const allGroups = svg.querySelectorAll(
+						"g.cluster",
+					) as NodeListOf<SVGGElement>;
+					allGroups.forEach((g) => {
+						g.style.opacity = "0.3";
+						g.style.transition = "opacity 0.5s ease";
+					});
+
+					// Highlight active
+					// Mermaid creates ids like "App", "Koda", etc normally if they match the subgraph id
+					// But sometimes creates complex IDs.
+					// We will try finding by ID or by internal text label
+
+					// Try ID Match first (most robust if Mermaid version supports it)
+					// In recent mermaid, subgraphs have IDs corresponding to definitions
+					let target =
+						svg.querySelector(`g[id^="${activeId}"]`) ||
+						svg.querySelector(`g[id*="${activeId}"]`);
+
+					// Fallback: search by label text
+					if (!target) {
+						const labels = svg.querySelectorAll(
+							"g.cluster span.nodeLabel",
+						) as NodeListOf<HTMLElement>;
+						labels.forEach((bg) => {
+							if (
+								bg.textContent?.includes(activeId.toUpperCase())
+							) {
+								target = bg.closest("g.cluster") as SVGGElement;
+							}
+						});
+					}
+
+					if (target) {
+						(target as HTMLElement).style.opacity = "1";
+						// Optional: Add a glow filter or stroke width increase
+					}
 				}
-			}
-		});
-	</script>
-</section>
+			});
+		</script>
+	</section>
 
-<!-- Performance Section -->
-<section class="py-32 relative overflow-hidden">
-	<div class="max-w-7xl mx-auto px-6">
-		<div class="text-center mb-24">
-			<h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-				<span class="gradient-text">Cosmic Velocity</span>
-			</h2>
-			<p class="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
-				Engineered for zero-latency dominance. Benchmarked on Bun
-				native.
-			</p>
-		</div>
-
-		<div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-			<!-- Left: Radial Velocity Gauge -->
-			<div class="relative flex flex-col items-center justify-center">
-				<div class="relative w-80 h-80 md:w-96 md:h-96">
-					<!-- Glow Background -->
-					<div
-						class="absolute inset-0 bg-sky-500/10 rounded-full blur-[80px] animate-pulse"
-					>
-					</div>
-
-					<!-- SVG Gauge -->
-					<svg
-						class="w-full h-full transform -rotate-90"
-						viewBox="0 0 100 100"
-					>
-						<!-- Track -->
-						<circle
-							<circle
-							cx="50"
-							cy="50"
-							r="45"
-							fill="none"
-							stroke="#1e293b"
-							stroke-width="6"></circle>
-						<!-- Progress Arc -->
-						<circle
-							cx="50"
-							cy="50"
-							r="45"
-							fill="none"
-							stroke="url(#gradient-speed)"
-							stroke-width="6"
-							stroke-dasharray="283"
-							stroke-dashoffset="283"
-							stroke-linecap="round"
-							class="gauge-arc transition-all duration-[2000ms] ease-out"
-						></circle>
-						<defs>
-							<linearGradient
-								id="gradient-speed"
-								x1="0%"
-								y1="0%"
-								x2="100%"
-								y2="100%"
-							>
-								<stop offset="0%" stop-color="#38bdf8"></stop>
-								<stop offset="100%" stop-color="#ec4899"></stop>
-							</linearGradient>
-						</defs>
-					</svg>
-
-					<!-- Center Content -->
-					<div
-						class="absolute inset-0 flex flex-col items-center justify-center text-center z-10"
-					>
-						<div
-							class="text-sm font-bold text-sky-400 uppercase tracking-widest mb-2 animate-pulse"
-						>
-							Real-time Throughput
-						</div>
-						<div
-							class="text-7xl md:text-8xl font-black text-white leading-none tracking-tighter"
-						>
-							<span class="counter" data-target="72">0</span>k
-						</div>
-						<div class="text-xl font-bold text-slate-500 mt-2">
-							req/s
-						</div>
-					</div>
-				</div>
-
-				<!-- Stats Grid -->
+	<!-- Performance Section -->
+	<section class="py-32 relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center mb-16 relative">
 				<div
-					class="grid grid-cols-3 gap-8 mt-12 w-full max-w-lg text-center"
+					class="absolute -top-12 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-sky-500/50 to-transparent opacity-20 invisible md:visible"
 				>
-					<div>
-						<div class="text-2xl font-bold text-white mb-1">
-							1.2ms
-						</div>
-						<div
-							class="text-[10px] uppercase tracking-widest text-slate-500"
-						>
-							Avg Latency
-						</div>
-					</div>
-					<div>
-						<div class="text-2xl font-bold text-emerald-400 mb-1">
-							99.9%
-						</div>
-						<div
-							class="text-[10px] uppercase tracking-widest text-slate-500"
-						>
-							Uptime
-						</div>
-					</div>
-					<div>
-						<div class="text-2xl font-bold text-purple-400 mb-1">
-							0.1ms
-						</div>
-						<div
-							class="text-[10px] uppercase tracking-widest text-slate-500"
-						>
-							Cold Start
-						</div>
-					</div>
 				</div>
+				<h2
+					class="text-4xl md:text-6xl font-black mb-6 tracking-tighter"
+				>
+					<span class="gradient-text">Cosmic Velocity</span>
+				</h2>
+				<p
+					class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed italic"
+				>
+					Native Superposition: Koda extends the Bun engine with
+					<span class="text-rose-400 font-bold"
+						>low-level C++/Rust kernels</span
+					> for unprecedented throughput.
+				</p>
 			</div>
 
-			<!-- Right: Live Terminal Telemetry -->
-			<div
-				class="glass-card !p-0 overflow-hidden relative group h-[400px] flex flex-col"
-			>
-				<!-- Terminal Header -->
+			<div class="grid lg:grid-cols-12 gap-12 relative z-10">
+				<!-- Vertical HUD Left: Main Gauge -->
 				<div
-					class="bg-slate-950/80 px-4 py-3 flex items-center border-b border-white/5"
+					class="lg:col-span-5 flex flex-col items-center justify-center border-r border-white/5 pr-0 lg:pr-12"
 				>
-					<div class="flex gap-2">
-						<div class="w-3 h-3 rounded-full bg-rose-500"></div>
-						<div class="w-3 h-3 rounded-full bg-amber-500"></div>
-						<div class="w-3 h-3 rounded-full bg-emerald-500"></div>
-					</div>
 					<div
-						class="ml-4 text-xs font-mono text-slate-500 flex-1 text-center"
+						class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96"
 					>
-						koda-telemetry — bun — 80x24
+						<!-- Orbital Ticks (SVG) -->
+						<svg
+							class="absolute inset-0 w-full h-full animate-[spin_60s_linear_infinite] opacity-20"
+							viewBox="0 0 100 100"
+						>
+							<circle
+								cx="50"
+								cy="50"
+								r="48"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="0.5"
+								stroke-dasharray="1 3"
+								class="text-slate-500"></circle>
+						</svg>
+
+						<!-- Main Gauge SVG -->
+						<svg
+							class="w-full h-full transform -rotate-90 scale-105"
+							viewBox="-15 -15 130 130"
+						>
+							<circle
+								cx="50"
+								cy="50"
+								r="45"
+								fill="none"
+								stroke="rgba(255,255,255,0.02)"
+								stroke-width="8"></circle>
+							<!-- Node Baseline -->
+							<circle
+								cx="50"
+								cy="50"
+								r="32"
+								fill="none"
+								stroke="#1e293b"
+								stroke-width="4"
+								stroke-dasharray="201"
+								stroke-dashoffset="201"
+								stroke-linecap="round"
+								class="gauge-arc-node transition-all duration-[1500ms]"
+							></circle>
+							<!-- Bun Base -->
+							<circle
+								cx="50"
+								cy="50"
+								r="45"
+								fill="none"
+								stroke="#0ea5e9"
+								stroke-width="8"
+								stroke-dasharray="283"
+								stroke-dashoffset="283"
+								stroke-opacity="0.1"
+								stroke-linecap="round"
+								class="gauge-arc-bun-base transition-all duration-[2000ms]"
+							></circle>
+							<!-- Koda Zenith Boost -->
+							<circle
+								cx="50"
+								cy="50"
+								r="45"
+								fill="none"
+								stroke="url(#gradient-koda-native)"
+								stroke-width="8"
+								stroke-dasharray="283"
+								stroke-dashoffset="283"
+								stroke-linecap="round"
+								filter="url(#glow-fix)"
+								class="gauge-arc-koda transition-all duration-[3000ms] ease-in-out"
+							></circle>
+
+							<defs>
+								<filter
+									id="glow-fix"
+									x="-50%"
+									y="-50%"
+									width="200%"
+									height="200%"
+								>
+									<feGaussianBlur
+										stdDeviation="4"
+										result="smoothBlur"></feGaussianBlur>
+									<feMerge>
+										<feMergeNode in="smoothBlur"
+										></feMergeNode>
+										<feMergeNode in="SourceGraphic"
+										></feMergeNode>
+									</feMerge>
+								</filter>
+								<linearGradient
+									id="gradient-koda-native"
+									x1="0%"
+									y1="0%"
+									x2="100%"
+									y2="0%"
+								>
+									<stop offset="0%" stop-color="#fb7185"
+									></stop>
+									<stop offset="100%" stop-color="#ec4899"
+									></stop>
+								</linearGradient>
+							</defs>
+						</svg>
+
+						<!-- Center Monitor -->
+						<div
+							class="absolute inset-0 flex flex-col items-center justify-center text-center"
+						>
+							<div
+								class="text-[10px] font-bold text-sky-400 uppercase tracking-[0.3em] mb-1 opacity-50"
+							>
+								Throughput
+							</div>
+							<div
+								class="text-6xl md:text-8xl font-black text-white leading-none tracking-tighter"
+							>
+								<span class="counter" data-target="72">0</span>k
+							</div>
+							<div
+								class="text-sm font-mono text-slate-500 mt-2 uppercase text-center"
+							>
+								Requests / SEC
+							</div>
+						</div>
+					</div>
+
+					<!-- Quick HUD Stats -->
+					<div class="grid grid-cols-3 gap-6 mt-12 w-full max-w-sm">
+						<div class="text-center">
+							<div
+								class="text-xl font-bold text-white mb-0.5 tracking-tight"
+							>
+								1.2ms
+							</div>
+							<div
+								class="text-[9px] uppercase tracking-widest text-slate-500 font-bold"
+							>
+								Latency
+							</div>
+						</div>
+						<div class="text-center">
+							<div
+								class="text-xl font-bold text-emerald-400 mb-0.5 tracking-tight"
+							>
+								99.9%
+							</div>
+							<div
+								class="text-[9px] uppercase tracking-widest text-slate-500 font-bold"
+							>
+								Health
+							</div>
+						</div>
+						<div class="text-center">
+							<div
+								class="text-xl font-bold text-rose-400 mb-0.5 tracking-tight"
+							>
+								0.1ms
+							</div>
+							<div
+								class="text-[9px] uppercase tracking-widest text-slate-500 font-bold"
+							>
+								Startup
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<!-- Terminal Body -->
-				<div
-					class="p-6 font-mono text-xs md:text-sm bg-slate-950/50 flex-1 overflow-hidden relative"
-				>
-					<div
-						class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/90 z-10 pointer-events-none"
-					>
+				<!-- Right HUD: Comparison & Telemetry -->
+				<div class="lg:col-span-7 space-y-8">
+					<!-- Performance Comparison HUD Cards -->
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+						<!-- Node Card -->
+						<div
+							class="glass p-4 rounded-2xl border-white/5 flex flex-col justify-between h-32 hover:bg-white/[0.02] transition-colors relative overflow-hidden group/card shadow-inner"
+						>
+							<div
+								class="absolute -right-2 -top-2 w-12 h-12 bg-slate-500/5 rotate-12 group-hover/card:rotate-45 transition-transform"
+							>
+							</div>
+							<span
+								class="text-[10px] text-slate-500 font-bold uppercase tracking-widest"
+								>Base/Node</span
+							>
+							<div class="flex items-end gap-2 pr-4">
+								<span class="text-2xl font-bold text-slate-400"
+									>12k</span
+								>
+								<div
+									class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden mb-1.5 shadow-sm"
+								>
+									<div
+										class="h-full bg-slate-600"
+										style="width: 15%"
+									>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Bun Card -->
+						<div
+							class="glass p-4 rounded-2xl border-white/5 flex flex-col justify-between h-32 bg-sky-500/5 hover:bg-sky-500/10 transition-colors relative overflow-hidden group/card shadow-inner"
+						>
+							<div
+								class="absolute -right-2 -top-2 w-12 h-12 bg-sky-500/10 rotate-12 group-hover/card:-rotate-12 transition-transform"
+							>
+							</div>
+							<div class="flex justify-between items-start">
+								<span
+									class="text-[10px] text-sky-400 font-bold uppercase tracking-widest"
+									>Bun Engine</span
+								>
+								<span
+									class="text-[9px] bg-sky-500/20 text-sky-400 px-1.5 py-0.5 rounded font-mono border border-sky-500/30"
+									>x4.0</span
+								>
+							</div>
+							<div class="flex items-end gap-2 pr-4">
+								<span class="text-2xl font-bold text-white"
+									>48k</span
+								>
+								<div
+									class="flex-1 h-1.5 bg-sky-900/30 rounded-full overflow-hidden mb-1.5 shadow-sm"
+								>
+									<div
+										class="h-full bg-sky-500"
+										style="width: 65%"
+									>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Koda Card -->
+						<div
+							class="glass p-4 rounded-2xl border-rose-500/20 flex flex-col justify-between h-32 bg-rose-500/5 hover:bg-rose-500/10 transition-colors relative overflow-hidden group/card shadow-inner"
+						>
+							<div
+								class="absolute -right-4 -bottom-4 w-20 h-20 bg-rose-500/5 blur-3xl group-hover/card:scale-150 transition-transform"
+							>
+							</div>
+							<div class="flex justify-between items-start">
+								<span
+									class="text-[10px] text-rose-400 font-bold uppercase tracking-widest leading-none"
+									>Zenith Native</span
+								>
+								<span
+									class="text-[9px] bg-rose-500/20 text-rose-400 px-1.5 py-0.5 rounded font-mono border border-rose-500/30 animate-pulse"
+									>x6.0+</span
+								>
+							</div>
+							<div class="flex items-end gap-2 pr-4">
+								<span
+									class="text-2xl font-bold text-white group-hover/card:text-rose-400 transition-colors"
+									>72k</span
+								>
+								<div
+									class="flex-1 h-1.5 bg-rose-900/30 rounded-full overflow-hidden mb-1.5 shadow-sm"
+								>
+									<div
+										class="h-full bg-gradient-to-r from-rose-500 to-pink-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]"
+										style="width: 100%"
+									>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div id="telemetry-log" class="space-y-2">
-						<!-- Logs generated by JS -->
-						<div class="flex gap-4 opacity-50">
-							<span class="text-slate-500">00:01:23.450</span>
-							<span class="text-emerald-400">GET</span>
-							<span class="text-slate-300">/api/v1/galaxy</span>
-							<span class="text-sky-400">200</span>
-							<span class="text-slate-500">0.02ms</span>
+
+					<!-- Real-time Telemetry Monitor Window -->
+					<div
+						class="glass-card !p-0 !rounded-3xl overflow-hidden border-white/5 flex flex-col shadow-2xl h-[340px] bg-slate-950/80"
+					>
+						<div
+							class="bg-slate-900/40 px-5 py-3 flex items-center justify-between border-b border-white/5 backdrop-blur-md"
+						>
+							<div class="flex items-center gap-4">
+								<div class="flex gap-1.5">
+									<div
+										class="w-1.5 h-1.5 rounded-full bg-rose-500"
+									>
+									</div>
+									<div
+										class="w-1.5 h-1.5 rounded-full bg-amber-500"
+									>
+									</div>
+									<div
+										class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+									>
+									</div>
+								</div>
+								<span
+									class="text-[10px] font-mono text-slate-500 tracking-widest uppercase text-center"
+									>Process Telemetry Stream</span
+								>
+							</div>
+							<div class="flex items-center gap-3">
+								<span
+									class="text-[10px] font-mono text-emerald-400/80 uppercase"
+									>Threads: 12</span
+								>
+								<div
+									class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+								>
+								</div>
+							</div>
+						</div>
+						<div
+							class="p-6 font-mono text-[10px] md:text-xs bg-transparent flex-1 overflow-hidden relative"
+						>
+							<div
+								class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950 z-20 pointer-events-none"
+							>
+							</div>
+							<div
+								id="telemetry-log"
+								class="space-y-2 relative z-10"
+							>
+								<!-- Generated Logs via JS -->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -1247,21 +1366,56 @@ graph TD
 		</div>
 
 		<script>
-			// Gauge Animation
-			const gauge = document.querySelector(".gauge-arc");
-			if (gauge) {
+			// Gauge Animation - Superposition logic
+			const arcKoda = document.querySelector(".gauge-arc-koda");
+			const arcBunBase = document.querySelector(".gauge-arc-bun-base");
+			const arcNode = document.querySelector(".gauge-arc-node");
+
+			if (arcKoda && arcBunBase && arcNode) {
 				const observer = new IntersectionObserver((entries) => {
 					entries.forEach((entry) => {
 						if (entry.isIntersecting) {
-							// 75% fill (approx 210 dashoffset from 283)
-							// 283 * 0.25 = ~70
 							setTimeout(() => {
-								gauge.style.strokeDashoffset = "70";
+								// Node: stay at base level (~60 reqs)
+								(
+									arcNode as HTMLElement
+								).style.strokeDashoffset = "180";
+								// Bun foundation: mid-level
+								(
+									arcBunBase as HTMLElement
+								).style.strokeDashoffset = "120";
+								// Koda Zenith: full boost
+								(
+									arcKoda as HTMLElement
+								).style.strokeDashoffset = "28";
+
+								// Counter Animation
+								const counters =
+									document.querySelectorAll(".counter");
+								counters.forEach((counter) => {
+									const el = counter as HTMLElement;
+									const target =
+										+el.getAttribute("data-target")!;
+									const speed = 2000 / target;
+
+									const updateCount = () => {
+										const current = +el.innerText;
+										if (current < target) {
+											el.innerText = Math.ceil(
+												current + 1,
+											).toString();
+											setTimeout(updateCount, speed);
+										} else {
+											el.innerText = target.toString();
+										}
+									};
+									updateCount();
+								});
 							}, 500);
 						}
 					});
 				});
-				observer.observe(gauge);
+				observer.observe(arcKoda);
 			}
 
 			// Simulated Traffic Log
@@ -1290,24 +1444,24 @@ graph TD
 
 				const row = document.createElement("div");
 				row.className =
-					"flex gap-2 md:gap-4 font-mono text-[10px] md:text-xs transition-all duration-300 animate-in slide-in-from-bottom-2 fade-in";
+					"flex gap-4 font-mono text-[10px] tracking-tight transition-all duration-300 animate-in slide-in-from-bottom-1 fade-in";
 
 				let methodColor = "text-emerald-400";
 				if (method === "POST") methodColor = "text-amber-400";
 				if (method === "DELETE") methodColor = "text-rose-400";
 
 				row.innerHTML = `
-					<span class="text-slate-600 w-20 shrink-0">${time}</span> 
-					<span class="${methodColor} w-10 shrink-0 font-bold">${method}</span> 
-					<span class="text-slate-300 flex-1 truncate">${path}</span> 
-					<span class="text-sky-400 w-8 shrink-0">${status}</span> 
-					<span class="text-slate-500 w-12 shrink-0 text-right">${duration}ms</span>
+					<span class="text-slate-600 w-16 shrink-0">${time}</span> 
+					<span class="${methodColor} w-8 shrink-0 font-bold">${method}</span> 
+					<span class="text-slate-300 flex-1 truncate text-left">${path}</span> 
+					<span class="text-sky-400 w-6 shrink-0">${status}</span> 
+					<span class="text-slate-500 w-10 shrink-0 text-right font-mono">${duration}ms</span>
 				`;
 
 				logContainer.prepend(row);
 
 				if (logContainer.children.length > 12) {
-					logContainer.lastElementChild.remove();
+					logContainer.lastElementChild?.remove();
 				}
 			}
 
@@ -1319,10 +1473,148 @@ graph TD
 				setInterval(addLog, 150);
 			}
 		</script>
-	</div>
+	</section>
+
+	<!-- Multiversal Synergy Section -->
+	<section class="py-32 relative overflow-hidden bg-[#020617]">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="grid lg:grid-cols-2 gap-20 items-center">
+				<div class="reveal-on-scroll">
+					<div
+						class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 mb-8"
+					>
+						<span
+							class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"
+						></span>
+						<span
+							class="text-[10px] uppercase tracking-[0.2em] font-bold text-sky-400"
+							>Convergence Protocol</span
+						>
+					</div>
+					<h2
+						class="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-[0.9]"
+					>
+						The <span class="text-white">Multiversal</span>
+						<span class="gradient-text">Synergy</span>
+					</h2>
+					<p
+						class="text-xl text-slate-400 font-medium leading-relaxed mb-12"
+					>
+						Project Zenith is the unified substrate where separated
+						realities collide. By stacking <span class="text-white"
+							>Rust, Zig, and Elixir</span
+						>, we provide the native-speed backbone required for the
+						era of <span class="text-sky-400">BCI</span>, spatial
+						compute, and distributed global edge networks.
+					</p>
+
+					<div class="grid grid-cols-2 gap-8 mb-12">
+						<div class="glass p-6 rounded-2xl border-white/5">
+							<div
+								class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2"
+							>
+								Layer_01
+							</div>
+							<h4 class="text-lg font-bold text-white mb-2">
+								Spatial Native
+							</h4>
+							<p class="text-xs text-slate-500">
+								Low-latency anchoring for AR/VR environments at
+								120fps+.
+							</p>
+						</div>
+						<div class="glass p-6 rounded-2xl border-white/5">
+							<div
+								class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2"
+							>
+								Layer_02
+							</div>
+							<h4 class="text-lg font-bold text-white mb-2">
+								BCI Ready
+							</h4>
+							<p class="text-xs text-slate-500">
+								Early-stage protocols for brain-computer neural
+								stream processing.
+							</p>
+						</div>
+					</div>
+
+					<a
+						href="/back"
+						class="inline-flex items-center gap-3 text-sky-400 font-bold hover:text-white transition-colors group"
+					>
+						<span>Explore the Zenith Roadmap</span>
+						<svg
+							class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							><path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg
+						>
+					</a>
+				</div>
+
+				<div class="relative reveal-on-scroll">
+					<div
+						class="absolute inset-0 bg-sky-500/10 blur-[120px] rounded-full animate-pulse-slow"
+					>
+					</div>
+					<div
+						class="glass-card !p-0 rounded-[3rem] overflow-hidden border-white/10 relative z-10 aspect-square flex items-center justify-center"
+					>
+						<div class="relative w-72 h-72">
+							<!-- Abstract Visual of Convergence -->
+							<div
+								class="absolute inset-0 border-2 border-dashed border-sky-500/20 rounded-full animate-[spin_20s_linear_infinite]"
+							>
+							</div>
+							<div
+								class="absolute inset-4 border-2 border-dashed border-rose-500/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"
+							>
+							</div>
+							<div
+								class="absolute inset-8 border border-white/10 rounded-full flex items-center justify-center"
+							>
+								<div class="text-center">
+									<div
+										class="text-3xl font-black text-white mb-1"
+									>
+										ZENITH
+									</div>
+									<div
+										class="text-[10px] font-mono text-slate-500 tracking-[0.3em]"
+									>
+										SYNCHRONIZED
+									</div>
+								</div>
+							</div>
+
+							<!-- Orbiting Nodes -->
+							<div
+								class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-sky-500 shadow-[0_0_15px_rgba(14,165,233,0.8)]"
+							>
+							</div>
+							<div
+								class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-4 h-4 rounded-full bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.8)]"
+							>
+							</div>
+							<div
+								class="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]"
+							>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<!-- Ecosystem Section -->
-	<section class="py-32 relative">
+	<section id="ecosystem" class="py-32 relative">
 		<div class="max-w-7xl mx-auto px-6">
 			<div class="text-center mb-24">
 				<h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight">
@@ -1892,80 +2184,103 @@ graph TD
 			</div>
 		</div>
 	</footer>
+</Layout>
 
-	<style is:global>
-		@keyframes monolith-move {
-			0%,
-			100% {
-				transform: translate(-50%, -50%) scale(1);
-				opacity: 0.1;
-			}
-			50% {
-				transform: translate(-50%, -45%) scale(1.1);
-				opacity: 0.15;
-			}
-		}
-
-		.monolith-glow {
-			position: absolute;
-			top: 30%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			width: 80vw;
-			height: 60vh;
-			background: radial-gradient(
-				circle at center,
-				var(--color-koda-600) 0%,
-				transparent 70%
-			);
-			filter: blur(120px);
+<style is:global>
+	@keyframes monolith-move {
+		0%,
+		100% {
+			transform: translate(-50%, -50%) scale(1);
 			opacity: 0.1;
-			z-index: -5;
-			pointer-events: none;
-			animation: monolith-move 20s ease-in-out infinite;
 		}
-
-		.reveal-on-scroll {
-			opacity: 0;
-			transform: translateY(30px);
-			transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+		50% {
+			transform: translate(-50%, -45%) scale(1.1);
+			opacity: 0.15;
 		}
+	}
 
-		.reveal-on-scroll.active {
-			opacity: 1;
-			transform: translateY(0);
-		}
+	.monolith-glow {
+		position: absolute;
+		top: 30%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 80vw;
+		height: 60vh;
+		background: radial-gradient(
+			circle at center,
+			var(--color-koda-600) 0%,
+			transparent 70%
+		);
+		filter: blur(120px);
+		opacity: 0.1;
+		z-index: -5;
+		pointer-events: none;
+		animation: monolith-move 20s ease-in-out infinite;
+	}
 
-		.text-evolution-bg {
-			background-image:
-				linear-gradient(to top, rgba(15, 23, 42, 0.8), transparent),
-				radial-gradient(
-					ellipse at 50% 0%,
-					rgba(14, 165, 233, 0.05) 0%,
-					transparent 80%
-				);
-		}
+	.reveal-on-scroll {
+		opacity: 0;
+		transform: translateY(30px);
+		transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+	}
 
-		.text-cycler {
-			will-change: transform, opacity;
-		}
-	</style>
+	.reveal-on-scroll.active {
+		opacity: 1;
+		transform: translateY(0);
+	}
 
-	<script>
-		import { initAnimations } from "../scripts/animations";
-		import { initSmoothScroll } from "../scripts/scroll";
-		import { initAudioUI } from "../scripts/audio";
+	.text-evolution-bg {
+		background-image:
+			linear-gradient(to top, rgba(15, 23, 42, 0.8), transparent),
+			radial-gradient(
+				ellipse at 50% 0%,
+				rgba(14, 165, 233, 0.05) 0%,
+				transparent 80%
+			);
+	}
 
-		if (document.readyState === "loading") {
-			document.addEventListener("DOMContentLoaded", () => {
-				initAnimations();
-				initSmoothScroll();
-				initAudioUI();
-			});
-		} else {
+	.text-cycler {
+		will-change: transform, opacity;
+	}
+</style>
+
+<script
+	is:inline
+	src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script is:inline>
+	document.addEventListener("DOMContentLoaded", () => {
+		mermaid.initialize({
+			startOnLoad: true,
+			theme: "dark",
+			securityLevel: "loose",
+			themeVariables: {
+				darkMode: true,
+				primaryColor: "#8b5cf6",
+				primaryTextColor: "#fff",
+				primaryBorderColor: "#a78bfa",
+				lineColor: "#475569",
+				secondaryColor: "#06b6d4",
+				tertiaryColor: "#1e293b",
+				fontFamily: "Inter, system-ui, sans-serif",
+			},
+		});
+	});
+</script>
+
+<script>
+	import { initAnimations } from "../scripts/animations";
+	import { initSmoothScroll } from "../scripts/scroll";
+	import { initAudioUI } from "../scripts/audio";
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", () => {
 			initAnimations();
 			initSmoothScroll();
 			initAudioUI();
-		}
-	</script>
-</section>
+		});
+	} else {
+		initAnimations();
+		initSmoothScroll();
+		initAudioUI();
+	}
+</script>

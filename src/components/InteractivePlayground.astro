@@ -1,0 +1,664 @@
+---
+// src/components/InteractivePlayground.astro
+---
+
+<div class="zed-window relative flex flex-col h-[640px] bg-[#0b0f1a] rounded-lg border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+        
+        <!-- Zed Header: Project Title & Window Controls -->
+        <header class="h-10 flex items-center justify-between px-4 bg-[#0b0f1a] border-b border-white/5 select-none shrink-0">
+            <div class="flex items-center gap-2">
+                <div class="flex gap-2 mr-3">
+                    <div class="w-3 h-3 rounded-full bg-white/10"></div>
+                    <div class="w-3 h-3 rounded-full bg-white/10"></div>
+                    <div class="w-3 h-3 rounded-full bg-white/10"></div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                    <span class="text-[11px] text-slate-400 font-medium">kodajs — zenith-project</span>
+                </div>
+            </div>
+            <div class="flex-1 flex justify-center translate-x-[-40px]">
+                <div class="px-3 py-0.5 bg-white/[0.03] rounded border border-white/5 flex items-center gap-2 transform transition-all hover:bg-white/[0.05] cursor-pointer">
+                    <span class="text-[10px] text-slate-500">Search patterns&#8230;</span>
+                    <span class="text-[9px] text-slate-600 bg-white/5 px-1 py-0.5 rounded border border-white/5 leading-none">⌘P</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 px-2 py-0.5 rounded border border-sky-500/20 bg-sky-500/5">
+                    <div class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8] animate-pulse"></div>
+                    <span class="text-[9px] text-sky-400 font-black uppercase tracking-tighter">Zenith Active</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-1 min-h-0">
+            <!-- Zed Sidebar: Project Panel -->
+            <aside class="w-60 bg-[#0b0f1a] border-r border-white/5 flex flex-col shrink-0 select-none">
+                <div class="px-4 py-2 flex items-center justify-between group">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project</span>
+                    <svg class="w-3 h-3 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                </div>
+                <nav class="flex-1 py-1">
+                    <ul class="space-y-[1px]">
+                        <li>
+                            <button id="tab-server" class="file-item active group w-full px-4 py-1.5 flex items-center gap-2.5 transition-all text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]">
+                                <svg class="w-4 h-4 text-sky-400/80 group-[.active]:text-sky-400 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                                <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-sky-400">server.koda</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button id="tab-contract" class="file-item group w-full px-4 py-1.5 flex items-center gap-2.5 transition-all text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]">
+                                <svg class="w-4 h-4 text-amber-500/80 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.47 4.74-3.53 8.9-7 10.01V12z"></path></svg>
+                                <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-amber-500">vault.contract.koda</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button id="tab-ai" class="file-item group w-full px-4 py-1.5 flex items-center gap-2.5 transition-all text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]">
+                                <svg class="w-4 h-4 text-purple-400/80 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16z"></path></svg>
+                                <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-purple-400">brain.node.koda</span>
+                            </button>
+                        </li>
+                         <li>
+                            <button id="tab-sync" class="file-item group w-full px-4 py-1.5 flex items-center gap-2.5 transition-all text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]">
+                                <svg class="w-4 h-4 text-emerald-400/80 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"></path></svg>
+                                <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-emerald-400">cluster.sync.koda</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button id="tab-ndi" class="file-item group w-full px-4 py-1.5 flex items-center gap-2.5 transition-all text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]">
+                                <svg class="w-4 h-4 text-orange-400/80 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-orange-400">bridge.ndi.koda</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="mt-4 px-4 py-2 border-t border-white/5 opacity-50">
+                        <span class="text-[9px] font-bold text-slate-600 uppercase tracking-widest px-2">Components</span>
+                        <ul class="mt-2 space-y-[1px]">
+                            <li>
+                                <button id="tab-zen" class="file-item group w-full px-2 py-1 flex items-center gap-2.5 transition-all text-slate-500 hover:text-slate-300">
+                                    <svg class="w-4 h-4 text-rose-500/60 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+                                    <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-rose-500">main.zen</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button id="tab-hud" class="file-item group w-full px-2 py-1 flex items-center gap-2.5 transition-all text-slate-500 hover:text-slate-300">
+                                    <svg class="w-4 h-4 text-rose-400/60 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h2V7H5v8zm10-8h2v8h-2V7zM9 13h2V9H9v4zm6-2h2v2h-2v-2z"></path></svg>
+                                    <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-rose-400">HUD.zen</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button id="tab-fx" class="file-item group w-full px-2 py-1 flex items-center gap-2.5 transition-all text-slate-500 hover:text-slate-300">
+                                    <svg class="w-4 h-4 text-rose-300/60 transition-colors" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9v8l10-12h-9l1 4V2z"></path></svg>
+                                    <span class="text-[12px] font-normal tracking-tight group-[.active]:font-bold group-[.active]:text-rose-300">particles.zen</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Zed Editor Main Area -->
+            <main class="flex-1 flex flex-col min-w-0 bg-[#0f1423]">
+                <!-- Zed Tabs: Open Buffers -->
+                <nav class="h-9 flex items-center border-b border-white/5 bg-[#0b0f1a] overflow-x-auto no-scrollbar select-none">
+                    <div id="tab-active-indicator" class="flex h-full">
+                        <div class="zed-tab active flex items-center gap-2 px-4 h-full border-r border-white/5 bg-[#0f1423] group relative overflow-hidden">
+                            <span class="text-[11px] text-sky-400 tracking-tight">server.koda</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></div>
+                            <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-sky-500"></div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Code Content -->
+                <div class="flex-1 overflow-y-auto custom-scrollbar relative">
+                    <div class="pt-6 pb-20">
+                        <!-- server.koda -->
+                        <div id="code-server" class="code-pane active px-8 font-mono text-[13px] leading-[1.6]">
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400">import</span> { <span class="text-sky-300">zig</span>, <span class="text-sky-300">rust</span> } <span class="text-purple-400 italic">from</span> <span class="text-emerald-400">'@koda/native'</span></span>
+                            </div>
+                            <div class="flex mt-1">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span>
+                                <span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">export const</span> <span class="text-yellow-200">handler</span> = <span class="text-purple-400">async</span> (<span class="text-sky-300">req</span>) <span class="text-purple-400">=></span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="pl-4 text-slate-300"><span class="text-purple-400 italic">const</span> <span class="text-sky-300">buffer</span> = <span class="text-purple-400 italic">await</span> <span class="text-sky-300">req</span>.<span class="text-yellow-200">arrayBuffer</span>();</span>
+                            </div>
+                            <div class="flex mt-1">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span>
+                                <span class="pl-4 text-slate-500 italic">// Direct memory offload to Zig binary (Zero-copy)</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="pl-4 text-slate-300"><span class="text-purple-400 italic">return</span> <span class="text-sky-300">zig</span>.<span class="text-yellow-200">call</span>(<span class="text-emerald-400">'fast_compute'</span>, <span class="text-sky-300">buffer</span>) &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span>
+                                <span class="pl-8 text-slate-300"><span class="text-sky-300">allocation</span>: <span class="text-emerald-400">'static'</span>,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">9</span>
+                                <span class="pl-8 text-slate-300"><span class="text-sky-300">strategy</span>: <span class="text-emerald-400">'ndis_zero_copy'</span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">10</span>
+                                <span class="pl-4 text-slate-300">&#125;;</span>
+                            </div>
+                            <div class="flex">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">11</span>
+                                <span class="text-slate-300">&#125;</span>
+                            </div>
+                        </div>
+
+                        <!-- vault.contract.koda -->
+                        <div id="code-contract" class="code-pane hidden px-8 font-mono text-[13px] leading-[1.6]">
+                             <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">import</span> { <span class="text-sky-300">contract</span> } <span class="text-purple-400 italic">from</span> <span class="text-emerald-400">'@koda/web3'</span></span>
+                            </div>
+                            <div class="flex mt-1"><span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span><span></span></div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">export const</span> <span class="text-yellow-200">Vault</span> = <span class="text-sky-300">contract</span>.<span class="text-sky-300">rust</span>`</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="pl-4 text-amber-500">#[koda::contract]</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span class="pl-4 text-slate-300"><span class="text-purple-400">pub struct</span> <span class="text-sky-300">Vault</span> &#123; <span class="text-sky-300">bal</span>: <span class="text-sky-300">u256</span> &#125;</span>
+                            </div>
+                            <div class="flex mt-1"><span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span><span></span></div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="pl-4 text-purple-400">impl</span> <span class="text-sky-300">Vault</span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span>
+                                <span class="pl-8 text-slate-300"><span class="text-purple-400">pub fn</span> <span class="text-yellow-200">deposit</span>(&amp;<span class="text-purple-400">mut</span> <span class="text-sky-300">self</span>, <span class="text-sky-300">val</span>: <span class="text-sky-300">u256</span>) &#123; ... &#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">9</span>
+                                <span class="pl-8 text-slate-300"><span class="text-amber-500 italic">#[zk_proof]</span> <span class="text-purple-400">can</span> <span class="text-yellow-200">verify_ownership</span>();</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">10</span>
+                                <span class="pl-4 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">11</span>
+                                <span class="text-slate-300">`;</span>
+                            </div>
+                        </div>
+
+                        <!-- brain.node.koda -->
+                        <div id="code-ai" class="code-pane hidden px-8 font-mono text-[13px] leading-[1.6]">
+                             <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">import</span> <span class="text-sky-300">brain</span> <span class="text-purple-400 italic">from</span> <span class="text-emerald-400">'@koda/ai'</span></span>
+                            </div>
+                            <div class="flex mt-1"><span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span><span></span></div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">const</span> <span class="text-sky-300">model</span> = <span class="text-purple-400 italic">await</span> <span class="text-sky-300">brain</span>.<span class="text-yellow-200">load</span>(<span class="text-emerald-400">'./llama-native.bin'</span>) &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300">accelerator</span>: <span class="text-emerald-400">'gpu'</span>,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-400">direct_vram</span>: <span class="text-purple-400">true</span>,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300">quantization</span>: <span class="text-sky-400">4</span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="text-slate-300">&#125;;</span>
+                            </div>
+                            <div class="flex mt-1"><span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span><span></span></div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">9</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">export const</span> <span class="text-sky-300">think</span> = <span class="text-purple-400 italic">async</span> (<span class="text-sky-300">prompt</span>) <span class="text-purple-400">=></span> <span class="text-sky-300">model</span>.<span class="text-yellow-200">predict</span>(<span class="text-sky-300">prompt</span>, &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">10</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300">temperature</span>: <span class="text-sky-400">0.7</span>,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">11</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300">stream</span>: <span class="text-purple-400">true</span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">12</span>
+                                <span class="text-slate-300">&#125;);</span>
+                            </div>
+                        </div>
+
+                        <!-- cluster.sync.koda -->
+                        <div id="code-sync" class="code-pane hidden px-8 font-mono text-[13px] leading-[1.6]">
+                             <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">import</span> &#123; <span class="text-sky-300">spawn</span>, <span class="text-sky-300">receive</span>, <span class="text-sky-300">self</span> &#125; <span class="text-purple-400 italic">from</span> <span class="text-emerald-400">'@koda/beam'</span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">import</span> &#123; <span class="text-sky-300">Horizon</span> &#125; <span class="text-purple-400 italic">from</span> <span class="text-emerald-400">'@koda/core'</span></span>
+                            </div>
+                            <div class="flex mt-1"><span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span><span></span></div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">const</span> <span class="text-sky-300">pid</span> = <span class="text-sky-300">spawn</span>(() <span class="text-purple-400">=></span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300">Horizon</span>.<span class="text-yellow-200">subscribe</span>(<span class="text-emerald-400">'global_state'</span>);</span>
+                            </div>
+                            <div class="flex mt-1"><span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span><span></span></div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300">receive</span>(<span class="text-sky-300">msg</span> <span class="text-purple-400">=></span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span>
+                                <span class="pl-8 text-slate-300"><span class="text-purple-400 italic">match</span> (<span class="text-sky-300">msg</span>) &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">9</span>
+                                <span class="pl-12 text-slate-300">&#123; <span class="text-sky-300">type</span>: <span class="text-emerald-400">'sync'</span>, <span class="text-sky-300">data</span> &#125; <span class="text-purple-400">=></span> <span class="text-sky-300">Horizon</span>.<span class="text-yellow-200">commit</span>(<span class="text-sky-300">data</span>),</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">10</span>
+                                <span class="pl-12 text-slate-300"><span class="text-sky-300">_</span> <span class="text-purple-400">=></span> <span class="text-sky-300">console</span>.<span class="text-yellow-200">warn</span>(<span class="text-emerald-400">"Unknown cluster signal"</span>)</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">11</span>
+                                <span class="pl-8 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">12</span>
+                                <span class="pl-4 text-slate-300">&#125;);</span>
+                            </div>
+                            <div class="flex">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">13</span>
+                                <span class="text-slate-300">&#125;);</span>
+                            </div>
+                        </div>
+
+                        <!-- bridge.ndi.koda -->
+                        <div id="code-ndi" class="code-pane hidden px-8 font-mono text-[13px] leading-[1.6]">
+                             <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">import</span> &#123; <span class="text-sky-300">dlopen</span> &#125; <span class="text-purple-400 italic">from</span> <span class="text-emerald-400">'@koda/native'</span></span>
+                            </div>
+                            <div class="flex mt-1 text-slate-500 italic"><span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span> <span class="pl-0">// Map shared library directly into memory</span></div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">const</span> <span class="text-sky-300">lib</span> = <span class="text-sky-300">dlopen</span>(<span class="text-emerald-400">'./physics_engine.so'</span>, &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="pl-4 text-slate-300"><span class="text-yellow-200">compute_vortex</span>: &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span class="pl-8 text-slate-300"><span class="text-sky-300">args</span>: [<span class="text-emerald-400">'f32*'</span>, <span class="text-sky-400">128</span>],</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span>
+                                <span class="pl-8 text-slate-300"><span class="text-sky-300">returns</span>: <span class="text-emerald-400">'void'</span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="pl-4 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span>
+                                <span class="text-slate-300">&#125;);</span>
+                            </div>
+                        </div>
+
+                        <!-- main.zen -->
+                        <div id="code-zen" class="code-pane hidden px-8 font-mono text-[13px] leading-[1.6]">
+                             <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">reality</span> <span class="text-rose-400">App</span>() &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300 italic">state</span> &#123; <span class="text-yellow-200">rotation</span>: <span class="text-rose-400">Degree</span>(<span class="text-sky-400">0</span>) &#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300 italic">render</span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="pl-8 text-slate-300"><span class="text-rose-400">Scene</span>([</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span class="pl-12 text-slate-300"><span class="text-rose-400">Model</span>(<span class="text-emerald-400">'./industrial_core.glb'</span>) &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span>
+                                <span class="pl-16 text-slate-300"><span class="text-yellow-200">transform</span>: <span class="text-rose-400">rotateY</span>(<span class="text-sky-300">state.rotation</span>),</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="pl-16 text-slate-300"><span class="text-yellow-200">onHover</span>: () <span class="text-purple-400">=></span> <span class="text-sky-300">state.rotation</span>.<span class="text-yellow-200">animate</span>(<span class="text-sky-400">360</span>)</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span>
+                                <span class="pl-12 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">9</span>
+                                <span class="pl-8 text-slate-300">])</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">10</span>
+                                <span class="pl-4 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">11</span>
+                                <span class="text-slate-300">&#125;</span>
+                            </div>
+                        </div>
+
+                        <!-- HUD.zen -->
+                        <div id="code-hud" class="code-pane hidden px-8 font-mono text-[13px] leading-[1.6]">
+                             <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">component</span> <span class="text-rose-400">HUD</span>() &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300 italic">render</span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span>
+                                <span class="pl-8 text-slate-300"><span class="text-rose-400">AbsoluteView</span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="pl-12 text-slate-300"><span class="text-rose-400">Text</span>(<span class="text-emerald-400">"SYSTEM: ONLINE"</span>) &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span class="pl-16 text-slate-300"><span class="text-yellow-200">color</span>: <span class="text-sky-400">Theme.sky400</span>,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span>
+                                <span class="pl-16 text-slate-300"><span class="text-yellow-200">position</span>: [<span class="text-sky-400">20</span>, <span class="text-sky-400">20</span>]</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="pl-12 text-slate-300">&#125;,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span>
+                                <span class="pl-12 text-slate-300"><span class="text-rose-400">Gauge</span>(<span class="text-yellow-200">value</span>: <span class="text-sky-300">state.load</span>) &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">9</span>
+                                <span class="pl-16 text-slate-300"><span class="text-yellow-200">style</span>: <span class="text-emerald-400">"minimalist"</span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">10</span>
+                                <span class="pl-12 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">11</span>
+                                <span class="pl-8 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">12</span>
+                                <span class="pl-4 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">13</span>
+                                <span class="text-slate-300">&#125;</span>
+                            </div>
+                        </div>
+
+                        <!-- particles.zen -->
+                        <div id="code-fx" class="code-pane hidden px-8 font-mono text-[13px] leading-[1.6]">
+                             <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">1</span>
+                                <span class="text-slate-300"><span class="text-purple-400 italic">effect</span> <span class="text-rose-400">IonThrust</span>() &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">2</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300 italic">state</span> &#123; <span class="text-yellow-200">active</span>: <span class="text-purple-400">true</span> &#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">3</span>
+                                <span class="pl-4 text-slate-300"><span class="text-sky-300 italic">render</span> &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">4</span>
+                                <span class="pl-8 text-slate-300"><span class="text-rose-400">ParticleEmitter</span>(&#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">5</span>
+                                <span class="pl-12 text-slate-300"><span class="text-sky-300">count</span>: <span class="text-sky-400">5000</span>,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">6</span>
+                                <span class="pl-12 text-slate-300"><span class="text-sky-300">texture</span>: <span class="text-emerald-400">'./spark.webp'</span>,</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">7</span>
+                                <span class="pl-12 text-slate-300"><span class="text-sky-300">physics</span>: &#123;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">8</span>
+                                <span class="pl-16 text-slate-300"><span class="text-sky-300">gravity</span>: [<span class="text-sky-400">0</span>, <span class="text-sky-400">-9.8</span>, <span class="text-sky-400">0</span>],</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">9</span>
+                                <span class="pl-16 text-slate-300"><span class="text-sky-300">vortex_field</span>: <span class="text-purple-400">true</span></span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">10</span>
+                                <span class="pl-12 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">11</span>
+                                <span class="pl-8 text-slate-300">&#125;)</span>
+                            </div>
+                            <div class="flex hover:bg-white/[0.04] transition-colors group">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">12</span>
+                                <span class="pl-4 text-slate-300">&#125;</span>
+                            </div>
+                            <div class="flex">
+                                <span class="w-10 text-slate-600 text-right pr-4 select-none opacity-50">13</span>
+                                <span class="text-slate-300">&#125;</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zed-style Action Button (Floats at bottom right of editor) -->
+                    <div class="absolute bottom-6 right-6">
+                        <button id="deploy-action" class="flex items-center gap-2.5 px-6 py-2.5 bg-sky-500 hover:bg-sky-400 text-white rounded-md text-[11px] font-black tracking-widest uppercase transition-all shadow-2xl shadow-sky-500/20 active:scale-[0.97] group">
+                            <svg class="w-3.5 h-3.5 group-hover:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            Deploy to Edge
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Zed Status Bar -->
+                <footer class="h-7 bg-[#0b0f1a] border-t border-white/5 flex items-center justify-between px-3 shrink-0 select-none">
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+                            <svg class="w-3 h-3 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm-1 15h2v2h-2v-2zm0-10h2v8h-2V7z"></path></svg>
+                            <span class="text-[10px] text-slate-400 font-mono">0 Errors</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+                            <svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
+                            <span class="text-[10px] text-slate-400 font-mono">0 Warnings</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-5">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[10px] text-slate-500 font-mono tracking-tight cursor-default">Ln 7, Col 12</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 group cursor-pointer">
+                            <span class="text-[10px] text-slate-500 font-mono group-hover:text-slate-300">UTF-8</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 group cursor-pointer">
+                            <span class="text-[10px] text-sky-500 font-mono font-bold group-hover:text-sky-400 uppercase tracking-tighter">Koda-Zenith</span>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+
+        <!-- Terminal Overlay (Zed Panel) -->
+        <div id="zed-panel" class="absolute bottom-7 left-60 right-0 h-40 bg-[#0b0f1a]/95 backdrop-blur-xl border-t border-white/10 translate-y-full transition-transform duration-300 z-20">
+            <div class="h-8 flex items-center justify-between px-4 bg-white/[0.02] border-b border-white/5">
+                <div class="flex items-center gap-4">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Deploy Log</span>
+                    <span class="text-[9px] text-emerald-400 bg-emerald-400/10 px-1.5 rounded-full font-mono">EXEC_ID: ZEN-829A</span>
+                </div>
+                <button id="close-panel" class="text-slate-500 hover:text-white transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="zed-terminal-content" class="p-4 font-mono text-[11px] text-slate-400 space-y-1 overflow-y-auto h-[calc(100%-32px)] custom-scrollbar">
+                <div class="flex gap-2">
+                    <span class="text-sky-500">➜</span>
+                    <span class="text-slate-500 italic">initializing node synchronization&#8230;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script is:inline>
+    (function () {
+        const items = document.querySelectorAll('.file-item');
+        const panes = document.querySelectorAll('.code-pane');
+        const tabList = document.getElementById('tab-active-indicator');
+        const deployBtn = document.getElementById('deploy-action');
+        const panel = document.getElementById('zed-panel');
+        const closePanel = document.getElementById('close-panel');
+        const termContent = document.getElementById('zed-terminal-content');
+
+        function log(text, type = 'info') {
+            const div = document.createElement('div');
+            div.className = 'flex gap-2 animate-in fade-in slide-in-from-left-2 duration-200';
+            const color = type === 'success' ? 'text-emerald-400' : (type === 'error' ? 'text-rose-400' : 'text-slate-400');
+            div.innerHTML = `<span class="text-sky-500">➜</span> <span class="${color}">${text}</span>`;
+            termContent.appendChild(div);
+            termContent.scrollTop = termContent.scrollHeight;
+        }
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const id = item.id.replace('tab-', '');
+                const name = item.querySelector('span').textContent;
+                
+                // Update Sidebar
+                items.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Update Pane
+                panes.forEach(p => p.classList.add('hidden'));
+                document.getElementById(`code-${id}`).classList.remove('hidden');
+                
+                // Update Tab Title
+                const colorClass = (id === 'zen' || id === 'hud' || id === 'fx') ? 'text-rose-400' : 
+                                   id === 'ai' ? 'text-purple-400' : 
+                                   id === 'ndi' ? 'text-orange-400' :
+                                   id === 'contract' ? 'text-amber-500' : 'text-sky-400';
+                const highlightClass = (id === 'zen' || id === 'hud' || id === 'fx') ? 'bg-rose-500' : 
+                                   id === 'ai' ? 'bg-purple-500' : 
+                                   id === 'ndi' ? 'bg-orange-500' :
+                                   id === 'contract' ? 'bg-amber-500' : 'bg-sky-500';
+                
+                tabList.innerHTML = `
+                    <div class="zed-tab active flex items-center gap-2 px-4 h-full border-r border-white/5 bg-[#0f1423] group relative overflow-hidden">
+                        <span class="text-[11px] ${colorClass} tracking-tight font-bold">${name}</span>
+                        <div class="w-1.5 h-1.5 rounded-full ${highlightClass} shadow-[0_0_8px_currentColor]"></div>
+                        <div class="absolute bottom-0 left-0 right-0 h-[1.5px] ${highlightClass}"></div>
+                    </div>
+                `;
+            });
+        });
+
+        deployBtn.addEventListener('click', () => {
+            panel.classList.remove('translate-y-full');
+            log('compiling zenith source targets...');
+            setTimeout(() => log('optimizing native instruction sets (X86_64/AARCH64)...'), 400);
+            setTimeout(() => log('stripping debug symbols for edge deployment...', 'info'), 800);
+            setTimeout(() => log('DEPLOYMENT SUCCESS: nodes verified.', 'success'), 1400);
+        });
+
+        closePanel.addEventListener('click', () => {
+            panel.classList.add('translate-y-full');
+        });
+    })();
+</script>
+
+<style>
+    .zed-window {
+        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .file-item.active {
+        background: rgba(255, 255, 255, 0.04);
+        position: relative;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .code-pane {
+        animation: zedFade 0.3s ease-out;
+    }
+
+    @keyframes zedFade {
+        from { opacity: 0; transform: translateY(2px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Zed Minimalist Icons & Typography */
+    .zed-tab.active {
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+</style>

@@ -25,6 +25,7 @@ import { chromium } from 'playwright';
     if (count > 0) {
         const styles = await page.evaluate(() => {
             const el = document.querySelector('.floating-syntax');
+            if (!el) return null;
             const computed = window.getComputedStyle(el);
             return {
                 position: computed.position,
@@ -37,7 +38,7 @@ import { chromium } from 'playwright';
                 color: computed.color
             };
         });
-        console.log('Computed styles of first element:', styles);
+        if (styles) console.log('Computed styles of first element:', styles);
     }
 
     await browser.close();

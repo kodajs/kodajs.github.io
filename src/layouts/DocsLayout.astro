@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+const docs = await getCollection("docs");
+const sortedDocs = docs.sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title={`${frontmatter.title} | Koda Zenith Docs`}>
+    <div class="fixed inset-0 bg-slate-950 -z-50"></div>
+
+    <div class="pt-24 max-w-7xl mx-auto px-6 flex items-start gap-12">
+        <!-- Sidebar -->
+        <aside
+            class="w-64 shrink-0 hidden lg:block sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto"
+        >
+            <div class="glass-dark rounded-xl p-6 border border-white/10">
+                <h3
+                    class="font-bold text-white mb-4 tracking-wider text-sm uppercase"
+                >
+                    Documentation
+                </h3>
+                <ul class="space-y-2">
+                    {
+                        sortedDocs.map((doc) => (
+                            <li>
+                                <a
+                                    href={`/docs/${doc.slug}`}
+                                    class={`block text-sm px-3 py-2 rounded-lg transition-colors ${
+                                        Astro.url.pathname.includes(doc.slug)
+                                            ? "bg-sky-500/10 text-sky-400 font-medium"
+                                            : "text-slate-400 hover:text-white hover:bg-white/5"
+                                    }`}
+                                >
+                                    {doc.data.title}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <div class="mt-6 glass-dark rounded-xl p-6 border border-white/10">
+                <h3
+                    class="font-bold text-white mb-4 tracking-wider text-sm uppercase"
+                >
+                    Community
+                </h3>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li>
+                        <a
+                            href="https://github.com/kodajs"
+                            class="hover:text-white transition-colors"
+                            >GitHub</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-white transition-colors"
+                            >Discord</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-white transition-colors"
+                            >Twitter</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 min-w-0 pb-24">
+            <div
+                class="glass-dark rounded-2xl p-8 md:p-12 border border-white/10"
+            >
+                <div
+                    class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-sky-400 hover:prose-a:text-sky-300 prose-code:text-sky-300 prose-pre:border prose-pre:border-white/10 prose-pre:bg-slate-950/50"
+                >
+                    <slot />
+                </div>
+            </div>
+        </main>
+    </div>
+</Layout>

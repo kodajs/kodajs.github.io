@@ -1,0 +1,146 @@
+---
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={`${frontmatter.title} | Koda Zenith Displacement`}>
+    <!-- Back Link - Fixed Top Left -->
+    <div class="fixed top-8 left-8 z-50 animate-in slide-in-from-left-4 duration-1000 hidden md:block">
+        <a href="/blog" class="group flex items-center gap-3 px-4 py-2.5 rounded-2xl glass border border-white/10 hover:border-sky-500/30 text-[10px] font-mono font-bold text-slate-400 hover:text-white transition-all duration-300 uppercase tracking-[0.2em]">
+            <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            [ Return_To_Archive ]
+        </a>
+    </div>
+
+    <article class="pt-24 pb-32 max-w-4xl mx-auto px-6 relative">
+
+        <header class="mb-20">
+            <!-- Classification Badge -->
+            <div class="flex items-center justify-center gap-4 mb-10">
+                 <div class="h-px bg-white/5 flex-1"></div>
+                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-sky-500/20 text-[10px] font-black text-sky-400 uppercase tracking-[0.3em]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>
+                    Classification: {frontmatter.tags[0] || 'Technical'}
+                </div>
+                <div class="h-px bg-white/5 flex-1"></div>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-black text-white text-center mb-8 tracking-tighter leading-[0.9]">
+                {frontmatter.title}
+            </h1>
+
+            <p class="text-xl md:text-2xl text-slate-400 text-center leading-relaxed mb-12 max-w-2xl mx-auto font-medium">
+                {frontmatter.description}
+            </p>
+
+            <!-- Dispatch Telemetry -->
+            <div class="flex flex-wrap items-center justify-center gap-8 py-8 border-y border-white/5 font-mono text-[10px] tracking-widest text-slate-500 uppercase">
+                <div class="flex items-center gap-3">
+                    <span class="text-slate-600">AUTHOR:</span>
+                    <span class="text-white font-bold tracking-normal">{frontmatter.author.toUpperCase()}</span>
+                </div>
+                <div class="w-1 h-1 rounded-full bg-slate-800"></div>
+                <div class="flex items-center gap-3">
+                    <span class="text-slate-600">TIMESTAMP:</span>
+                    <span class="text-slate-300 tracking-normal">{frontmatter.pubDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.')}</span>
+                </div>
+                 <div class="w-1 h-1 rounded-full bg-slate-800"></div>
+                <div class="flex items-center gap-3">
+                    <span class="text-slate-600">STATION:</span>
+                    <span class="text-sky-500 font-bold tracking-normal text-xs">ZENITH_ALPHA</span>
+                </div>
+            </div>
+        </header>
+
+        {frontmatter.image && (
+            <div class="image-container mb-24 rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] group relative bg-slate-900 loading">
+                 <!-- Shimmer Effect -->
+                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_2s_infinite] shimmer-layer"></div>
+                 
+                 <div class="absolute inset-0 bg-sky-500/5 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
+                 <div class="aspect-video flex items-center justify-center relative overflow-hidden">
+                    <img 
+                        src={frontmatter.image} 
+                        alt={frontmatter.title}
+                        class="featured-image absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 opacity-0 scale-110"
+                        onload="this.parentElement.parentElement.classList.remove('loading'); this.classList.remove('opacity-0', 'scale-110');"
+                    />
+                    
+                    <!-- Grid Overlay -->
+                    <div class="absolute inset-0 opacity-20 pointer-events-none z-20" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+                    
+                    <!-- Loading HUD -->
+                    <div class="loading-hud absolute inset-0 flex items-center justify-center pointer-events-none z-30 transition-all duration-1000">
+                        <div class="flex flex-col items-center gap-4">
+                            <span class="text-white font-mono text-[11px] font-black uppercase tracking-[0.8em] animate-pulse drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+                                Establishing_visual_link...
+                            </span>
+                            <div class="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden relative">
+                                <div class="absolute inset-0 bg-sky-500 animate-[loading-bar_3s_ease-in-out_infinite]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scanline (only visible when not loading) -->
+                    <div class="absolute inset-0 pointer-events-none z-20 opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-[linear-gradient(transparent_0%,rgba(56,189,248,0.5)_50%,transparent_100%)] bg-[length:100%_4px] animate-[scan_4s_linear_infinite]"></div>
+                 </div>
+            </div>
+        )}
+
+        <div class="max-w-3xl mx-auto">
+            <div class="prose prose-invert prose-lg max-w-none 
+                prose-headings:text-white prose-headings:font-black prose-headings:tracking-tighter 
+                prose-p:text-slate-300 prose-p:leading-relaxed 
+                prose-strong:text-white prose-strong:font-bold
+                prose-blockquote:border-sky-500 prose-blockquote:bg-sky-500/5 prose-blockquote:p-8 prose-blockquote:rounded-3xl prose-blockquote:not-italic prose-blockquote:text-slate-200
+                prose-code:text-sky-300 prose-code:bg-sky-500/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+                prose-pre:bg-black/40 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-3xl prose-pre:p-8
+                prose-li:text-slate-300
+                ">
+                <slot />
+            </div>
+
+            <!-- Footer Action -->
+            <footer class="mt-32 pt-16 border-t border-white/5 text-center">
+                <div class="inline-block relative">
+                    <div class="absolute inset-0 bg-sky-500 blur-2xl opacity-10 animate-pulse"></div>
+                    <div class="relative glass px-12 py-8 rounded-full border border-white/10 flex flex-col items-center">
+                         <div class="text-[10px] font-mono text-slate-500 uppercase tracking-[0.4em] mb-4">Transmission_Concluded</div>
+                         <div class="flex gap-4">
+                            <a href="/blog" class="text-sm font-bold text-white hover:text-sky-400 transition-colors">BACK_TO_LOG</a>
+                            <span class="text-slate-800">//</span>
+                            <a href="/back" class="text-sm font-bold text-rose-400 hover:text-rose-300 transition-colors font-black">BACK_THE_PROJECT</a>
+                         </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </article>
+</Layout>
+
+<style>
+    @keyframes shimmer {
+        100% { transform: translateX(100%); }
+    }
+
+    @keyframes loading-bar {
+        0% { transform: translateX(-100%); }
+        50% { transform: translateX(0); }
+        100% { transform: translateX(100%); }
+    }
+
+    @keyframes scan {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(100%); }
+    }
+
+    .image-container:not(.loading) .loading-hud {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    .image-container:not(.loading) .shimmer-layer {
+        display: none;
+    }
+</style>

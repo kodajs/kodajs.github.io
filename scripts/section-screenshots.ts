@@ -41,7 +41,7 @@ const outputDir = process.argv[2] || './screenshots';
 
                 console.log(`✅ ${i + 1}-${sectionInfo.name}.png`);
             }
-        } catch (error) {
+        } catch (error: any) {
             console.log(`❌ Section ${i + 1} - error: ${error.message}`);
         }
     }
