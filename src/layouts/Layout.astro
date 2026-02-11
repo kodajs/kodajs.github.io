@@ -8,6 +8,11 @@ const {
   title = "KodaJS - The Hono-Native Meta-Framework",
   description = "The next-generation fullstack meta-framework. ESM-only, Bun/Deno native, Web3/AI/AR/VR ready.",
 } = Astro.props;
+
+import "../styles/global.css";
+import CommandMenu from "../components/CommandMenu.astro";
+import MobileMenu from "../components/MobileMenu.astro";
+import BackgroundLayer from "../components/BackgroundLayer.astro";
 ---
 
 <!doctype html>
@@ -33,55 +38,10 @@ const {
     <title>{title}</title>
   </head>
   <body class="min-h-screen overflow-x-hidden">
-    <div class="noise-overlay"></div>
-    <!-- Starfield Background -->
-    <div class="stars-container">
-      <div class="stars-1"></div>
-      <div class="stars-2"></div>
-      <div class="stars-3"></div>
-    </div>
-    <!-- Shooting Stars (Overdrive) -->
-    <div class="shooting-stars">
-      <div
-        class="shooting-star"
-        style="top: 0; left: 50%; animation-delay: 0s;"
-      >
-      </div>
-      <div
-        class="shooting-star"
-        style="top: 20%; left: 0%; animation-delay: 2s;"
-      >
-      </div>
-      <div
-        class="shooting-star"
-        style="top: 60%; left: 80%; animation-delay: 4s;"
-      >
-      </div>
-      <div
-        class="shooting-star"
-        style="top: 10%; left: 90%; animation-delay: 1.5s;"
-      >
-      </div>
-    </div>
-    <!-- Cyber Grid (Overdrive) -->
-    <div class="cyber-grid"></div>
-    <!-- Dark Industrial Metal Background -->
-    <div class="fixed inset-0 -z-10">
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
-      >
-      </div>
-      <div
-        class="absolute top-0 left-1/4 w-96 h-96 bg-sky-600/5 rounded-full blur-3xl animate-pulse-slow"
-      >
-      </div>
-      <div
-        class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600/5 rounded-full blur-3xl animate-pulse-slow"
-        style="animation-delay: 2s;"
-      >
-      </div>
-    </div>
+    <BackgroundLayer />
 
     <slot />
+    <CommandMenu />
+    <MobileMenu />
   </body>
 </html>
